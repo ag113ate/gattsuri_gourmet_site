@@ -11,3 +11,85 @@
  *= require_self
  *= require_tree .
  */
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: orange;
+}
+
+div#header{
+  position: fixed;
+  width: 100%;
+  height: 40px;
+  background: rgb(91, 155, 213);
+  z-index: 10;
+}
+
+div#header_area{
+  margin: 0 auto;
+  width: 1000px;
+}
+
+div#header_logo{
+  float: left;
+  margin: 5px 0 5px 15px;
+}
+
+div#gnavi{
+  float: right;
+  margin: 5px 0 0 0;
+}
+
+div#gnavi li{
+  float: left;
+  margin: 0 30px 0 0;
+}
+
+div#container_area{
+  width: 1000px;
+  margin: 0 auto;
+  
+  flex: 1;
+  padding: 40px 0 0 0;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+div#footer{
+  width: 100%;
+  background: rgb(91, 155, 213);
+}
+
+div#footer_area{
+  margin: 0 auto;
+  width: 1000px;
+}
+
+div#credit{
+  float: left;
+  margin: 5px 0 5px 15px;
+}
+
+div#footer_nav{
+  float: right;
+}
+
+div#footer_nav li{
+  float: left;
+  margin: 5px 30px 0 0;
+}
+
+.btn{
+  display: inline-block;
+  padding: 3px 5px 3px 5px;
+  background-color: rgba(255, 255, 255, 0.5)
+}
+
+a{
+  text-decoration: none;
+}

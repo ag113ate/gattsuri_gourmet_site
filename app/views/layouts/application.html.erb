@@ -7,8 +7,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="header">
+    <div id="header_area">
+      <div id="header_logo"><%= link_to "がっつりグルメ", "#", class: "btn" %></div>
+      
+      <div id="gnavi">
+        <ul>
+          <li><%= link_to "ログイン",               "#", class: "btn" %> </li>
+          <li><%= link_to "がっつりグルメについて", "#", class: "btn" %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div id="container_area">
+    <%= yield %>
+  </div>
+  
+  <div id="footer">
+    <div id="footer_area" class="clearfix">
+      <div id="credit">
+        <a href="https://api.gnavi.co.jp/api/scope/" target="_blank">
+        <img src="https://api.gnavi.co.jp/api/img/credit/api_155_20.gif" 
+          width="155" height="20" border="0" alt="グルメ情報検索サイト　ぐるなび">
+        </a>
+      </div>
+      
+      <div id="footer_nav">
+        <ul>
+          <li><%= link_to "利用規約",             "#", class: "btn" %></li>
+          <li><%= link_to "プライバシーポリシー", "#", class: "btn" %></li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
 </body>
 </html>
