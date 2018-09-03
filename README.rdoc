@@ -1,28 +1,14 @@
-== README
+■ サイト内容
+ ガッツリ系のお店を紹介するグルメサイト
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+■使用方法
+ローカルにリポジトリをクローン、あるいはダウンロードした後に以下の作業を行ってください。
 
-Things you may want to cover:
+1. 以下のコマンドでsecret_keyを生成してください。
+  rake secret
+  
+2. 「./config/initializers/secret_token.rb」を新規作成し、以下内容を記述してください。
+  GattsuriGourmetSite::Application.config.secret_key_base = '$YOUR_SECRET_KEY'
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+     ※$YOUR_SECRET_KEYを1.で生成したsecret_keyに置き換えてください。
+     
