@@ -1,3 +1,30 @@
 // Place all the styles related to the GourmetSites controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#left_side{
+  float: left;
+  width: 50%;
+}
+
+div#right_side{
+  float: right;
+  width: 50%;
+  text-align: center;
+}
+
+div#search_area{
+  margin: 200px 0 0 0;
+}
+#search_input_form{
+  width: 80%;
+  margin: 0 auto;
+  background-color: rgb(91, 155, 213);
+  
+  padding: 5px;
+  color: white;
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+

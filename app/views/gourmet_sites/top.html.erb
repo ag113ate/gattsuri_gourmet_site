@@ -1,2 +1,17 @@
-<h1>GourmetSites#top</h1>
-<p>Find me in app/views/gourmet_sites/top.html.erb</p>
+<div id="left_side">
+  
+  <%# 一時的に地図の画像を表示 %>
+  <%= image_tag("nihonchizu_name.png") %>
+</div>
+
+<div id="right_side">
+  
+  <div id="search_area">
+    <%= form_tag("/gourmet_sites/disp_search_result", \
+                                    id: "search_input_form", method: :get) do %>
+      <%= label_tag :area, "都道府県名、あるいは市区町村名を入力してください。" %>
+      <%= text_field_tag :area, nil, placeholder: "例：川崎市" %>
+      <%= submit_tag "検索" %>
+    <% end %>
+  </div>
+</div>
