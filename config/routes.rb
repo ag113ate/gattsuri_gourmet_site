@@ -1,6 +1,7 @@
 GattsuriGourmetSite::Application.routes.draw do
   root 'gourmet_sites#top'
-  post "gourmet_sites/search"
+  
+  get "gourmet_sites/disp_search_result"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

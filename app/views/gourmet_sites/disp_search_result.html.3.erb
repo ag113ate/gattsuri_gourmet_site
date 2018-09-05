@@ -1,0 +1,171 @@
+<div id="tamesi_area">
+  <table>
+    <tr>
+      <td colspan="2"><%= @name %></td>
+      <td colspan="1"><%= link_to "お気に入り追加", "#", class:"btn" %></td>
+    </tr>
+    
+    <tr>
+      <td rowspan="3"><%= image_tag("hamburger.jpg", size: "50x50")%></td>
+      <th>ジャンル</th>
+      <td><%= @category_name_l %></td>
+    </tr>
+    
+    <tr>
+      <%# 画像表示部分 %>
+      <th>評価</th>
+      <td>12345</td> <%# 本来は画像を表示 %>
+    </tr>
+    
+    <tr>
+      <%# 画像表示部分 %>
+      <th>電話番号</th>
+      <td colspan="2"><%= @tel %></td>
+    </tr>
+    
+    <tr>
+      <th>住所</th>
+      <td colspan="2"><%= @address %></td>
+    </tr>
+    
+    <tr>
+      <th>アクセス</th>
+      <td colspan="2"><%= @access %></td>
+    </tr>
+  
+    <tr>
+      <th>営業時間</th>
+      <td colspan="2"><%= @opentime %></td>
+    </tr>
+    
+    <tr>
+      <th>定休日</th>
+      <td colspan="2"><%= @holiday %></td>
+    </tr>
+    
+    <tr>
+      <td><%= link_to "コメントを見る", "#", class:"btn" %></td>
+      <td><%= link_to "コメントを書く", "#", class:"btn" %></td>
+      <td colspan="4"><%= link_to "ぐるなびページへ", @shop_url, class:"btn" %></td>
+    </tr>
+  </table>
+  
+  
+  <br><br><br>
+  
+  <table>
+    <tr>
+      <td colspan="2"><%= @name %></td>
+      <td colspan="1"><%= link_to "お気に入り追加", "#", class:"btn" %></td>
+    </tr>
+    
+    <tr>
+      <td rowspan=3><%= image_tag("hamburger.jpg", size: "50x50")%></td>
+      <th>ジャンル</th>
+      <td><%= @category_name_l %></td>
+    </tr>
+    
+    <tr>
+      <%# 画像表示部分 %>
+      <th>評価</th>
+      <td>12345</td> <%# 本来は画像を表示 %>
+    </tr>
+    
+    <tr>
+      <%# 画像表示部分 %>
+      <th>電話番号</th>
+      <td><%= @tel %></td>
+    </tr>
+    
+    <tr>
+      <th width="100">住所</th>
+      <td colspan="2"><%= @address %></td>
+    </tr>
+    
+    <tr>
+      <th width="150">アクセス</th>
+      <td colspan="2"><%= @access %></td>
+    </tr>
+  
+    <tr>
+      <th>営業時間</th>
+      <td colspan="2"><%= simple_format(@opentime) %></td>
+    </tr>
+    
+    <tr>
+      <th>定休日</th>
+      <td colspan="2"><%= simple_format(@holiday) %></td>
+    </tr>
+    
+    <tr>
+      <td><%= link_to "コメントを見る", "#", class:"btn" %></td>
+      <td><%= link_to "コメントを書く", "#", class:"btn" %></td>
+      <td colspan="4"><%= link_to "ぐるなびページへ", @shop_url, class:"btn" %></td>
+    </tr>
+  </table>
+  
+  <br><br>
+  
+  
+  <table>
+    <tr>
+      <td><%= @name %></td>
+      <td><%= link_to "お気に入り追加", "#", class:"btn" %></td>
+      <td>ああ</td>
+    </tr>
+    
+    <tr>
+      <td rowspan=3><%= image_tag("hamburger.jpg", size: "50x50")%></td>
+      <th>ジャンル</th>
+      <td><%= @category_name_l %></td>
+    </tr>
+    
+    <tr>
+      <%# 画像表示部分 %>
+      <th>評価</th>
+      <td>12345</td> <%# 本来は画像を表示 %>
+    </tr>
+    
+    <tr>
+      <%# 画像表示部分 %>
+      <th>電話番号</th>
+      <td><%= @tel %></td>
+    </tr>
+    
+    <tr>
+      <th width="100">住所</th>
+      <td><%= @address %></td>
+    </tr>
+    
+    <tr>
+      <th width="150">アクセス</th>
+      <td><%= @access %></td>
+    </tr>
+  
+    <tr>
+      <th>営業時間</th>
+      <td><%= simple_format(@opentime) %></td>
+    </tr>
+    
+    <tr>
+      <th>定休日</th>
+      <td><%= simple_format(@holiday) %></td>
+    </tr>
+    
+    <tr>
+      <td><%= link_to "コメントを見る", "#", class:"btn" %></td>
+      <td><%= link_to "コメントを書く", "#", class:"btn" %></td>
+      <td><%= link_to "ぐるなびページへ", @shop_url, class:"btn" %></td>
+    </tr>
+  </table>
+  
+</div>
+
+<div id="map_area">
+  <%= image_tag("google_map_yelp_site.jpg") %>
+</div>
+
+<!--<div id="right_side">-->
+    
+    
+<!--</div>-->

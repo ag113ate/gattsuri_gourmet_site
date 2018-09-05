@@ -9,7 +9,7 @@
 <body>
   <div id="header">
     <div id="header_area">
-      <div id="header_logo"><%= link_to "がっつりグルメ", "#", class: "btn" %></div>
+      <div id="header_logo"><%= link_to "がっつりグルメ", root_path, class: "btn" %></div>
       
       <div id="gnavi">
         <ul>
@@ -20,7 +20,7 @@
     </div>
   </div>
   
-  <div id="container_area" class=clearfix>
+  <div id="container_area" class="clearfix">
     <%= yield %>
   </div>
   

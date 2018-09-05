@@ -16,6 +16,7 @@ div#right_side{
 div#search_area{
   margin: 200px 0 0 0;
 }
+
 #search_input_form{
   width: 80%;
   margin: 0 auto;
@@ -23,8 +24,107 @@ div#search_area{
   
   padding: 5px;
   color: white;
+  
   -moz-border-radius:10px;/* Firefox用の角丸設定 */
   -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
   border-radius:10px; /* 角丸設定 */  
 }
 
+div#tamesi_area{
+  float: left;
+  width: 59%;
+  // border: 1px solid red;
+}
+
+div#map_area{
+  float: right;
+  
+  width: 39%;
+  text-align: center;
+  
+  border: 1px solid green;
+}
+div#tamesi_area table{
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: small;
+}
+
+div#tamesi_area th{
+  text-align: center;
+  border: 1px solid red;
+  width: 60px;
+}
+
+div#tamesi_area td{
+  border: 1px solid red;
+}
+
+
+div.store-area{
+  margin: 10px 0 0 10px;
+  background-color: rgb(91, 155, 213);
+  color: white;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+div.store-top-area{
+  padding: 10px 0 0 0;
+}
+
+div.store-name-area{
+  float: left;
+  
+  width: 70%;
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+div.bookmark-area{
+  float: right;
+  
+  width: 30%;
+  margin: 0 auto;
+  
+}
+
+div.store-content-area{
+  border-top: 1px dotted white;
+  border-bottom: 1px dotted white;
+  padding: 10px 0 10px 0;
+}
+div.store-image-area{
+  float: left;
+  width: 28%;
+  margin: 5px;
+}
+
+div.store-info-area{
+  float: left;
+  width: 70%;
+}
+
+div.store-bottom-area{
+  padding: 10px 0 10px 10px;
+}
+div.store-bottom-area li{
+  width: 30%;
+  float: left;
+}
+
+
+.img-param{
+  /* Bootstrapのimg-responsiveクラスからの流用 */
+  display: block;
+  height: auto;
+  max-width: 100%;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
