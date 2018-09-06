@@ -12,6 +12,7 @@ gem 'uglifier', '2.5.3'
 gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.1.2'
 gem 'turbolinks', '2.5.1'
+gem 'jquery-turbolinks'
 gem 'jbuilder', '1.5.3'
 
 group :doc do
