@@ -20,7 +20,8 @@ class GourmetSitesController < ApplicationController
     @access = "#{@line} #{@station} #{@station_exit} 徒歩#{@walk}分"
     
     @category_name_l = "居酒屋"
-    
     @shop_url = "https://r.gnavi.co.jp/bfj81ee00000/?ak=gFd702LTUOkdXai9d5QpyACyc8J2gyzQxIBqDR7by68%3D"
+    
+    @review = 2.8
   end
 end

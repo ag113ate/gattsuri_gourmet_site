@@ -54,11 +54,13 @@ div#tamesi_area table{
 
 div#tamesi_area th{
   text-align: center;
+  vertical-align: middle;
   border: 1px solid red;
   width: 60px;
 }
 
 div#tamesi_area td{
+  padding: 0 0 0 5px;
   border: 1px solid red;
 }
 
@@ -83,6 +85,26 @@ div.store-name-area{
   margin: 0 auto;
 
   text-align: center;
+}
+
+div.store-name-area .review-icon{
+  width:  35px;
+  height: 25px;
+}
+
+div.store-name-area li{
+  padding: 3px 0 0 0;
+  margin: 0 1px 0 0;
+  width: 30px;
+  height: 25px;
+  
+  display: inline-block;
+  
+}
+
+div.store-name-area .review-point_area{
+  vertical-align: top;
+  margin: 0 0 0 10px;
 }
 
 div.bookmark-area{
