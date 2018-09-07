@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  store_id: MyString
+  name: MyString
+  review: 1.5
+  opentime: MyString
+  holidy: MyString
+  tel: MyString
+  address: MyString
+  line: MyString
+  station: MyString
+  station_exit: MyString
+  walk: 1
+  latitude: 1.5
+  longitude: 1.5
+  category_name_l: MyString
+  shop_url: MyString
+
+two:
+  store_id: MyString
+  name: MyString
+  review: 1.5
+  opentime: MyString
+  holidy: MyString
+  tel: MyString
+  address: MyString
+  line: MyString
+  station: MyString
+  station_exit: MyString
+  walk: 1
+  latitude: 1.5
+  longitude: 1.5
+  category_name_l: MyString
+  shop_url: MyString
