@@ -1,74 +1,81 @@
 <div id="tamesi_area">
-  <div class="store-area" class="clearfix">
-    <div class="store-top-area clearfix">
-      <div class="store-name-area">
-        <%= @name %> <br>
-        <ul>
-        <%  for loop in 1..5 do                                        %>
-        <li>
-        <%    if (loop <= @review)                                     %>
-        <%=     image_tag("meat_color_all.png", class: "review-icon")  %>
-        <%    elsif ((loop - 0.5) <= @review)                          %>
-        <%=     image_tag("meat_color_half.png", class: "review-icon") %>
-        <%    else                                                     %>
-        <%=     image_tag("meat_color_none.png", class: "review-icon") %>
-        <%    end                                                      %>
-        </li>
-        <%  end                                                        %>
-        
-        <li class="review-point_area"><%= @review %></li>
-        </ul>
-      </div>
-      <div id="bookmark-area">
-        <%= link_to "お気に入り追加", "#", class:"btn" %>
-        <br>
-        ジャンル：<%= @category_name_l %> <br>
-      </div>
-    </div>
-    
-    <div class="store-content-area clearfix">
-      <div class="store-image-area">
-        <%= image_tag("hamburger.jpg", class: "img-param") %>
+  <% @stores.each do |store| %>
+    <div class="store-area" class="clearfix">
+      <div class="store-top-area clearfix">
+        <div class="store-name-area">
+          <%= store.name %> <br>
+          <ul>
+          <%  for loop in 1..5 do                                        %>
+          <li>
+          <%    if (loop <= store.review)                                %>
+          <%=     image_tag("meat_color_all.png", class: "review-icon")  %>
+          <%    elsif ((loop - 0.5) <= store.review)                     %>
+          <%=     image_tag("meat_color_half.png", class: "review-icon") %>
+          <%    else                                                     %>
+          <%=     image_tag("meat_color_none.png", class: "review-icon") %>
+          <%    end                                                      %>
+          </li>
+          <%  end                                                        %>
+          
+          <li class="review-point_area"><%= store.review %></li>
+          </ul>
+        </div>
+        <div id="bookmark-area">
+          <%= link_to "お気に入り追加", "#", class:"btn" %>
+          <br>
+          ジャンル：<%= store.category_name_l %> <br>
+        </div>
       </div>
       
-      <div class="store-info-area">
-        <table>
-          <tr>
-            <th>住所</th>
-            <td><%= simple_format(@adress) %></td>
-          </tr>
-          
-          <tr>
-            <th>アクセス</th>
-            <td><%= simple_format(@access) %></td>
-          </tr>
-          
-          <tr>
-            <th>電話番号</th>
-            <td><%= simple_format(@tel) %></td>
-          </tr>
-          
-          <tr>
-            <th>営業時間</th>
-            <td><%= simple_format(@opentime) %></td>
-          </tr>
-          
-          <tr>
-            <th>定休日</th>
-            <td><%= simple_format(@holiday) %></td>
-          </tr>
-        </table>
-      </div> <!-- store-info-area -->
-    </div> <!-- store-content-area -->
-    
-    <div class="store-bottom-area clearfix">
-      <ul>
-        <li><%= link_to "コメントを見る"  , "#", class: "btn" %></li>
-        <li><%= link_to "コメントを書く"  , "#", class: "btn" %></li>
-        <li><%= link_to "ぐるなびページへ", @shop_url, class: "btn", target: "_blank" %></li>
-      </ul>
-    </div> <!-- store-bottom-area -->
-  </div> <!-- store-area -->
+      <div class="store-content-area clearfix">
+        <% store.food_images.each do |image| %>
+          <div class="store-image-area">
+            <%= image_tag(image.image_url, class: "img-param") %>
+          </div>
+        <% end %>
+        <div class="store-info-area">
+          <table>
+            <tr>
+              <th>住所</th>
+              <td><%= simple_format(store.address) %></td>
+            </tr>
+            
+            <tr>
+              <th>アクセス</th>
+              <% access = "#{store.line} #{store.station} #{store.station_exit} \
+              徒歩#{store.walk}分" %>
+              
+              <td><%= simple_format(access) %></td>
+            </tr>
+            
+            <tr>
+              <th>電話番号</th>
+              <td><%= simple_format(store.tel) %></td>
+            </tr>
+            
+            <tr>
+              <th>営業時間</th>
+              <td><%= simple_format(store.opentime) %></td>
+            </tr>
+            
+            <tr>
+              <th>定休日</th>
+              <td><%= simple_format(store.holiday) %></td>
+            </tr>
+          </table>
+        </div> <!-- store-info-area -->
+      </div> <!-- store-content-area -->
+      
+      <div class="store-bottom-area clearfix">
+        <ul>
+          <li><%= link_to "コメントを見る"  , "#", class: "btn" %></li>
+          <li><%= link_to "コメントを書く"  , "#", class: "btn" %></li>
+          <li><%= link_to "ぐるなびページへ", store.shop_url, \
+                                 class: "btn", target: "_blank" %></li>
+        </ul>
+      </div> <!-- store-bottom-area -->
+    </div> <!-- store-area -->
+  <% end %> <%# @stores.each %>
 </div> <!-- tamesi_area -->
 
 <div id="map_area" class="img-param">
