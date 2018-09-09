@@ -18,3 +18,7 @@ gem 'jbuilder', '1.5.3'
 group :doc do
   gem 'sdoc', '0.4.1', require: false
 end
+
+gem 'gmaps4rails'
+
+gem 'dotenv-rails'

@@ -78,10 +78,21 @@
   <% end %> <%# @stores.each %>
 </div> <!-- tamesi_area -->
 
-<div id="map_area" class="img-param">
-  <%= image_tag("google_map_yelp_site.jpg") %>
+<div id="map_area">
+  
+  <%# <%= image_tag("google_map_yelp_site.jpg") %>
 </div>
 
+<script>
+  handler = Gmaps.build('Google');
+  handler.buildMap({provider: {mapTypeControl: false}, internal: {id:'map_area'}}, function(){
+  markers = handler.addMarkers(<%= raw @hash.to_json %>);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  
+  handler.getMap().setZoom(16);
+  });
+</script>
 
 <% if false %>
 <div></div>
