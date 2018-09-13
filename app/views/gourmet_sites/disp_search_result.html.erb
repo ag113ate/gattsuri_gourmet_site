@@ -84,12 +84,29 @@
 </div>
 
 <script type="text/javascript">
-  Gmaps.store = {};
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {mapTypeControl: false}, internal: {id:'map_area'}}, function(){
     markers = handler.addMarkers(<%= raw @hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
+    
+    $.each(markers, function(index, marker){
+      google.maps.event.addListener(marker.getServiceObject(), "mouseover", function(){
+        this.setIcon('/assets/steak.png');
+      });
+      
+      google.maps.event.addListener(marker.getServiceObject(), "mouseout", function(){
+        this.setIcon('/assets/raw_meat.png');
+      });
+      
+      google.maps.event.addListener(marker.getServiceObject(), "click", function(){
+        var target = $('.store-area').eq(index);
+        
+        var position = target.offset().top - 50;
+        
+        $("body,html").animate({scrollTop:position}, 400, "swing");
+      });
+    })
   });
 
   $('.store-area').mouseover(function(){
