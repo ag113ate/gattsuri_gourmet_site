@@ -83,15 +83,33 @@
   <%# <%= image_tag("google_map_yelp_site.jpg") %>
 </div>
 
-<script>
+<script type="text/javascript">
+  Gmaps.store = {};
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {mapTypeControl: false}, internal: {id:'map_area'}}, function(){
-  markers = handler.addMarkers(<%= raw @hash.to_json %>);
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
-  
-  handler.getMap().setZoom(16);
+    markers = handler.addMarkers(<%= raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
   });
+
+  $('.store-area').mouseover(function(){
+    var index = $('.store-area').index(this);
+    var marker = markers[index];
+    
+    marker.getServiceObject().setIcon('/assets/steak.png');
+    
+    $(this).css("background", "orange");
+  });
+  
+  $('.store-area').mouseout(function(){
+    var index = $('.store-area').index(this);
+    var marker = markers[index];
+    
+    marker.getServiceObject().setIcon('/assets/raw_meat.png');
+    
+    $(this).css("background", "rgb(91, 155, 213)");
+  });
+  
 </script>
 
 <% if false %>
@@ -153,7 +171,7 @@
   <table>
     <tr>
       <td colspan="2"><%= @name %></td>
-      <td colspan="1"><%= link_to "お気に入り追加", "#", class:"btn" %></td>
+      <td colspan="1"><%= link_to "お気に入り追��", "#", class:"btn" %></td>
     </tr>
     
     <tr>

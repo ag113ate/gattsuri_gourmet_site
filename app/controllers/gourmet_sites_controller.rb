@@ -11,6 +11,12 @@ class GourmetSitesController < ApplicationController
       marker.lat store.latitude
       marker.lng store.longitude
       marker.infowindow store.name
+                                      
+      marker.picture({
+                       :url => "/assets/raw_meat.png",
+                       :width => 30,
+                       :height => 30
+                     })
     end
   end
 end
