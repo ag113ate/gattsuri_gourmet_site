@@ -1,9 +1,12 @@
 require "openssl"
 require "net/http"
 require "json"
+require "open-uri"
 
 TIMEOUT_SEC = 10
 HIT_PER_PAGE = 100
+
+GET_IMG_PARAMS = ["shop_image1", "shop_image2"]
 
 # クエリの生成
 def create_query_params(read_page_count)
@@ -52,6 +55,39 @@ def save_restaurants_info(restaurants)
   end
 end
 
+# APIより取得した複数のレストラン情報に、用意されている
+# 画像をダウンロードし保存、そして保存先をモデルへ登録
+def save_restaurants_pict(restaurants)
+  restaurants.each do | restaurant|
+    GET_IMG_PARAMS.each_with_index do |get_img_param, loop|
+      # 画像ファイル名の生成(「お店のid」 + 「loop番号」)
+      # 　例 お店のid : r421602
+      #      shop_image1パラメータ(0ループ目) => "r421602_0.jpg"
+      #      shop_image2パラメータ(1ループ目) => "r421602_1.jpg"
+      img_file_name = "#{restaurant['id']}_#{loop}.jpg"
+      
+      puts "get_img_param:#{get_img_param}"
+      
+      # 提供される画像データが1枚のみの場合もある
+      if (restaurant["image_url"][get_img_param] == "")
+      	next
+      end
+      
+      # 画像をダウンロードし、保存
+      open(restaurant["image_url"][get_img_param]) { |img|
+        write_path = "./app/assets/images/#{img_file_name}"
+        File.open(write_path, "wb") do |file|
+          file.puts img.read
+        end
+      }
+      
+      # 画像ファイル名をモデルへ登録
+      store = Store.find(restaurant["id"])
+      store.food_images.create(image_url: img_file_name)
+    end
+  end
+end
+
 desc "ぐるなびAPIより、店舗情報を取得"
 task :read_store_info => :environment do
   uri = URI.parse("https://api.gnavi.co.jp/RestSearchAPI/v3/")
@@ -93,7 +129,10 @@ task :read_store_info => :environment do
   	
   	# レストラン情報をモデルへ登録
   	save_restaurants_info(restaurants)
-  	  	
+  	
+  	# 画像を保存し、画像パスをモデルへ登録
+  	save_restaurants_pict(restaurants)
+  	
   	# 全ページを読み込んだ場合、終了
   	if read_page_count >= total_page
   		break

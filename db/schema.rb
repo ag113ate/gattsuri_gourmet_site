@@ -13,13 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20180907085326) do
 
-  create_table "food_images", primary_key: "store_id", force: true do |t|
+  create_table "food_images", force: true do |t|
+    t.string   "store_id"
     t.string   "image_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "food_images", ["store_id"], name: "sqlite_autoindex_food_images_1", unique: true
 
   create_table "stores", primary_key: "store_id", force: true do |t|
     t.string   "name"

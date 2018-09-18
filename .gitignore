@@ -22,3 +22,5 @@ config/initializers/secret_token.rb
 /.env
 
 *~
+
+/app/assets/images/store_img/
