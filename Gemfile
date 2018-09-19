@@ -22,3 +22,5 @@ end
 gem 'gmaps4rails'
 
 gem 'dotenv-rails'
+
+gem 'mini_magick'

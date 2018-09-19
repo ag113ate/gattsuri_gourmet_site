@@ -2,11 +2,14 @@ require "openssl"
 require "net/http"
 require "json"
 require "open-uri"
+require 'mini_magick'
 
 TIMEOUT_SEC = 10
 HIT_PER_PAGE = 100
 
 GET_IMG_PARAMS = ["shop_image1", "shop_image2"]
+
+IMAGE_RESIZE_SIZE = "256x256!"
 
 # クエリの生成
 def create_query_params(read_page_count)
@@ -73,14 +76,15 @@ def save_restaurants_pict(restaurants)
       	next
       end
       
-      # 画像をダウンロードし、保存
-      open(restaurant["image_url"][get_img_param]) { |img|
-        write_path = "./app/assets/images/#{img_file_name}"
-        File.open(write_path, "wb") do |file|
-          file.puts img.read
-        end
-      }
-      
+      # 画像をダウンロード後、リサイズし保存
+      open(restaurant["image_url"][get_img_param]) do |img|
+        write_path = "./app/assets/images/store_img/#{img_file_name}"
+
+        magick_img = MiniMagick::Image.read(img.read)
+        magick_img.resize IMAGE_RESIZE_SIZE
+        magick_img.write write_path
+      end
+
       # 画像ファイル名をモデルへ登録
       store = Store.find(restaurant["id"])
       store.food_images.create(image_url: img_file_name)
