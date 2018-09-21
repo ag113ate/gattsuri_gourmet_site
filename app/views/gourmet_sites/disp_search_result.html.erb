@@ -1,7 +1,9 @@
 <script type="text/javascript">
+  $(function(){
+    $('#map_area').css('width', $('#map').width());
+  });
+
   $(window).load(function(){
-  //$(function(){
-    
     // 各変数の初期化
     var img_disp_areas = $('.store-image-area'); // 画像表示領域のオブジェクト
     var img_areas_num = img_disp_areas.length; //処理を行う領域数
@@ -193,18 +195,25 @@
   <% end %> <%# @stores.each %>
 </div> <!-- tamesi_area -->
 
-<div id="map_area">
-  
-  <%# <%= image_tag("google_map_yelp_site.jpg") %>
+<div id="map">
+  <div id="map_area">
+    <%# JSPにより、Google Mapが表示 %>
+  </div>
 </div>
 
-<% if false %>
 <script type="text/javascript">
+  $(function(){
+    $('#map_area').css('width', $('#fix_area').width());
+  });
+ 
   handler = Gmaps.build('Google');
   handler.buildMap({provider: {mapTypeControl: false}, internal: {id:'map_area'}}, function(){
     markers = handler.addMarkers(<%= raw @hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
+    
+    handler.getMap().getDiv().style.position = 'fixed';
+    handler.getMap().getDiv().style.borderRadius = '10px'
     
     $.each(markers, function(index, marker){
       google.maps.event.addListener(marker.getServiceObject(), "mouseover", function(){
@@ -244,5 +253,3 @@
   });
   
 </script>
-
-<% end %>

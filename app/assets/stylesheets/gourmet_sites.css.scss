@@ -32,21 +32,22 @@ div#search_area{
 
 div#tamesi_area{
   float: left;
-  width: 59%;
+  width: 60%;
   // border: 1px solid red;
 }
 
-div#map_area{
+div#map{
   float: right;
-
-  // width: 800px;
-  // height: 400px;
-  width: 39%;
-  height: 200px;
-  text-align: center;
-  
-  border: 1px solid green;
+  width: 38%; 
+  margin: 10px 10px 0 0;
 }
+
+div#map_area{
+  // widthはJSPにより設定
+  height: 400px;
+  // JSPによりposotionをflexedに設定
+}
+
 div#tamesi_area table{
   width: 90%;
   margin: 0 auto;
