@@ -9,8 +9,8 @@ TIMEOUT_SEC = 10
 HIT_PER_PAGE = 100
 FREE_WORD = "がっつり,ガッツリ"
 
+IMAGE_DL_DIR="./app/assets/images/store_img"
 GET_IMG_PARAMS = ["shop_image1", "shop_image2"]
-
 IMAGE_RESIZE_SIZE = "256x256!"
 
 # クエリの生成
@@ -83,7 +83,7 @@ def save_restaurants_pict(restaurants)
       
       # 画像をダウンロード後、リサイズし保存
       open(restaurant["image_url"][get_img_param]) do |img|
-        write_path = "./app/assets/images/store_img/#{img_file_name}"
+        write_path = "#{IMAGE_DL_DIR}/#{img_file_name}"
 
         magick_img = MiniMagick::Image.read(img.read)
         magick_img.resize IMAGE_RESIZE_SIZE
@@ -120,6 +120,11 @@ task :read_store_info, ["pref_code"] => :environment do |task, args|
   first_read = true # 初回の読み込み処理かのフラグ（総ページ数の計算に必要）
   read_page_count = 1 # 読み込み回数
   total_page = 0 # 総ページ数（if文のみの記載だと不具合を起こすため、ここで一旦定義）
+  
+  # 画像取得先のディレクトリを作成
+  if (Dir::exist?(IMAGE_DL_DIR) == false)
+    Dir::mkdir(IMAGE_DL_DIR)
+  end
   
   loop do
   	# クエリを設定
