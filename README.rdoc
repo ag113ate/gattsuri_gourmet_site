@@ -6,20 +6,29 @@
 
 1. 以下のコマンドでsecret_keyを生成してください。
   rake secret
+
   
 2. 「./config/initializers/secret_token.rb」を新規作成し、以下内容を記述してください。
   GattsuriGourmetSite::Application.config.secret_key_base = '$YOUR_SECRET_KEY'
 
      ※$YOUR_SECRET_KEYを1.で生成したsecret_keyに置き換えてください。
 
+     
 3. rake db:migrate
+
 
 4. rake db:seed
 
 
 5.「./.env」ファイルを新規作成し、以下内容を記述してください。
 
-MAP_API_KEY = '$YOUR_GOOGLE_API_KEY'
+  MAP_API_KEY = '$YOUR_GOOGLE_API_KEY'
 
- ※$YOUR_GOOGLE_API_KEYは御自身で取得した、GoogleのAPIキーに置き換えてください。
+     ※$YOUR_GOOGLE_API_KEYは御自身で取得した、GoogleのAPIキーに置き換えてください。
+
  
+6. 「~/.bash_profile」等に以下内容を追記してください。
+  GNAVI_API_KEY='$YOUR_GNAVI_API_KEY'
+  export GNAVI_API_KEY
+
+     ※$YOUR_GNAVI_API_KEYは御自身で取得した、ぐるなびのAPIキーに置き換えてください。
