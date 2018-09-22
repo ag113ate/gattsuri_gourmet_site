@@ -5,20 +5,24 @@ require "open-uri"
 require 'mini_magick'
 
 TIMEOUT_SEC = 10
+
 HIT_PER_PAGE = 100
+FREE_WORD = "がっつり,ガッツリ"
 
 GET_IMG_PARAMS = ["shop_image1", "shop_image2"]
 
 IMAGE_RESIZE_SIZE = "256x256!"
 
 # クエリの生成
-def create_query_params(read_page_count)
+def create_query_params(pref_code, read_page_count)
   params = URI.encode_www_form({
-  keyid: ENV["GNAVI_API_KEY"],  # APIキー \
-  hit_per_page: HIT_PER_PAGE,   # リクエスト1回のレスポンスデータ数\
-  offset_page: read_page_count, # 読み込むページ位置 \
-                                #（このパラメータのみ、設定値が更新される）\
-  freeword: "がっつり"})        # キーワード検索
+  keyid: ENV["GNAVI_API_KEY"],    # APIキー \
+  pref: pref_code,                # 都道府県コード \
+  hit_per_page: HIT_PER_PAGE,     # リクエスト1回のレスポンスデータ数 \
+  offset_page: read_page_count,   # 読み込むページ位置 \
+                                  #（このパラメータのみ、設定値が更新される）\
+  freeword: FREE_WORD,            # キーワード検索
+  freeword_condition: 2})         # 複数のフリーワードをORで検索
   
   return params
 end
@@ -29,7 +33,9 @@ def save_restaurants_info(restaurants)
   restaurants.each do |restaurant|
     store = Store.new
     
-    # 各カラムの設定
+    # ==========================================================================
+    #                             各カラムの設定
+    # ============================== begin =====================================
 	  store.id = restaurant["id"]                               # 店舗ID
 	  store.name = restaurant["name"]                           # 店舗名称
 	  store.review = 3.5                                        # レビュー評価値 ※暫定処理
@@ -52,6 +58,7 @@ def save_restaurants_info(restaurants)
 	  end
 	  
 	  store.shop_url = restaurant["url"]                        # PC用URL
+	  # =============================== end ======================================
 	  
 	  # レコードへ登録
 	  store.save
@@ -61,15 +68,13 @@ end
 # APIより取得した複数のレストラン情報に、用意されている
 # 画像をダウンロードし保存、そして保存先をモデルへ登録
 def save_restaurants_pict(restaurants)
-  restaurants.each do | restaurant|
-    GET_IMG_PARAMS.each_with_index do |get_img_param, loop|
-      # 画像ファイル名の生成(「お店のid」 + 「loop番号」)
+  restaurants.each_with_index do |restaurant, rest_index|
+    GET_IMG_PARAMS.each_with_index do |get_img_param, img_index|
+      # 画像ファイル名の生成(「お店のid」 + 「img_index番号」)
       # 　例 お店のid : r421602
       #      shop_image1パラメータ(0ループ目) => "r421602_0.jpg"
       #      shop_image2パラメータ(1ループ目) => "r421602_1.jpg"
-      img_file_name = "#{restaurant['id']}_#{loop}.jpg"
-      
-      puts "get_img_param:#{get_img_param}"
+      img_file_name = "#{restaurant['id']}_#{img_index}.jpg"
       
       # 提供される画像データが1枚のみの場合もある
       if (restaurant["image_url"][get_img_param] == "")
@@ -89,11 +94,18 @@ def save_restaurants_pict(restaurants)
       store = Store.find(restaurant["id"])
       store.food_images.create(image_url: img_file_name)
     end
+   
+    # 画像のDL処理が長く、ユーザがフリーズしたと思い込む
+	  # 可能性があるため、任意の文字を表示
+	  if (rest_index % 5 == 0)
+	    print "#"
+	  end
   end
+  puts "" # 改行を行う
 end
 
-desc "ぐるなびAPIより、店舗情報を取得"
-task :read_store_info => :environment do
+desc "ぐるなびAPIより、店舗情報を取得(引数には都道府県マスタ取得APIより取得したコードを設定)"
+task :read_store_info, ["pref_code"] => :environment do |task, args|
   uri = URI.parse("https://api.gnavi.co.jp/RestSearchAPI/v3/")
   https = Net::HTTP.new(uri.host, uri.port)
 
@@ -111,7 +123,7 @@ task :read_store_info => :environment do
   
   loop do
   	# クエリを設定
-  	uri.query = create_query_params(read_page_count)
+  	uri.query = create_query_params(args.pref_code, read_page_count)
   	
   	# APIデータの読み込み
   	res = nil
@@ -124,6 +136,9 @@ task :read_store_info => :environment do
   	
     # 初回の読み込み時のみ以下処理を実行し、総ページ数を計算
   	if first_read == true
+  	  # ヒット数を表示
+  	  puts "[total_hit_stores:#{hash_val["total_hit_count"]}]"
+  	  
   		total_page = (hash_val["total_hit_count"].to_f / HIT_PER_PAGE).ceil
   		first_read = false
   	end
@@ -137,7 +152,9 @@ task :read_store_info => :environment do
   	# 画像を保存し、画像パスをモデルへ登録
   	save_restaurants_pict(restaurants)
   	
+  	# ==============================
   	# 全ページを読み込んだ場合、終了
+  	# ==============================
   	if read_page_count >= total_page
   		break
   	end
