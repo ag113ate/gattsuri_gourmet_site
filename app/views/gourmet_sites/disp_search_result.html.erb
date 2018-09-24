@@ -1,15 +1,11 @@
 <script type="text/javascript">
-  $(function(){
-    $('#map_area').css('width', $('#map').width());
-  });
-
   $(window).load(function(){
     // 各変数の初期化
     var img_disp_areas = $('.store-image-area'); // 画像表示領域のオブジェクト
     var img_areas_num = img_disp_areas.length; //処理を行う領域数
 
     // 料理画像の表示処理についての初期化
-    //   [1] 各画像領域の確保（高さを設定）
+    //   [1] 各画像領域の確保（設定）
     //   [3] 各画像領域に1枚画像を表示
     (function(){
       // [1] 各画像領域の確保（高さを設定）
@@ -107,7 +103,7 @@
 </script>
 
 
-<div id="tamesi_area">
+<div id="main_panel">
   <% @stores.each do |store| %>
     <div class="store-area" class="clearfix">
       <div class="store-top-area clearfix">
@@ -193,26 +189,41 @@
       </div> <!-- store-bottom-area -->
     </div> <!-- store-area -->
   <% end %> <%# @stores.each %>
-</div> <!-- tamesi_area -->
+</div> <!-- main_panel -->
 
-<div id="map">
-  <div id="map_area">
-    <%# JSPにより、Google Mapが表示 %>
+<div id="side_bar">
+  <div id="side_bar_area">
+    <div id="side_bar_top">
+      <div id="input_serach_area_disp">検索地域：<%= @area %></div>
+      <div id="search_count_disp_area"><%= @search_count %> 店舗</div><br><br>
+      <%= page_entries_info @stores %>
+      <%= paginate @stores %>
+    </div> <!-- side_bar_top -->
+    
+    <div id="side_bar_bottom">
+      <%# JSPにより、Google Mapが表示 %>
+    </div>
+    
   </div>
-</div>
+</div>  <!-- side_bar_top -->
 
 <script type="text/javascript">
   $(function(){
-    $('#map_area').css('width', $('#fix_area').width());
+    $('side_bar_area').css('width', $('side_bar').width());
+    
+    $('#side_bar_top').css('width', $('#side_bar').width());
+    
+    $('#map_area').css('width', $('#side_bar').width());
+    
+    
   });
  
   handler = Gmaps.build('Google');
-  handler.buildMap({provider: {mapTypeControl: false}, internal: {id:'map_area'}}, function(){
+  handler.buildMap({provider: {mapTypeControl: false}, internal: {id:'side_bar_bottom'}}, function(){
     markers = handler.addMarkers(<%= raw @hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
     
-    handler.getMap().getDiv().style.position = 'fixed';
     handler.getMap().getDiv().style.borderRadius = '10px'
     
     $.each(markers, function(index, marker){

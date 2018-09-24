@@ -5,7 +5,8 @@ class GourmetSitesController < ApplicationController
   def disp_search_result
     @area = params[:area]
     
-    @stores = Store.where('address LIKE?', "%#{@area}%").limit(10) # 一時的に10件のみ表示
+    @stores = Store.where('address LIKE?', "%#{@area}%").page(params[:page]).per(10)
+    @search_count = Store.where('address LIKE?', "%#{@area}%").count()
     
     @hash = Gmaps4rails.build_markers(@stores) do |store, marker|
       marker.lat store.latitude
