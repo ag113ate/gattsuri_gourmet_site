@@ -1,0 +1,33 @@
+<div id="login_form">
+  <div id="login_form_title">ログイン情報を入力してください。</div>
+  <%  if (flash)                         %>
+        <ul class="blue_font">
+  <%      flash.each do |key, message| %>
+            <li> <%= message %> </li>
+  <%      end                          %>
+        </ul>
+  <%  end                                %>
+  
+  <%= form_tag("/users/login") do %>
+    <div class="loin_form_element">
+      <%= label_tag(:user_id, "　ユーザID") %>
+      <br>
+      <%= text_field_tag(:user_id, @user_id) %>
+    </div>
+    <br>
+    <div class="loin_form_element">
+      <%= label_tag(:password, "パスワード") %>
+      <br>
+      <%if false %>
+      <%= password_field_tag(:password)      %>
+      <% end %>
+      <%= text_field_tag(:password)      %>
+    </div>
+    <br>
+    <%= submit_tag("ログイン", id: "input_button") %>
+  <% end %>
+</div>
+
+<div id="new_account_link">
+  <%= link_to("まだアカウントを作成ではない方はこちら", "#") %>
+</div>

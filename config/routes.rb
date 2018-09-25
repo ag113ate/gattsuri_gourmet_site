@@ -2,6 +2,12 @@ GattsuriGourmetSite::Application.routes.draw do
   root 'gourmet_sites#top'
   
   get "gourmet_sites/disp_search_result"
+  
+  resources :users, only: %i{index show}
+  post "users/login"
+  post "users/logout"
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

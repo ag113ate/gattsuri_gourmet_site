@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180907085326) do
+ActiveRecord::Schema.define(version: 20180924165904) do
 
   create_table "food_images", force: true do |t|
     t.string   "store_id"
@@ -40,5 +40,13 @@ ActiveRecord::Schema.define(version: 20180907085326) do
   end
 
   add_index "stores", ["store_id"], name: "sqlite_autoindex_stores_1", unique: true
+
+  create_table "users", primary_key: "user_id", force: true do |t|
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["user_id"], name: "sqlite_autoindex_users_1", unique: true
 
 end

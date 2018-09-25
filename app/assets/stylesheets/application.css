@@ -41,6 +41,15 @@ div#header_logo{
   margin: 5px 0 5px 15px;
 }
 
+div#notice_msg{
+  float: left;
+  margin: 5px 0 0 0;
+  width: 50%;
+  font-size: large;
+  text-align: center;
+  color: white;
+}
+
 div#gnavi{
   float: right;
   margin: 5px 0 0 0;
@@ -96,4 +105,8 @@ div#footer_nav li{
 
 a{
   text-decoration: none;
+}
+
+.blue_font{
+  color: blue;
 }

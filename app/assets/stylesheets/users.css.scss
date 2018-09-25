@@ -1,0 +1,40 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#login_form{
+  border: 1px solid rgb(91, 155, 213);
+  
+  text-align: center;
+  font-size: large;
+  
+  padding: 10px;
+  width: 80%;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+ 
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+div#login_form_title{
+  padding: 5px;
+  background-color: orange;
+  color: white;
+}
+
+#user_id, #password{
+  width: 400px;
+  font-size: large;
+}
+
+#input_button{
+  font-size: large;
+}
+
+div#new_account_link{
+  margin: 50px 0 0 0;
+  text-align: center;
+}
