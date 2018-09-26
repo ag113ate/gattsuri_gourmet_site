@@ -3,6 +3,10 @@ class GourmetSitesController < ApplicationController
   end
 
   def disp_search_result
+    if (session[:user_id] != nil)
+      @user = User.find(session[:user_id])
+    end
+    
     @area = params[:area]
     
     @stores = Store.where('address LIKE?', "%#{@area}%").page(params[:page]).per(10)
@@ -14,10 +18,35 @@ class GourmetSitesController < ApplicationController
       marker.infowindow store.name
                                       
       marker.picture({
-                       :url => "/assets/raw_meat.png",
-                       :width => 30,
-                       :height => 30
-                     })
+        :url => "/assets/raw_meat.png",
+        :width => 30,
+        :height => 30
+      })
     end
   end
+  
+  def add_bookmark
+    user = User.find(session[:user_id])
+    user.bookmark_stores.create(store_id: params[:id])
+    
+    @store_id = params[:id]
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
+  def del_bookmark
+    user = User.find(session[:user_id])
+    user.bookmark_stores.find_by(store_id: params[:id]).destroy
+
+    @store_id = params[:id]
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
 end

@@ -105,7 +105,7 @@
 
 <div id="main_panel">
   <% @stores.each do |store| %>
-    <div class="store-area" class="clearfix">
+    <div id="store_area_<%= store.store_id %>" class="clearfix">
       <div class="store-top-area clearfix">
         <div class="store-name-area">
           <%= store.name %> <br>
@@ -125,11 +125,24 @@
           <li class="review-point_area"><%= store.review %></li>
           </ul>
         </div>
+        
         <div id="bookmark-area">
-          <%= link_to "お気に入り追加", "#", class:"btn" %>
+          <%# ログインしていない場合(@user == nil)は、「お気に入り追加」ボタンを表示 %>
+          <%  if (@user == nil ||  
+                  @user.bookmark_stores.find_by(store_id: store.store_id) == nil)      %>
+          <%=   link_to "お気に入り追加", "/gourmet_sites/bookmark/#{store.store_id}", 
+                                            method: :post, remote: true,
+                                                           class:"btn blue_font"       %>
+          <%  else                                                                     %>
+          <%=   link_to "お気に入り店舗", "/gourmet_sites/bookmark/#{store.store_id}", 
+                                            method: :delete, remote: true, 
+                                                             class:"btn red_font"      %>
+          <%  end                                                                      %>
+          
           <br>
           ジャンル：<%= store.category_name_l %> <br>
         </div>
+        
       </div>
       
       <div class="store-content-area clearfix">
@@ -236,7 +249,7 @@
       });
       
       google.maps.event.addListener(marker.getServiceObject(), "click", function(){
-        var target = $('.store-area').eq(index);
+        var target = $("[id^='store_area_']").eq(index);
         
         var position = target.offset().top - 50;
         
@@ -245,8 +258,8 @@
     })
   });
 
-  $('.store-area').mouseover(function(){
-    var index = $('.store-area').index(this);
+  $("[id^='store_area_']").mouseover(function(){
+    var index = $("[id^='store_area_']").index(this);
     var marker = markers[index];
     
     marker.getServiceObject().setIcon('/assets/steak.png');
@@ -254,13 +267,12 @@
     $(this).css("background", "orange");
   });
   
-  $('.store-area').mouseout(function(){
-    var index = $('.store-area').index(this);
+  $("[id^='store_area_']").mouseout(function(){
+    var index = $("[id^='store_area_']").index(this);
     var marker = markers[index];
     
     marker.getServiceObject().setIcon('/assets/raw_meat.png');
     
     $(this).css("background", "rgb(91, 155, 213)");
   });
-  
 </script>

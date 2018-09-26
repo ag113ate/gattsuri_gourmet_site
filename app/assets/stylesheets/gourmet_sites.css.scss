@@ -117,8 +117,7 @@ div#main_panel td{
   border: 1px solid red;
 }
 
-
-div.store-area{
+div[id^="store_area_"]{
   margin: 10px 0 0 10px;
   background-color: rgb(91, 155, 213);
   color: white;
@@ -209,4 +208,11 @@ div.store-bottom-area li{
   -moz-border-radius:10px;/* Firefox用の角丸設定 */
   -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
   border-radius:10px; /* 角丸設定 */  
+}
+
+.blue_font{
+  color: blue;
+}
+.red_font{
+  color: red;
 }
