@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180924165904) do
+ActiveRecord::Schema.define(version: 20180926164726) do
+
+  create_table "bookmark_stores", force: true do |t|
+    t.string   "user_id"
+    t.string   "store_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "food_images", force: true do |t|
     t.string   "store_id"
