@@ -1,5 +1,16 @@
-$button = $("#store_area_<%= @store_id %> #bookmark-area .btn");
+<% if (@action == "disp_search_result")                            %>
+  /* 店舗検索ページでの動作 */
+  $button = $("#store_area_<%= @store_id %> .bookmark-area .btn");
 
-$button.text("お気に入り追加");
-$button.css("color", "blue");
-$button.data('method', "post");
+  $button.text("お気に入り追加");
+  $button.css("color", "blue");
+  $button.data('method', "post");
+<% else %>
+  /* マイページでの動作 */
+  $store_area = $("#store_area_<%= @store_id %>");
+  $store_area.css('display', 'none');
+  
+  $('#bookmark_count_disp').text("<%= @bookmark_count %> 店舗");
+  
+  $('#notice_msg').text("お気に入りを1件、削除しました");
+<% end %>

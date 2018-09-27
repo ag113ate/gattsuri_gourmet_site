@@ -59,4 +59,8 @@ class UsersController < ApplicationController
     redirect_to(root_path, notice: "ログアウトしました")
   end
   
+  
+  def show
+    @user = User.find(session[:user_id])
+  end
 end

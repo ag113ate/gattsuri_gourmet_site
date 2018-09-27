@@ -1,3 +1,129 @@
-しょーだよー
+<script>
+  $(function(){
+    $('#user_info').css('width', $('side_bar').width());
+    
+    $('#user_id_disp').css('width', $('#side_bar').width());
+    
+    $('.bookmark-area').on('click', function(){
+      
+      /* 表示領域の調整 */
+      (function(){
+        if ($('#modal_window').width() < 500){
+          $('#modal_window').css('width', '500');
+        }
+    
+        if ($('#modal_window').height() < 200){
+          $('#modal_window').css('height', '200');
+        }
+      })();
+      
+      
+      /* 表示位置の設定　*/
+      (function(){
+        var left = ($(window).width()  - $('#modal_window').width() ) / 2;
+        var top  = ($(window).height() - $('#modal_window').height()) / 2;
+      
+        /* トップ、レフトの位置とも0以上とする */
+        left = (left >= 0) ? (left) : (0);
+        top = (top >= 0) ? (top) : (0);
+      
+        $('#modal_window').css('left', left);
+        $('#modal_window').css('top', top);
+      })();
+    
+      
+      $('#bookmark_delete_btn').attr('href', "bbb");
+    
+      $('#overlay, #modal_window').css('display', 'block');
 
-<%= link_to("ログアウト", "/users/logout", method: "post") %>
+      /* 対象店舗の表示位置を取得　*/
+      var index = $('.bookmark-area').index(this);
+      
+      /* 店舗名の表示 */
+      $store_name_area = $("[id^='store_area_']").eq(index).find('.store-name-area');
+      $('#modal_window_store_title span').text($store_name_area.text());
+      
+      /* ================================================================= */
+      /*                  「削除」ボタンのリンク先を作成                   */
+      /* ============================ start ============================== */
+      
+      /* 店舗IDを取得                                            */
+      /* 例： str = split('store_area_gec0501')                  */
+      /*      str[0] => store, str[1] => area, str[2] => gec0501 */
+      split_str = $("[id^='store_area_']").eq(index).attr('id').split('_');
+      
+      /* リンクの設定 */
+      link_str = "/gourmet_sites/bookmark/" + split_str[2];
+      $('#bookmark_delete_btn').attr('href', link_str);
+      
+      /* ============================= end =============================== */
+    });
+    
+    $('#modal_window_close_btn, #bookmark_delete_btn').on('click', function(){
+      $('#overlay, #modal_window').css('display', 'none');
+    });
+    
+    
+    
+  });
+</script>
+
+<div id="modal_window">
+  <div id="modal_window_store_title"><span></span></div>
+  <div id="modal_window_select_area">
+    この店舗をお気に入りから削除しますか？<br>
+    <ul>
+      <li><%= link_to "削除", "#", method: :delete, remote: true,
+                                   id: "bookmark_delete_btn", class:"btn blue_font" %></li>
+      <li><%= link_to("キャンセル", "#", id: "modal_window_close_btn", class: "btn") %></li>
+    </ul>
+  </div>
+  
+</div>
+  
+<div id="mypage_title">
+  マイページ
+</div>
+<div id="main_panel">
+  <div id="bookmark_title">
+    お気に入り店舗一覧
+  </div>
+  <%  @user.bookmark_stores.each do |bookmark_store|                                      %>
+  <%=   render partial: "layouts/store_info_disp", locals: {store: bookmark_store.store}  %>
+  <%  end                                                                                 %>
+</div>
+
+<div id="side_bar">
+  <div id="user_info">
+    <div id="user_id_disp">
+      <%= @user.user_id %> さん
+    </div>
+    
+    <div class="user_info_element">
+      <div class="user_info_element_title">
+        お気に入り店舗
+      </div>
+      <div id="bookmark_count_disp", class="user_info_element_count">
+        <%= @user.bookmark_stores.count %> 店舗
+      </div>
+    </div>
+    
+    <div class="user_info_element">
+      <div class="user_info_element_title">
+        口コミ数
+      </div>
+      <div class="user_info_element_count">
+        <%= @user.bookmark_stores.count %> 店舗
+      </div>
+    </div>
+    
+    <div id="user_info_navi">
+      <ul>
+        <li><%= link_to("ログアウト", "/users/logout", method: "post") %></li>
+        <li><%= link_to("パスワード変更", "#", method: "post") %></li>
+        <li><%= link_to("アカウント削除", "#", method: "post") %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+

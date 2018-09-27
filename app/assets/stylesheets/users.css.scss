@@ -38,3 +38,117 @@ div#new_account_link{
   margin: 50px 0 0 0;
   text-align: center;
 }
+
+div#mypage_title{
+  //background-color: rgb(91, 155, 213);
+  background-color: orange;
+  
+  margin: 10px 0 0 0;
+  
+  font-size: large;
+  text-align: center;
+  color: white;
+}
+
+div#bookmark_title{
+  margin: 10px 0 0 0;
+  
+  //border-bottom: 1px dotted orange;
+  border-bottom: 1px dotted red;
+  //background-color: red;//rgb(91, 155, 213);
+  
+  font-size: large;
+  text-align: center;
+}
+
+div#user_info{
+  margin: 50px 0 0 0;
+  
+  border: 1px solid rgb(91, 155, 213);
+  position: fixed;
+  
+  font-size: large;
+  text-align: center;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+div#user_id_disp{
+  border-bottom: 1px dotted rgb(91, 155, 213);
+}
+
+div.user_info_element{
+  margin: 20px 0 0 0;
+}
+
+div.user_info_element_title{
+  padding: 3px;
+  background-color: rgb(91, 155, 213);
+  display: inline-block;
+  
+  color: white;
+
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+div#user_info_navi{
+  margin: 10px 0 0 0;
+  
+  border-top: 1px dotted rgb(91, 155, 213);
+}
+
+div#user_info_navi li{
+  margin: 0 2px 0 2px;
+  
+  display: inline-block;
+  font-size: medium;
+}
+
+
+div#modal_window{
+  width: 50%;
+  height: 30%;
+  
+  top: 25%;
+  bottom: 45%;
+  left: 25%;
+  right: 25%;
+  
+  font-size: large;
+  
+  background: white;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+  
+  text-align: center;
+  
+  position: fixed;
+  display: none;
+  z-index: 12;
+}
+
+div#modal_window_store_title{
+  margin-top: 20px;
+}
+
+div#modal_window_store_title span{
+  border: 1px solid red;
+  
+  padding: 2px;
+}
+
+div#modal_window_select_area{
+  margin: 50px 0 0 0;
+
+  display: inline-block;
+}
+
+div#modal_window_select_area li{
+  display: inline-block;
+}

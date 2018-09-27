@@ -33,13 +33,14 @@ div#search_area{
 div#main_panel{
   float: left;
   width: 60%;
-  // border: 1px solid red;
 }
 
 div#side_bar{
   float: right;
   margin: 10px 10px 0 0;
   width: 38%; 
+  
+  border: 1px solid orange;
 }
 div#side_bar_area{
   // widthはJSPにより設定
@@ -139,22 +140,22 @@ div.store-name-area{
   text-align: center;
 }
 
-div.store-name-area .review-icon{
+.review-icon{
   width:  35px;
   height: 25px;
 }
 
-div.store-name-area li{
+.li{
   padding: 3px 0 0 0;
   margin: 0 1px 0 0;
   width: 30px;
   height: 25px;
   
   display: inline-block;
-  
+  float: left;
 }
 
-div.store-name-area .review-point_area{
+.review-point_area{
   vertical-align: top;
   margin: 0 0 0 10px;
 }

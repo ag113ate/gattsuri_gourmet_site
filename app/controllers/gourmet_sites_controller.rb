@@ -16,7 +16,7 @@ class GourmetSitesController < ApplicationController
       marker.lat store.latitude
       marker.lng store.longitude
       marker.infowindow store.name
-                                      
+      
       marker.picture({
         :url => "/assets/raw_meat.png",
         :width => 30,
@@ -42,6 +42,11 @@ class GourmetSitesController < ApplicationController
     user.bookmark_stores.find_by(store_id: params[:id]).destroy
 
     @store_id = params[:id]
+    
+    path = Rails.application.routes.recognize_path(request.referer)
+    @action = path[:action]
+    
+    @bookmark_count = user.bookmark_stores.count
 
     respond_to do |format|
       format.html
