@@ -109,12 +109,120 @@ div#footer_nav li{
   margin: 5px 30px 0 0;
 }
 
+
+div[id^="store_area_"]{
+  margin: 10px 0 0 10px;
+  background-color: rgb(91, 155, 213);
+  color: white;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+div.store-top-area{
+  padding: 10px 0 0 0;
+}
+
+div.store-header-left{
+  float: left;
+  width: 78%;
+  text-align: center;
+}
+
+div.store-name-area{
+  text-align: center;
+  border-bottom: 1px dotted white;
+}
+
+div.store-review-area{
+  margin: 3px 0 0 0;
+  
+  width: 100%;
+  text-align: center;
+}
+
+div .store-review-area ul{
+  width: 90%;
+  margin: 0 auto;
+}
+div .store-review-area li{
+  width: 13%; /* 100% / 6(画像5個 + 点数) = 16.666 */
+  display: inline-block;
+}
+
+.review-icon{
+  /* 親要素のサイズに合わせて、画像を表示          */
+  /* （Bootstrapのimg-responsiveクラスからの流用） */
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.review-point_area{
+  vertical-align: top;
+}
+
+div.store-header-right{
+  float: right;
+  width: 20%;
+  height: 30px;
+  margin: 0 5px 0 5px;
+}
+
+/*div.bookmark-area{*/
+/*  text-align: right;*/
+/*  margin: 0 auto;*/
+/*}*/
+
+div.store-content-area{
+  border-top: 1px dotted white;
+  border-bottom: 1px dotted white;
+  padding: 10px 0 10px 0;
+}
+div.store-image-area{
+  float: left;
+  width: 28%;
+  margin: 5px;
+  
+  position: relative;
+}
+
+div.store-image-area img{
+  position: absolute;
+}
+
+div.store-info-area{
+  float: left;
+  width: 70%;
+}
+
+div.store-bottom-area{
+  padding: 10px 0 10px 10px;
+}
+
+div.store-bottom-area li{
+  width: 30%;
+  float: left;
+}
+
+.img-param{
+  /* 親要素のサイズに合わせて、画像を表示          */
+  /* （Bootstrapのimg-responsiveクラスからの流用） */
+  display: block;
+  height: auto;
+  max-width: 100%;
+
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
 div.genre-area{
   clear: both;
   
+  padding: 3px 0 0 0;
   font-size: small;
   text-align: center;
-  
 }
 
 .btn{

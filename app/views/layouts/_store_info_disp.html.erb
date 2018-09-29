@@ -1,29 +1,30 @@
 <div id="store_area_<%= store.store_id %>" class="clearfix">
   <div class="store-top-area clearfix">
-    <div class="store-name-area">
-      <%= store.name %> <br>
-    </div>
-    
-    <div>
-      <ul>
-      <%  for loop in 1..5 do                                        %>
-      <li>
-      <%    if (loop <= store.review)                                %>
-      <%=     image_tag("meat_color_all.png", class: "review-icon")  %>
-      <%    elsif ((loop - 0.5) <= store.review)                     %>
-      <%=     image_tag("meat_color_half.png", class: "review-icon") %>
-      <%    else                                                     %>
-      <%=     image_tag("meat_color_none.png", class: "review-icon") %>
-      <%    end                                                      %>
-      </li>
-      <%  end                                                        %>
+    <div class="store-header-left">
+      <div class="store-name-area">
+        <%= store.name %> <br>
+      </div>
       
-      <li class="review-point_area"><%= store.review %></li>
-      </ul>
-    </div>
-    
+      <div class="store-review-area">
+        <ul>
+        <%  for loop in 1..5 do                                        %>
+        <li>
+        <%    if (loop <= store.review)                                %>
+        <%=     image_tag("meat_color_all.png", class: "review-icon")  %>
+        <%    elsif ((loop - 0.5) <= store.review)                     %>
+        <%=     image_tag("meat_color_half.png", class: "review-icon") %>
+        <%    else                                                     %>
+        <%=     image_tag("meat_color_none.png", class: "review-icon") %>
+        <%    end                                                      %>
+        </li>
+        <%  end                                                        %>
+        
+        <li class="review-point_area"><%= store.review %></li>
+        </ul>
+      </div>
+    </div>  <!-- store_header_left -->
     <%# 「お気に入り」ボタンは店舗検索ページのみ表示（マイページでは表示しない）    %>
-    <div class="bookmark-area">
+    <div class="store-header-right bookmark-area">
     <% if (controller.controller_name == "gourmet_sites")                           %>
     
     <%  # ログインしていない場合(@user == nil)は、「お気に入り追加」ボタンを表示    %>
@@ -45,9 +46,8 @@
     <div class="genre-area">
       ジャンル：<%= store.category_name_l %>
     </div>
-      
     
-  </div>
+  </div>  <!-- store-top-area -->
   
   <div class="store-content-area clearfix">
     
