@@ -1,11 +1,15 @@
 <script>
   $(function(){
+    /* サイドバーについて、幅を設定                              */
+    /* ※ サイドバーは固定表示しているためJQueryにより幅を設定   */
     $('#user_info').css('width', $('side_bar').width());
-    
     $('#user_id_disp').css('width', $('#side_bar').width());
     
-    $('.bookmark-area').on('click', function(){
-      
+    
+    /* ====================================================================== */
+    /*          オーバーレイ、モーダルウインドウを表示                        */
+    /* ================================ start =============================== */
+    function disp_overlay_modal(){
       /* 表示領域の調整 */
       (function(){
         if ($('#modal_window').width() < 500){
@@ -17,24 +21,20 @@
         }
       })();
       
-      
       /* 表示位置の設定　*/
       (function(){
+        /* ページの真中に表示されるよう、左、上位置を設定 */
         var left = ($(window).width()  - $('#modal_window').width() ) / 2;
         var top  = ($(window).height() - $('#modal_window').height()) / 2;
       
-        /* トップ、レフトの位置とも0以上とする */
+        /* トップ、レフトの位置とも0以上とする                               */
+        /* （モーダルウィンドウのサイズ > 表示サイズ）となっている場合の対策 */
         left = (left >= 0) ? (left) : (0);
         top = (top >= 0) ? (top) : (0);
-      
+        
         $('#modal_window').css('left', left);
         $('#modal_window').css('top', top);
       })();
-    
-      
-      $('#bookmark_delete_btn').attr('href', "bbb");
-    
-      $('#overlay, #modal_window').css('display', 'block');
 
       /* 対象店舗の表示位置を取得　*/
       var index = $('.bookmark-area').index(this);
@@ -43,28 +43,64 @@
       $store_name_area = $("[id^='store_area_']").eq(index).find('.store-name-area');
       $('#modal_window_store_title span').text($store_name_area.text());
       
-      /* ================================================================= */
-      /*                  「削除」ボタンのリンク先を作成                   */
-      /* ============================ start ============================== */
+      /* ----------------------------------------------------- */
+      /*        「削除」ボタンのリンク先を作成                 */
+      /* ------------------- start---------------------------- */
       
-      /* 店舗IDを取得                                            */
-      /* 例： str = split('store_area_gec0501')                  */
-      /*      str[0] => store, str[1] => area, str[2] => gec0501 */
+      /* 店舗IDを取得                                          */
+      /* 例： str = split('store_area_gec0501')                */
+      /*      str[0] => store, str[1] => area,                 */
+      /*      str[2] => gec0501                                */
       split_str = $("[id^='store_area_']").eq(index).attr('id').split('_');
       
       /* リンクの設定 */
       link_str = "/gourmet_sites/bookmark/" + split_str[2];
       $('#bookmark_delete_btn').attr('href', link_str);
+      /* -------------------- end ---------------------------- */
       
-      /* ============================= end =============================== */
-    });
+      /* オーバーレイ、モーダルウィンドウを表示 */
+      $('#overlay').css('display', 'block');
+      $('#modal_window').css('display', 'block');
+    }
+    /* ====================================================================== */
+    /*             オーバーレイ、モーダルウインドウを表示                     */
+    /* ============================== end =================================== */
     
+    
+    /* ====================================================================== */
+    /*     「キャンセル」、「削除」ボタンをクリックした時の動作               */
+    /* ============================= start ================================== */
     $('#modal_window_close_btn, #bookmark_delete_btn').on('click', function(){
+      
+      /* モーダルウィンドウ、オーバーレイ表示を閉じる */
       $('#overlay, #modal_window').css('display', 'none');
+      
+
+      /* 表示位置の設定                                            */
+      /* ※  固定表示していたモーダルウィンドウを閉じた際に        */
+      /*    ページの上部にスクロールされるため                     */
+      /*    scrollTop関数が効かないため、animate関数を利用         */      
+      var position = $(window).scrollTop();
+      $("body,html").animate({scrollTop:position}, 1, "linear");
     });
+    /* ============================== end =================================== */
     
     
-    
+    /* ====================================================================== */
+    /*         「お気に入り削除」ボタンをクリックした時の動作                 */
+    /* ============================= start ================================== */
+    $('.bookmark-area').on('click', function(){
+      /* オーバーレイ、モーダル表示 */
+      disp_overlay_modal();
+      
+      /* 表示位置の設定                                            */
+      /* ※ モーダルウィンドウを固定表示しているため、そのままでは */
+      /*    ページの上部にスクロールされるため                     */
+      /*    scrollTop関数が効かないため、animate関数を利用         */
+      var position = $(window).scrollTop();
+      $("body,html").animate({scrollTop:position}, 1, "linear");
+    });
+    /* ============================== end =================================== */
   });
 </script>
 
