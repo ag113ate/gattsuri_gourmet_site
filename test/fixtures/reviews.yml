@@ -4,12 +4,16 @@ one:
   vote_id: 1
   user_id: MyString
   store_id: MyString
-  comment: MyText
+  menu_name: MyString
+  comment: MyString
   total_score: 1.5
+  update_data: 2018-10-01 18:42:16
 
 two:
   vote_id: 1
   user_id: MyString
   store_id: MyString
-  comment: MyText
+  menu_name: MyString
+  comment: MyString
   total_score: 1.5
+  update_data: 2018-10-01 18:42:16

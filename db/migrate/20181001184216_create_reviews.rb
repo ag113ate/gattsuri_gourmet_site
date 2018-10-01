@@ -4,8 +4,10 @@ class CreateReviews < ActiveRecord::Migration
       t.column :vote_id, 'INTEGER PRIMARY KEY'
       t.string :user_id
       t.string :store_id
-      t.text :comment
+      t.string :menu_name
+      t.string :comment
       t.float :total_score
+      t.datetime :update_data
 
       t.timestamps
     end
