@@ -4,18 +4,30 @@ require "json"
 require "open-uri"
 require 'mini_magick'
 
+# ==============================================================================
+# 共通
+# ==============================================================================
 TIMEOUT_SEC = 10
 
+IMAGE_DL_DIR="./app/assets/images/store_img"
+# ==============================================================================
+
+# ==============================================================================
+# レストラン検索API
+# ==============================================================================
+REST_SEARCH_API_URI = "https://api.gnavi.co.jp/RestSearchAPI/v3/"
 HIT_PER_PAGE = 100
 FREE_WORD = "がっつり,ガッツリ"
 
-IMAGE_DL_DIR="./app/assets/images/store_img"
 GET_IMG_PARAMS = ["shop_image1", "shop_image2"]
 IMAGE_RESIZE_SIZE = "256x256!"
 
-# クエリの生成
-def create_query_params(pref_code, read_page_count)
-  params = URI.encode_www_form({
+MAX_REST_TOTAL_HIT_COUNT = 1000 # レストラン検索APIより、取得できる最大の店舗数
+# ==============================================================================
+
+# レストラン検索APIについてのクエリを取得
+def get_rest_api_query(pref_code, read_page_count)
+  query = URI.encode_www_form({
   keyid: ENV["GNAVI_API_KEY"],    # APIキー \
   pref: pref_code,                # 都道府県コード \
   hit_per_page: HIT_PER_PAGE,     # リクエスト1回のレスポンスデータ数 \
@@ -24,7 +36,7 @@ def create_query_params(pref_code, read_page_count)
   freeword: FREE_WORD,            # キーワード検索
   freeword_condition: 2})         # 複数のフリーワードをORで検索
   
-  return params
+  return query
 end
     
 # APIより取得した複数のレストラン情報をモデルへ登録
@@ -104,9 +116,23 @@ def save_restaurants_pict(restaurants)
   puts "" # 改行を行う
 end
 
-desc "ぐるなびAPIより、店舗情報を取得(引数には都道府県マスタ取得APIより取得したコードを設定)"
-task :read_store_info, ["pref_code"] => :environment do |task, args|
-  uri = URI.parse("https://api.gnavi.co.jp/RestSearchAPI/v3/")
+# 設定したURIのAPIのデータを読み込み後、ハッシュ情報を取得
+def get_hash_data(uri, https)
+  # APIデータの読み込み
+  res = nil
+  https.start do
+  	res = https.get(uri.request_uri)
+  end
+  
+  # 読み込んだデータをハッシュ化
+  hash_val = JSON.parse(res.body)
+  	
+  return hash_val	
+end
+
+def get_https_info(set_api_uri)
+  uri = URI.parse(set_api_uri)
+  
   https = Net::HTTP.new(uri.host, uri.port)
 
   https.open_timeout = TIMEOUT_SEC
@@ -116,28 +142,31 @@ task :read_store_info, ["pref_code"] => :environment do |task, args|
   https.verify_mode = OpenSSL::SSL::VERIFY_PEER
   https.verify_depth = 5
   
+  return uri, https
+end
+
+# レストラン検索APIにより、店舗情報、画像を取得
+def get_rest_search_api_data(pref_code)
+  
+  # 取得した店舗IDの格納変数（返却値）
+  # ※ この関数の後に実行する、応援口コミAPIのデータ取得に使用
+  store_ids = Array.new(MAX_REST_TOTAL_HIT_COUNT)
+  store_ids_cnt = 0
+  
+  # URI、httpsオブジェクトを取得
+  uri, https = get_https_info(REST_SEARCH_API_URI)
+  
   # 各情報の初期化
   first_read = true # 初回の読み込み処理かのフラグ（総ページ数の計算に必要）
   read_page_count = 1 # 読み込み回数
   total_page = 0 # 総ページ数（if文のみの記載だと不具合を起こすため、ここで一旦定義）
   
-  # 画像取得先のディレクトリを作成
-  if (Dir::exist?(IMAGE_DL_DIR) == false)
-    Dir::mkdir(IMAGE_DL_DIR)
-  end
-  
   loop do
   	# クエリを設定
-  	uri.query = create_query_params(args.pref_code, read_page_count)
+  	uri.query = get_rest_api_query(pref_code, read_page_count)
   	
-  	# APIデータの読み込み
-  	res = nil
-  	https.start do
-    	res = https.get(uri.request_uri)
-  	end
-  	
-  	# 読み込みデータをハッシュ化
-  	hash_val = JSON.parse(res.body)
+  	# ハッシュ情報を取得
+  	hash_val = get_hash_data(uri, https)
   	
     # 初回の読み込み時のみ以下処理を実行し、総ページ数を計算
   	if first_read == true
@@ -157,6 +186,12 @@ task :read_store_info, ["pref_code"] => :environment do |task, args|
   	# 画像を保存し、画像パスをモデルへ登録
   	save_restaurants_pict(restaurants)
   	
+  	# 読み込んだ店舗IDを保持
+  	restaurants.each do |restaurant|
+  	  store_ids[store_ids_cnt] = restaurant["id"]
+  	  store_ids_cnt += 1
+  	end
+  	
   	# ==============================
   	# 全ページを読み込んだ場合、終了
   	# ==============================
@@ -171,14 +206,19 @@ task :read_store_info, ["pref_code"] => :environment do |task, args|
   	read_page_count += 1
   end # loop
   
-end # task :get_store_info
-
-desc "モデル読み込み動作確認"
-task :test_model => :environment do
-  
-  stores = Store.all
-  
-  stores.each do |store|
-    puts store.name
-  end
+  return store_ids, store_ids_cnt
 end
+
+desc "ぐるなびのレストラン検索API、応援口コミAPIのデータを取得(引数には都道府県マスタ取得APIより取得したコードを設定)"
+task :get_gnavi_api_data, ["pref_code"] => :environment do |task, args|
+  
+  # 画像取得先のディレクトリを作成
+  # （レストラン検索API、応援口コミAPIより取得した画像の保存先）
+  if (Dir::exist?(IMAGE_DL_DIR) == false)
+    Dir::mkdir(IMAGE_DL_DIR)
+  end
+
+  # レストラン検索APIにより、店舗情報、画像を取得
+  store_ids, store_ids_cnt = get_rest_search_api_data(args.pref_code)
+  
+end # task :get_gnavi_api_data
