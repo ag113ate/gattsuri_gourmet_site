@@ -2,8 +2,10 @@
 
 one:
   store_id: MyString
+  vote_id: 1
   image_url: MyString
 
 two:
   store_id: MyString
+  vote_id: 1
   image_url: MyString
