@@ -5,15 +5,15 @@ one:
   user_id: MyString
   store_id: MyString
   menu_name: MyString
-  comment: MyString
+  comment: MyText
   total_score: 1.5
-  update_data: 2018-10-01 18:42:16
+  update_date: 2018-10-02 17:38:40
 
 two:
   vote_id: 1
   user_id: MyString
   store_id: MyString
   menu_name: MyString
-  comment: MyString
+  comment: MyText
   total_score: 1.5
-  update_data: 2018-10-01 18:42:16
+  update_date: 2018-10-02 17:38:40
