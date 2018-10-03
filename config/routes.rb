@@ -10,6 +10,12 @@ GattsuriGourmetSite::Application.routes.draw do
   post "users/login"
   post "users/logout"
   
+  get "reviews/new"
+  get "reviews/create"
+  get "reviews/:id" => "reviews#show"
+  get "reviews/edit"
+  get "reviews/delete"
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

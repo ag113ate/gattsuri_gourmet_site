@@ -1,0 +1,67 @@
+<%  reviews.each_with_index do |review, index|                                %>
+<%#   店舗は2段組で表示する                                                   %>
+<%    if (index % 2 == 0)                                                     %>
+        <ul>
+<%    end                                                                     %>
+          <li class="review-area">
+<%#         文字数が25文字以下の場合は中央表示とする                          %>            
+<%          center_put = (review.menu_name.length <= 25) ? 
+                                           ("center_put") : ("")              %>
+                                           
+            <div class= "review-page-menu-area <%= center_put %> " >
+<%=           review.menu_name                                                %>
+            </div>
+            
+            <div class="review-page-score-area">
+              <ul>
+<%              for loop in 1..5 do                                           %>
+                  <li>
+<%                  if (loop <= review.total_score)                           %>
+<%=                   image_tag("meat_color_all.png", class: "review-icon")   %>
+<%                  elsif ((loop - 0.5) <= review.total_score)                %>
+<%=                   image_tag("meat_color_half.png", class: "review-icon")  %>
+<%                  else                                                      %>
+<%=                   image_tag("meat_color_none.png", class: "review-icon")  %>
+<%                  end                                                       %>
+                  </li>
+<%              end                                                           %>
+              </ul>
+        
+              <div class="review-page-point-area">
+<%=             review.total_score                                            %>
+              </div>
+        
+            </div> <!-- review-page-score-area -->
+          
+            <div class="review-page-content-area clearfix">
+
+              <div class="review-page-img-area">
+<%=             image_tag("store_img/#{review.food_image.image_url}",
+                                                     class: "review-page-img")%>
+              </div>
+            
+              <div class="review_page_comment_area">
+<%=             review.comment                                                %>
+              </div>
+            
+            </div> <!-- review-page-content-area -->
+            
+            <div class="review-page-date-area">
+<%=           review.update_date.strftime("%Y年%m月%d日")                     %>              
+            </div>
+
+
+          </li> <!-- class="review-area" -->
+<%    if ((index % 2) == 1)                                                   %>
+        </ul>
+<%    end                                                                     %>
+
+<%  end   #   reviews.each_with_index do                                      %>
+
+<%# 「3, 5」など2で割り切れない口コミ数の場合、右側部分の要素が設定さていない
+      ため、空白の要素を作成する                                              %>
+<%    if ((reviews.count % 2) != 0)                                           %>
+        <li class="review-area-blank"></li></ul>
+<%    end                                                                     %>
+
+

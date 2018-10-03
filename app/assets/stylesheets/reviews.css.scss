@@ -1,0 +1,111 @@
+// Place all the styles related to the Reviews controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#review_page_top{
+  padding: 10px 0 10px 0;
+  position: fixed;
+  width: 1000px;
+  height: 25px;
+  
+  text-align: center;
+  font-size: large;
+  color: white;
+  
+  background: orange;
+}
+
+div#review_page_main{
+  margin: 60px 0 0 0;
+}
+
+.review-area{
+  width: 30%;
+  
+  display: table-cell;
+  
+  color: black;
+  
+  border: 1px solid rgb(91, 155, 213);
+
+  -moz-border-radius:5px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:5px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:5px; /* 角丸設定 */
+}
+
+.review-area-blank{
+  width: 30%;
+  
+  display: table-cell;
+}
+
+div#review_page_main ul{
+  display: table;
+  
+  border-collapse: separate;
+  border-spacing: 10px 10px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+div.review-page-content-area{
+  padding: 5px 0 5px 0;
+  
+  color: black;
+  
+  border-top: 1px dotted rgb(91, 155, 213);
+  border-bottom: 1px dotted rgb(91, 155, 213);
+}
+
+div.review-page-img-area{
+  display: inline-block;
+  width: 30%;
+  margin: 0 0 0 5px;
+}
+.review-page-img{
+  /* 親要素のサイズに合わせて、画像を表示          */
+  /* （Bootstrapのimg-responsiveクラスからの流用） */
+  display: block;
+  height: auto;
+  max-width: 100%;
+  
+  -moz-border-radius:5px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:5px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:5px; /* 角丸設定 */ 
+}
+
+div.review_page_comment_area{
+  display: inline-block;
+  font-size: small;
+  width: 65%;
+  float: right;
+  
+  //border: 1px solid red;
+}
+
+div.review-page-menu-area{
+  padding: 5px 0 5px 0;
+  
+  font-size: 15px;
+  color: white;
+  
+  background: rgb(91, 155, 213);
+}
+
+div.review-page-score-area li{
+  width: 18%;
+  padding: 0px 1px 0px 1px;
+  display: inline-block;
+}
+
+div.review-page-point-area{
+  text-align: center;
+}
+
+div.review-page-date-area{
+  text-align: center;
+}
+
+.center_put{
+  text-align: center
+}

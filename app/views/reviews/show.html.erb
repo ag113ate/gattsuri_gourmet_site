@@ -1,0 +1,12 @@
+<div id="review_page_top">
+<u><%= @store.name %></u>　の口コミ
+</div>
+
+<div id="review_page_main">
+<% if @store.reviews.count > 0 %>
+<%=   render :partial => "reviews_disp", locals: {reviews: @store.reviews} %>
+<% else %>
+<%=   render :partial => "reviews_none" %>
+<% end %>
+
+</div>  <!-- review_page_main -->
