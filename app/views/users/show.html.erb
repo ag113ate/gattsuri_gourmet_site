@@ -9,7 +9,7 @@
     /* ====================================================================== */
     /*          オーバーレイ、モーダルウインドウを表示                        */
     /* ================================ start =============================== */
-    function disp_overlay_modal(){
+    function disp_overlay_modal(_this){
       /* 表示領域の調整 */
       (function(){
         if ($('#modal_window').width() < 500){
@@ -22,7 +22,7 @@
       })();
       
       /* 表示位置の設定　*/
-      (function(){
+      (function(_this){
         /* ページの真中に表示されるよう、左、上位置を設定 */
         var left = ($(window).width()  - $('#modal_window').width() ) / 2;
         var top  = ($(window).height() - $('#modal_window').height()) / 2;
@@ -37,7 +37,7 @@
       })();
 
       /* 対象店舗の表示位置を取得　*/
-      var index = $('.bookmark-area').index(this);
+      var index = $('.bookmark-area').index(_this);
       
       /* 店舗名の表示 */
       $store_name_area = $("[id^='store_area_']").eq(index).find('.store-name-area');
@@ -71,7 +71,6 @@
     /*     「キャンセル」、「削除」ボタンをクリックした時の動作               */
     /* ============================= start ================================== */
     $('#modal_window_close_btn, #bookmark_delete_btn').on('click', function(){
-      
       /* モーダルウィンドウ、オーバーレイ表示を閉じる */
       $('#overlay, #modal_window').css('display', 'none');
       
@@ -91,7 +90,7 @@
     /* ============================= start ================================== */
     $('.bookmark-area').on('click', function(){
       /* オーバーレイ、モーダル表示 */
-      disp_overlay_modal();
+      disp_overlay_modal(this);
       
       /* 表示位置の設定                                            */
       /* ※ モーダルウィンドウを固定表示しているため、そのままでは */
