@@ -16,27 +16,29 @@
   
   <div id="header">
     <div id="header_area">
-      <div id="header_logo"><%= link_to "がっつりグルメ", root_path, class: "btn" %></div>
+      <%# 口コミの一覧画面では表示しない %>
+      <% if !((controller.controller_name == "reviews") && (controller.action_name == "show")) %>
+        <div id="header_logo"><%= link_to "がっつりグルメ", root_path, class: "btn" %></div>
       
-      <div id="notice_msg"><%= flash[:notice] %> </div>
-      <%= @user_id %>
-      <div id="gnavi">
-        <ul>
-          <% if (logined? == true) %>
-            <li><%= link_to "マイページ",           "/users/#{session[:user_id]}", class: "btn" %> </li>
-          <% else %>
-            <li><%= link_to "ログイン",             "/users/", class: "btn" %> </li>
-          <% end %>
-          <li><%= link_to "がっつりグルメについて", "#", class: "btn" %></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+        <div id="notice_msg"><%= flash[:notice] %> </div>
+        <%= @user_id %>
+        <div id="gnavi">
+          <ul>
+            <% if (logined? == true) %>
+              <li><%= link_to "マイページ",           "/users/#{session[:user_id]}", class: "btn" %> </li>
+            <% else %>
+              <li><%= link_to "ログイン",             "/users/", class: "btn" %> </li>
+            <% end %>
+            <li><%= link_to "がっつりグルメについて", "#", class: "btn" %></li>
+          </ul>
+        </div> <!-- gnavi -->
+      <% end %> <%# if !((@path[:controller] == "reviews") && (@path[:action] == "show")) %>
+    </div> <!-- header_area -->
+  </div> <!-- header -->
   
   <div id="container_area" class="clearfix">
     <%= yield %>
   </div>
-  
   
   <div id="footer">
     <div id="footer_area" class="clearfix">
@@ -45,16 +47,18 @@
         <img src="https://api.gnavi.co.jp/api/img/credit/api_155_20.gif" 
           width="155" height="20" border="0" alt="グルメ情報検索サイト　ぐるなび">
         </a>
-      </div>
+      </div> <!-- credit -->
       
-      <div id="footer_nav">
-        <ul>
-          <li><%= link_to "利用規約",             "#", class: "btn" %></li>
-          <li><%= link_to "プライバシーポリシー", "#", class: "btn" %></li>
-        </ul>
-      </div>
-      
-    </div>
-  </div>
+      <%# 口コミの一覧画面では表示しない %>
+      <% if !((controller.controller_name == "reviews") && (controller.action_name == "show")) %>
+        <div id="footer_nav">
+          <ul>
+            <li><%= link_to "利用規約",             "#", class: "btn" %></li>
+            <li><%= link_to "プライバシーポリシー", "#", class: "btn" %></li>
+          </ul>
+        </div> <!-- footer_nav -->
+      <% end %>
+    </div> <!-- footer_area -->
+  </div> <!-- footer -->
 </body>
 </html>
