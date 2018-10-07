@@ -2,6 +2,7 @@ GattsuriGourmetSite::Application.routes.draw do
   root 'gourmet_sites#top'
   
   get "gourmet_sites/disp_search_result"
+  get "gourmet_sites/select_city"
   
   post   "gourmet_sites/bookmark/:id" => "gourmet_sites#add_bookmark"
   delete "gourmet_sites/bookmark/:id" =>"gourmet_sites#del_bookmark"
@@ -10,12 +11,13 @@ GattsuriGourmetSite::Application.routes.draw do
   post "users/login"
   post "users/logout"
   
-  get "reviews/new"
-  get "reviews/create"
+  # resources :reviews
+  get "reviews/new/:id" => "reviews#new"
   get "reviews/:id" => "reviews#show"
   get "reviews/edit"
   get "reviews/delete"
   
+  post "reviews/:id" => "reviews#create"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

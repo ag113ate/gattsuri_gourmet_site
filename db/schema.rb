@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181002173840) do
+ActiveRecord::Schema.define(version: 20181006093234) do
 
   create_table "bookmark_stores", force: true do |t|
     t.string   "user_id"
@@ -28,8 +28,17 @@ ActiveRecord::Schema.define(version: 20181002173840) do
     t.datetime "updated_at"
   end
 
-  create_table "reviews", id: false, force: true do |t|
-    t.integer  "vote_id"
+  create_table "input_reviews", primary_key: "vote_id", force: true do |t|
+    t.string   "menu_name"
+    t.text     "comment"
+    t.float    "total_score"
+    t.string   "image"
+    t.string   "change_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reviews", primary_key: "vote_id", force: true do |t|
     t.string   "user_id"
     t.string   "store_id"
     t.string   "menu_name"
