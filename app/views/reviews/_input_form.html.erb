@@ -1,0 +1,89 @@
+<script type="text/javascript">
+  $(function(){
+    $("#input_review_total_score").change(function(){
+      var score = $('#input_review_total_score').val();
+      var img_list = $("#input_review_score_disp img");
+      
+      if (score != ''){
+        /* ========================================== */
+        /* 評価が選択された場合は、対応する画像を表示 */
+        /* ========================================== */
+        for (var loop1 = 1; loop1 <= img_list.length; loop1++){
+          img = img_list.eq(loop1 - 1);
+          
+          img.removeClass('disp_none');
+  
+          if (loop1 <= score){
+            img.attr('src', '/assets/meat_color_all.png');
+          }
+          else if((loop1 - 0.5) <= score){
+            img.attr('src', '/assets/meat_color_half.png');
+          }
+          else{
+            img.attr('src', '/assets/meat_color_none.png');
+          }
+        }
+        /* ========================================== */
+      }else{
+        /* 未選択となった場合は、画像を非表示 */
+        for (var loop1 = 0; loop1 < img_list.length; loop1++){
+          img_list.eq(loop1).addClass('disp_none');
+        }
+      }
+    });
+  });
+</script>
+
+<div id="input_review_area">
+  <%= form_for(@input_review, url: "/reviews/#{@store.store_id}") do |f| %>
+    <% if @input_review.errors.any? %>
+      <div id="input_review_erros_msg">
+        <span id="input_review_erros_msg_title">
+          <%= @input_review.errors.count %> 個のエラーがあります。
+          </span>
+      
+        <ul>
+          <% @input_review.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div> <!-- input_review_erros_msg -->
+    <% end %>
+    
+    <div class="input-review-component">
+      <%= f.label :menu_name %><br>
+      <%= f.text_field :menu_name %><br>
+    </div> <!-- input-review-component -->
+    
+    <div id="input_review_score_disp" class="input-review-component">
+      <%= f.label :total_score %><br>
+      <%= f.select :total_score, 
+                    [["---", ""],
+                     [0.5, 0.5], [1.0, 1.0], [1.5, 1.5], [2.0, 2.0],
+                     [2.5, 2.5], [3.0, 3.0], [3.5, 3.5], [4.0, 4.0],
+                     [4.5, 4.5], [5.0, 5.0]] %><br>
+      
+      
+      <ul>
+        <li><%= image_tag("meat_color_all.png",  class: "review-icon disp_none") %></li>
+        <li><%= image_tag("meat_color_half.png", class: "review-icon disp_none") %></li>
+        <li><%= image_tag("meat_color_none.png", class: "review-icon disp_none") %></li>
+        <li><%= image_tag("meat_color_none.png", class: "review-icon disp_none") %></li>
+        <li><%= image_tag("meat_color_none.png", class: "review-icon disp_none") %></li>
+      </ul>
+    </div> <!-- input_review_score_disp, input-review-component -->
+    
+    <div id="input_review_image_area" class="input-review-component">
+      <%= f.label :image %><br>
+      <%= f.file_field :image %>
+    </div> <!-- input-review-component -->
+    
+    <div id="input_review_comment_area" class="input-review-component">
+      <%= f.label :comment %><br>
+      <%= f.text_area :comment %>
+    </div> <!-- input-review-component -->
+    
+    <%= f.submit %>
+    
+  <% end %>
+</div> <!-- input_review_area -->

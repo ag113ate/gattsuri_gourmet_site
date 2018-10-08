@@ -36,8 +36,11 @@
             <div class="review-page-content-area clearfix">
 
               <div class="review-page-img-area">
-<%=             image_tag("store_img/#{review.food_image.image_url}",
-                                                     class: "review-page-img")%>
+<%#             投稿に画像が含まれている場合のみ、表示                        %>
+<%              if review.food_image != nil %>
+<%=               image_tag("store_img/#{review.food_image.image_url}",
+                                                class: "review-page-img")     %>
+<%              end                                                           %>
               </div>
             
               <div class="review_page_comment_area">

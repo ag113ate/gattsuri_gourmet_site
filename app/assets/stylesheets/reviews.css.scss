@@ -114,20 +114,51 @@ div#input_review_area{
   margin-left: auto;
   margin-right: auto;
   
+  padding: 10px;
   width: 70%;
   
+  color: black;
   font-size: 20px;
   text-align: center;
   
-  border: 1px solid rgb(91, 155, 213);
+  border: 2px solid rgb(91, 155, 213);
   
   -moz-border-radius:10px;/* Firefox用の角丸設定 */
   -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
   border-radius:10px; /* 角丸設定 */
 }
 
+div#input_review_erros_msg{
+  margin: 0 0 15px 0;
+  padding: 5px;
+  //color: white;
+  
+  //background: rgb(91, 155, 213);
+  border-bottom: 3px dotted rgb(91, 155, 213);
+  //display: inline-block;
+  
+  // -moz-border-radius:5px;/* Firefox用の角丸設定 */
+  // -webkit-border-radius:5px; /* Safari,Google Chrome用の角丸設定 */
+  // border-radius:5px; /* 角丸設定 */
+}
+
+#input_review_erros_msg_title{
+  padding: 0 5px 0 5px;
+  
+  color: white;
+  background: rgb(91, 155, 213);
+  
+  -moz-border-radius:5px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:5px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:5px; /* 角丸設定 */
+  
+}
 div.input-review-component{
-  margin: 0 0 10px 0;
+  padding: 0 0 10px 0;
+  
+  border: 1px dotted rgb(91, 155, 213);
+  
+  box-sizing: border-box;
 }
 
 #input_review_menu_name{
@@ -136,8 +167,6 @@ div.input-review-component{
 }
 
 #input_review_total_score{
- margin: 0 0 5px 0;
- 
  width: 50px;
  height: 30px;
  
@@ -146,17 +175,30 @@ div.input-review-component{
  vertical-align: top;
 }
 
-// div#input_review_score_disp{
-//   width: 70%;
-// }
+div#input_review_score_disp{
+  width: 55%;
+  height: 160px;
+  float: left;
+}
 
 div#input_review_score_disp ul{
+  margin: 10px 0 0 0;
   display: inline-block;
-  width: 50%;
+  width: 90%;
 }
 div#input_review_score_disp li{
   display: inline-block;
   width: 18%;
+}
+
+div#input_review_image_area{
+  width: 45%;
+  height: 160px;
+  float: left;
+}
+
+div#input_review_comment_area{
+  clear: both;
 }
 
 #input_review_comment{
