@@ -94,6 +94,72 @@ class ReviewsController < ApplicationController
     
     redirect_to("/users/#{session[:user_id]}", notice: "口コミを投稿しました")
   end
+  
+  def update
+    @store = Store.find_by(store_id: params[:store_id])
+    
+    @input_review = InputReview.find_by(vote_id: params[:vote_id])
+    
+    @input_review.valid?
+    # 「InputReviewモデル」のレコード情報は「Review」モデルに、全て含まれている
+    #  想定だが、エラーによる処理の途中終了などに備え、両モデルに対してチェックを行う
+    if ((@input_review.errors["image"].blank? == true) \
+        && (@input_review.image.present? == true))
+      # ファイル形式を取得
+      file_exts = [".jpg", ".jpeg", ".gif", ".png"]
+      target_ext = file_exts.each do |file_ext| 
+        if (@input_review.image_url.match(/#{file_ext}$/) != nil)
+          break file_ext
+        end
+      end
+      
+      # お店画像フォルダへ保存するファイル名を設定
+      dst_img_file_name = "#{@store.store_id}_#{@input_review.vote_id}#{target_ext}"
+    end
+    
+    # DBへ更新
+    if (@input_review.update(input_review_params) == true)
+      
+    else
+      render(action: "edit")
+      return;
+    end
+    
+    # ===========================================
+    #        Reviewモデルのレコードを更新
+    # ===========================================
+    review = Review.find_by(vote_id: params[:vote_id])
+    
+    review.menu_name   = @input_review.menu_name
+    review.comment     = @input_review.comment
+    review.total_score = @input_review.total_score
+    review.update_date = @input_review.updated_at
+    review.updated_at   = @input_review.updated_at
+    
+    puts "********************* #{review.menu_name} ***************"
+    review.save
+    # ===========================================
+    
+    # 画像がある場合のみ画像をコピーし、モデルへ登録
+    # （画像投稿では必須ではない）
+    if (@input_review.image.present? == true)
+      # お店画像フォルダへ画像をコピー
+      dst_path = "./app/assets/images/store_img/#{dst_img_file_name}"
+      FileUtils.cp("./public/#{@input_review.image_url}", dst_path)
+      
+      # ===========================================
+      #       FoodImageモデルのレコードを更新
+      # ===========================================
+      food_image = FoodImage.find_by(vote_id: params[:vote_id])
+      
+      food_image.image_url = dst_img_file_name
+      
+      food_image.save
+      # ===========================================
+    end 
+    
+    redirect_to("/users/#{session[:user_id]}", notice: "口コミを更新しました")
+  end
 
   def show
     @store = Store.find_by(store_id: params[:store_id])
