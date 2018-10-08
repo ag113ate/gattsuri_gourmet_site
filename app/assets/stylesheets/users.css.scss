@@ -50,15 +50,120 @@ div#mypage_title{
   color: white;
 }
 
-div#bookmark_title{
-  margin: 10px 0 0 0;
+div#bookmark_title, div#show_review_title{
+  margin: 50px 0 0 10px;
   
-  //border-bottom: 1px dotted orange;
-  border-bottom: 1px dotted red;
-  //background-color: red;//rgb(91, 155, 213);
+  //border-bottom: 1px dotted red;
+  border: 2px dotted red;
   
   font-size: large;
   text-align: center;
+}
+
+
+div[id^="show_review_vote_"]{
+  margin: 10px 0 0 10px;
+  background-color: rgb(91, 155, 213);
+  color: white;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+div.show-review-store-title{
+  text-align: center;
+  
+  background: orange;
+  
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+}
+
+div.show-review-menu-name{
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  width: 70%;
+  
+  font-size: large;
+  text-align: center;
+  
+  border-bottom: 1px dotted white;
+}
+
+div.show-review-content{
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  width: 90%;
+  
+  padding: 5px;
+}
+
+div.show-review-content-left-side{
+  width: 30%;
+  float: left;
+}
+
+div.show-review-score{
+  padding: 10px;
+  // border: 1px solid orange;
+  
+  // -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  // -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  // border-radius:10px; /* 角丸設定 */  
+}
+
+div.show-review-score ul{
+  text-align: center;
+}
+
+div.show-review-score li{
+  width: 10%;
+
+  vertical-align: bottom;
+  
+  display: inline-block;
+}
+
+div.show-review-image{
+}
+
+div.show-review-right-side{
+  padding: 5px;
+  
+  width: 60%;
+  float: right;
+  
+  border: 1px solid orange;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+div.show-review-date{
+  text-align: right;
+  font-size: small;
+}
+
+div.show-review-footer{
+  padding: 10px 0 10px 10px;
+
+  border-top: 1px dotted white;
+}
+
+div.show-review-footer li{
+  margin: 0 0 0 15px;
+  
+  display: inline-block;
+}
+.target_store_all_review{
+  padding: 0 10px 0 0;
+  float: right;
 }
 
 div#user_info{
@@ -146,4 +251,8 @@ div#modal_window_select_area{
 
 div#modal_window_select_area li{
   display: inline-block;
+}
+
+.border-dotted{
+  border: 1px dotted white;
 }

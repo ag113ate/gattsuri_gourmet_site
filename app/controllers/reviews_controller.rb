@@ -1,12 +1,12 @@
 class ReviewsController < ApplicationController
   def new
-    @store = Store.find_by(store_id: params[:id])
+    @store = Store.find_by(store_id: params[:store_id])
     @input_review = InputReview.new
     
   end
 
   def create
-    @store = Store.find_by(store_id: params[:id])
+    @store = Store.find_by(store_id: params[:store_id])
     
     @input_review = InputReview.new(input_review_params)
     
@@ -61,7 +61,7 @@ class ReviewsController < ApplicationController
     review = Review.new
     
     review.vote_id     = @input_review.vote_id
-    review.user_id     = session[:use_id]
+    review.user_id     = session[:user_id]
     review.store_id    = @store.store_id
     review.menu_name   = @input_review.menu_name
     review.comment     = @input_review.comment
@@ -96,10 +96,14 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    @store = Store.find_by(store_id: params[:id])
+    @store = Store.find_by(store_id: params[:store_id])
   end
 
   def edit
+    review = Review.find_by(vote_id: params[:vote_id])
+    @store = review.store
+    
+    @input_review = InputReview.find_by(vote_id: params[:vote_id])
   end
 
   def delete

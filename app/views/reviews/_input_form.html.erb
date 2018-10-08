@@ -35,7 +35,14 @@
 </script>
 
 <div id="input_review_area">
-  <%= form_for(@input_review, url: "/reviews/#{@store.store_id}") do |f| %>
+  <% if ((controller.controller_name == "reviews") && (controller.action_name == "new")) %>
+  <%#  新規作成の場合                                                                    %>
+  <%   url = "/reviews/#{@store.store_id}"                                               %>
+  <% else                                                                                %>
+  <%   url = "/reviews/#{@store.store_id}/#{@input_review.vote_id}"                      %>
+  <% end                                                                                 %>
+  <%#= form_for(@input_review, url: "/reviews/#{@store.store_id}") do |f| %>
+  <%= form_for(@input_review, url: url) do |f| %>
     <% if @input_review.errors.any? %>
       <div id="input_review_erros_msg">
         <span id="input_review_erros_msg_title">

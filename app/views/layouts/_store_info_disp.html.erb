@@ -55,6 +55,7 @@
     <div class="store-image-area">
       <% store.food_images.each do |image| %>
         <%= image_tag("store_img/#{image.image_url}", class: "img-param") %>
+        <%#= image_tag("#{image.image_url}", class: "img-param") %>
       <% end %>
     </div>
     
@@ -98,8 +99,10 @@
   
   <div class="store-bottom-area clearfix">
     <ul>
-      <li><%= link_to "口コミを見る"  , "/reviews/#{store.store_id}", class: "btn", target: "blank" %></li>
-      <li><%= link_to "口コミを書く"  , "#", class: "btn" %></li>
+      <li><%= link_to "口コミを見る"  , "/reviews/#{store.store_id}",
+                                        class: "btn", target: "blank" %></li>
+      <li><%= link_to "口コミを書く"  , "/reviews/#{store.store_id}/new",
+                                        class: "btn" %></li>
       <li><%= link_to "ぐるなびページへ", store.shop_url, \
                              class: "btn", target: "_blank" %></li>
     </ul>
