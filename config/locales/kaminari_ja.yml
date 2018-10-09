@@ -12,6 +12,6 @@ ja:
         display_entries:
           zero: "店舗が見つかりませんでした"
           one: "<b>1</b> / 1 店舗"
-          other: "%{first}&nbsp;～&nbsp;%{last} 店舗"
+          other: "1&nbsp;～&nbsp;%{count} 店舗"
       more_pages:
         display_entries: "%{first}&nbsp;～&nbsp;%{last} 店舗"
