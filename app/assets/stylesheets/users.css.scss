@@ -52,14 +52,19 @@ div#mypage_title{
 
 div#bookmark_title, div#show_review_title{
   margin: 50px 0 0 10px;
-  
   //border-bottom: 1px dotted red;
-  border: 2px dotted red;
+  //border: 2px solid white;
+
+  background: orange;//rgb(91, 155, 213);
   
+  color: white;
   font-size: large;
   text-align: center;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
 }
-
 
 div[id^="show_review_vote_"]{
   margin: 10px 0 0 10px;

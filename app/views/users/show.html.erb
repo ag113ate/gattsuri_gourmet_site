@@ -101,6 +101,90 @@
     });
     /* ============================== end =================================== */
   });
+  
+  function getPosition($selector){
+    offset_top = $selector.offset().top +  $selector.outerHeight();
+    
+    pos_left = $selector.offset().left;
+    pos_top = $('#header').height();
+    
+    width = $selector.width();
+    
+    margin = $selector.css('margin');
+    
+    var obj = {
+      offset_top: offset_top,
+      
+      pos_left: pos_left,
+      pos_top: pos_top,
+      
+      width: width,
+      
+      margin: margin}
+      
+    return obj;
+  }
+  
+  function setFixedDisp($selector, obj){
+    console.log("abcedfg");
+    $selector.css('position', 'fixed');
+    $selector.css('width', obj.width);
+    $selector.css('left', obj.pos_left);
+    $selector.css('top', obj.pos_top);
+    $selector.css('margin', '0 0 0 0');
+    $selector.css('z-index', 20);
+    
+    $selector.css('-webkit-border-radius','0px');
+    $selector.css('-moz-border-radius', '0px');
+    $selector.css('border-radius', '0px');
+  }
+  
+  function unsetFixedDisp($selector, obj){
+    console.log('b');
+    $selector.css('position', '');
+    $selector.css('width', '');
+    $selector.css('left', '');
+    $selector.css('top', '');
+    $selector.css('margin', obj.margin);
+    $selector.css('z-index', '');
+    
+    $selector.css('-webkit-border-radius','10px');
+    $selector.css('-moz-border-radius', '10px');
+    $selector.css('border-radius', '10px');
+  }
+  
+  $(window).on('load', function(){
+    /* 「お気に入り店舗一覧」タイトルについて     */
+    var $bookmark_title = $('#bookmark_title');
+    console.log("*********************");
+    var bookmark_title_obj = getPosition($bookmark_title);
+    
+    /* 「投稿口コミ一覧」タイトルについて */
+    $show_review_title = $('#show_review_title');
+    show_review_title_obj = getPosition($show_review_title);
+    
+    
+    $(window).scroll(function(){
+      window_top = ($(window).scrollTop());
+      // 「お気に入り店舗一覧」タイトルについて
+      if (((window_top + bookmark_title_obj.pos_top) > bookmark_title_obj.offset_top) &&
+           (window_top < (show_review_title_obj.offset_top - 300))){
+        setFixedDisp($bookmark_title, bookmark_title_obj);
+      }
+      else{
+        unsetFixedDisp($bookmark_title, bookmark_title_obj);
+      }
+      
+      // 「投稿口コミ一覧」タイトルについて
+      if ((window_top + show_review_title_obj.pos_top) > show_review_title_obj.offset_top){
+        setFixedDisp($show_review_title, show_review_title_obj);
+      }
+      else{
+        unsetFixedDisp($show_review_title, show_review_title_obj);
+      }
+    });
+    
+  });
 </script>
 
 <div id="modal_window">
@@ -186,7 +270,9 @@
         
         <div class="show-review-footer">
           <ul>
-            <li><%= link_to("口コミを編集", "#",  class: "btn") %></li>
+            <li><%= link_to("口コミを編集",
+                       "/reviews/#{review.store_id}/#{review.vote_id}/edit",
+                       class: "btn") %></li>
             <li><%= link_to("口コミを削除", "#",  class: "btn") %></li>
             <li class="target_store_all_review"><%= link_to("この店舗の口コミをすべて見る", 
               "/reviews/#{review.store.store_id}", class: "btn", target: "blank") %></li>
@@ -208,6 +294,8 @@
       <div class="user_info_element_title">
         お気に入り店舗
       </div>
+      <%# store_area %>
+      <%= link_to("お気に入り店舗", {anchor: "store_area^="}) %>
       <div id="bookmark_count_disp", class="user_info_element_count">
         <%= @user.bookmark_stores.count %> 店舗
       </div>
