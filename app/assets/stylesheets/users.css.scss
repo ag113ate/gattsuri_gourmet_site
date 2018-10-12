@@ -115,11 +115,6 @@ div.show-review-content-left-side{
 
 div.show-review-score{
   padding: 10px;
-  // border: 1px solid orange;
-  
-  // -moz-border-radius:10px;/* Firefox用の角丸設定 */
-  // -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
-  // border-radius:10px; /* 角丸設定 */  
 }
 
 div.show-review-score ul{
@@ -219,7 +214,7 @@ div#user_info_navi li{
 }
 
 
-div#modal_window{
+div#bookmark_modal{
   width: 50%;
   height: 30%;
   
@@ -235,29 +230,67 @@ div#modal_window{
   
   position: fixed;
   display: none;
-  z-index: 12;
+  z-index: 40;
 }
 
-div#modal_window_store_title{
+div#bookmark_modal_title{
   margin-top: 20px;
 }
 
-div#modal_window_store_title span{
+div#bookmark_modal_title span{
   border: 1px solid red;
   
   padding: 2px;
 }
 
-div#modal_window_select_area{
+div#bookmark_modal_select_area{
   margin: 50px 0 0 0;
 
   display: inline-block;
 }
 
-div#modal_window_select_area li{
+div#bookmark_modal_select_area li{
   display: inline-block;
 }
 
+div#review_modal{
+  /* 幅はjQueryにより設定 */
+
+  background: white;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+  
+  text-align: center;
+  
+  position: fixed;
+  display: none;
+  z-index: 40;
+}
+
+
 .border-dotted{
   border: 1px dotted white;
+}
+
+div#review_modal_info_disp{
+  margin: 0 auto 20px auto;
+
+  /* 幅はjQueryにより設定 */
+ 
+ color: white; 
+ background-color: rgb(91, 155, 213);
+ 
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+}
+
+div#review_modal_select_area{
+  margin: 10px 0 10px 0;
+  
+  font-size: large;
+}
+div#review_modal_select_area li{
+  display: inline-block;
 }

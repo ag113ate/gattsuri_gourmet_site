@@ -54,7 +54,7 @@
       <li><%= link_to("口コミを編集",
                "/reviews/#{review.store_id}/#{review.vote_id}/edit",
                class: "btn") %></li>
-      <li><%= link_to("口コミを削除", "#",  class: "btn") %></li>
+      <li><%= link_to("口コミを削除", "#",  class: "btn review_delete_btn") %></li>
       <li class="target_store_all_review"><%= link_to("この店舗の口コミをすべて見る", 
         "/reviews/#{review.store.store_id}", class: "btn", target: "blank") %></li>
     </ul>

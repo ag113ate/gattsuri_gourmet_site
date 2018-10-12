@@ -32,7 +32,7 @@ div#overlay{
   background-color: rgba(0, 0, 0, 0.3);
   
   display: none;
-  z-index: 11;
+  z-index: 30;
 }
 
 div#header{

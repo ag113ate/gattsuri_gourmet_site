@@ -7,33 +7,33 @@
     
     
     /* ====================================================================== */
-    /*          オーバーレイ、モーダルウインドウを表示                        */
+    /*          お気に入り店舗の削除確認画面の表示                            */
     /* ================================ start =============================== */
     function disp_bookmark_delete_confirm(_this){
       /* 表示領域の調整 */
       (function(){
-        if ($('#modal_window').width() < 500){
-          $('#modal_window').css('width', '500');
+        if ($('#bookmark_modal').width() < 500){
+          $('#bookmark_modal').css('width', '500');
         }
     
-        if ($('#modal_window').height() < 200){
-          $('#modal_window').css('height', '200');
+        if ($('#bookmark_modal').height() < 200){
+          $('#bookmark_modal').css('height', '200');
         }
       })();
       
       /* 表示位置の設定　*/
       (function(_this){
         /* ページの真中に表示されるよう、左、上位置を設定 */
-        var left = ($(window).width()  - $('#modal_window').width() ) / 2;
-        var top  = ($(window).height() - $('#modal_window').height()) / 2;
+        var left = ($(window).width()  - $('#bookmark_modal').width() ) / 2;
+        var top  = ($(window).height() - $('#bookmark_modal').height()) / 2;
       
         /* トップ、レフトの位置とも0以上とする                               */
         /* （モーダルウィンドウのサイズ > 表示サイズ）となっている場合の対策 */
         left = (left >= 0) ? (left) : (0);
         top = (top >= 0) ? (top) : (0);
         
-        $('#modal_window').css('left', left);
-        $('#modal_window').css('top', top);
+        $('#bookmark_modal').css('left', left);
+        $('#bookmark_modal').css('top', top);
       })();
 
       /* 対象店舗の表示位置を取得　*/
@@ -41,7 +41,7 @@
       
       /* 店舗名の表示 */
       $store_name_area = $("[id^='store_area_']").eq(index).find('.store-name-area');
-      $('#modal_window_store_title span').text($store_name_area.text());
+      $('#bookmark_modal_title span').text($store_name_area.text());
       
       /* ----------------------------------------------------- */
       /*        「削除」ボタンのリンク先を作成                 */
@@ -60,20 +60,93 @@
       
       /* オーバーレイ、モーダルウィンドウを表示 */
       $('#overlay').css('display', 'block');
-      $('#modal_window').css('display', 'block');
+      $('#bookmark_modal').css('display', 'block');
     }
     /* ====================================================================== */
-    /*             オーバーレイ、モーダルウインドウを表示                     */
+    /*          お気に入り店舗の削除確認画面の表示                            */
     /* ============================== end =================================== */
     
     
     /* ====================================================================== */
+    /*               投稿口コミの削除確認画面の表示                           */
+    /* ================================ start =============================== */
+    function disp_review_delete_confirm(_this){
+      
+      /* 対象となるレビュー情報をモーダルウィンドゥ内に設定 */
+      (function(_this){
+        var index = $('.review_delete_btn').index(_this);
+        var $target_review = $("[id^='show_review_vote_']").eq(index);
+        
+        /* 40pxの余白を設定（左右：20pxずつ） */
+        $('#review_modal_info_disp').width($target_review.width());
+        $('#review_modal').width($target_review.width() + 20);
+        
+        /* レビュー情報をモーダルウィンドウ内に設定 */
+        var html_data = $target_review.html();
+        $('#review_modal_info_disp').html(html_data);
+        
+        /* フッター部分（「口コミを編集」、「口コミを削除」等のボタン）は不要 */
+        $('#review_modal .show-review-footer').remove();
+        $('#review_modal .show-review-footer').css('display', 'none');
+        
+      })(_this);
+      
+      /* 表示位置の設定　*/
+      (function(_this){
+        /* ページの真中に表示されるよう、左、上位置を設定 */
+        var left = ($(window).width()  - $('#review_modal').width() ) / 2;
+        var top  = ($(window).height() - $('#review_modal').height()) / 2;
+      
+        /* トップ、レフトの位置とも0以上とする                               */
+        /* （モーダルウィンドウのサイズ > 表示サイズ）となっている場合の対策 */
+        left = (left >= 0) ? (left) : (0);
+        top = (top >= 0) ? (top) : (0);
+        
+        $('#review_modal').css('left', left);
+        $('#review_modal').css('top', top);
+      })();
+
+      // # /* 店舗名の表示 */
+      // # $store_name_area = $("[id^='store_area_']").eq(index).find('.store-name-area');
+      // # $('#bookmark_modal_title span').text($store_name_area.text());
+      
+      // # /* ----------------------------------------------------- */
+      // # /*        「削除」ボタンのリンク先を作成                 */
+      // # /* ------------------- start---------------------------- */
+      
+      // # /* 店舗IDを取得                                          */
+      // # /* 例： str = split('store_area_gec0501')                */
+      // # /*      str[0] => store, str[1] => area,                 */
+      // # /*      str[2] => gec0501                                */
+      // # split_str = $("[id^='store_area_']").eq(index).attr('id').split('_');
+      
+      // # /* リンクの設定 */
+      // # link_str = "/gourmet_sites/bookmark/" + split_str[2];
+      // # $('#bookmark_delete_btn').attr('href', link_str);
+      // # /* -------------------- end ---------------------------- */
+      
+      /* オーバーレイ、モーダルウィンドウを表示 */
+      $('#overlay').css('display', 'block');
+      $('#review_modal').css('display', 'block');
+    }
+    /* ====================================================================== */
+    /*          お気に入り店舗の削除確認画面の表示                            */
+    /* ============================== end =================================== */
+    
+    /* ====================================================================== */
     /*     「キャンセル」、「削除」ボタンをクリックした時の動作               */
     /* ============================= start ================================== */
-    $('#modal_window_close_btn, #bookmark_delete_btn').on('click', function(){
+    $('#modal_window_close_btn, #bookmark_delete_btn #review_delete_btn').on('click', function(){
       /* モーダルウィンドウ、オーバーレイ表示を閉じる */
-      $('#overlay, #modal_window').css('display', 'none');
+      $('#overlay').css('display', 'none');
       
+      /* 「お気に入り店舗」、あるいは「投稿口コミ」表示されている方の */
+      /* モーダルウィンドウを閉じる                                   */
+      if ($('#bookmark_modal').css('display') == 'block'){
+        $('#bookmark_modal').css('display', 'none');
+      }else if($('#review_modal').css('display') == 'block'){
+        $('#review_modal').css('display', 'none');
+      }
 
       /* 表示位置の設定                                            */
       /* ※  固定表示していたモーダルウィンドウを閉じた際に        */
@@ -91,6 +164,22 @@
     $('.bookmark-area').on('click', function(){
       /* オーバーレイ、モーダル表示 */
       disp_bookmark_delete_confirm(this);
+      
+      /* 表示位置の設定                                            */
+      /* ※ モーダルウィンドウを固定表示しているため、そのままでは */
+      /*    ページの上部にスクロールされるため                     */
+      /*    scrollTop関数が効かないため、animate関数を利用         */
+      var position = $(window).scrollTop();
+      $("body,html").animate({scrollTop:position}, 1, "linear");
+    });
+    /* ============================== end =================================== */
+    
+    /* ====================================================================== */
+    /*         「口コミを削除」ボタンをクリックした時の動作                   */
+    /* ============================= start ================================== */
+    $('.review_delete_btn').on('click', function(){
+      /* オーバーレイ、モーダル表示 */
+      disp_review_delete_confirm(this);
       
       /* 表示位置の設定                                            */
       /* ※ モーダルウィンドウを固定表示しているため、そのままでは */
@@ -187,10 +276,10 @@
   });
 </script>
 
-<div id="modal_window">
-  <div id="modal_window_store_title"><span></span></div>
+<div id="bookmark_modal">
+  <div id="bookmark_modal_title"><span></span></div>
   
-  <div id="modal_window_select_area">
+  <div id="bookmark_modal_select_area">
     この店舗をお気に入りから削除しますか？<br>
     <ul>
       <li><%= link_to "削除", "#", method: :delete, remote: true,
@@ -198,7 +287,21 @@
       <li><%= link_to("キャンセル", "#", id: "modal_window_close_btn", class: "btn") %></li>
     </ul>
   </div>
+</div>
+
+<div id="review_modal">
+  <div id="review_modal_select_area">
+    この口コミを削除しますか？<br>
+    <ul>
+      <li><%= link_to "削除", "#", method: :delete, remote: true,
+                                   id: "bookmark_delete_btn", class:"btn blue_font" %></li>
+      <li><%= link_to("キャンセル", "#", id: "modal_window_close_btn", class: "btn") %></li>
+    </ul>
+  </div> <!-- review_modal_select -->
   
+  <div id="review_modal_info_disp">
+    
+  </div>
 </div>
   
 <div id="mypage_title">
