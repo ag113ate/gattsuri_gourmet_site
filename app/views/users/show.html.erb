@@ -9,7 +9,7 @@
     /* ====================================================================== */
     /*          オーバーレイ、モーダルウインドウを表示                        */
     /* ================================ start =============================== */
-    function disp_overlay_modal(_this){
+    function disp_bookmark_delete_confirm(_this){
       /* 表示領域の調整 */
       (function(){
         if ($('#modal_window').width() < 500){
@@ -90,7 +90,7 @@
     /* ============================= start ================================== */
     $('.bookmark-area').on('click', function(){
       /* オーバーレイ、モーダル表示 */
-      disp_overlay_modal(this);
+      disp_bookmark_delete_confirm(this);
       
       /* 表示位置の設定                                            */
       /* ※ モーダルウィンドウを固定表示しているため、そのままでは */
@@ -189,6 +189,7 @@
 
 <div id="modal_window">
   <div id="modal_window_store_title"><span></span></div>
+  
   <div id="modal_window_select_area">
     この店舗をお気に入りから削除しますか？<br>
     <ul>
@@ -217,70 +218,11 @@
     <div id="show_review_title">
       投稿口コミ一覧
     </div>
-
-<%  @user.reviews.each do |review|                                            %>
-      <div id="show_review_vote_<%= review.vote_id %>">
-        <div class="show-review-store-title" class="clearfix">
-<%=      review.store.name                                                      %>
-        </div> <!-- "show-review-store-title" -->
-        
-        <div class="show-review-menu-name">
-          <%= review.menu_name %>
-        </div> <!-- show-review-menu-name -->
-        
-        <div class="show-review-score">
-              <ul>
-<%              for loop in 1..5 do                                           %>
-                  <li>
-<%                  if (loop <= review.total_score)                           %>
-<%=                   image_tag("meat_color_all.png", class: "review-icon")   %>
-<%                  elsif ((loop - 0.5) <= review.total_score)                %>
-<%=                   image_tag("meat_color_half.png", class: "review-icon")  %>
-<%                  else                                                      %>
-<%=                   image_tag("meat_color_none.png", class: "review-icon")  %>
-<%                  end                                                       %>
-                  </li>
-<%              end                                                           %>
-                 
-              
-              <li class="show-review-point"><%= review.total_score %></li>
-              </ul> 
-            </div> <!-- show-review-score -->
-
-        <div class="show-review-content clearfix">
-          <div class="show-review-content-left-side clearfix">
-<%          if (review.food_image != nil)                                     %>
-              <div class="show-review-image">
-<%=             image_tag("store_img/#{review.food_image.image_url}",
-                                                class: "img-param")           %>                
-              </div>
-<%          end                                                               %>
-          </div> <!-- show-review-content-left-side -->
-          
-          <div class="show-review-right-side">
-            <div class="show-review-comment">
-<%=           review.comment                                                  %>
-            </div> <!-- show-review-comment -->
-            <br><br>
-            <div class="show-review-date">
-<%=           review.updated_at.strftime("%Y年%m月%d日")                      %>
-            </div> <!-- show-review-date -->
-          </div> <!-- show-review-right-side -->
-        </div> <!-- show-review-content -->
-        
-        <div class="show-review-footer">
-          <ul>
-            <li><%= link_to("口コミを編集",
-                       "/reviews/#{review.store_id}/#{review.vote_id}/edit",
-                       class: "btn") %></li>
-            <li><%= link_to("口コミを削除", "#",  class: "btn") %></li>
-            <li class="target_store_all_review"><%= link_to("この店舗の口コミをすべて見る", 
-              "/reviews/#{review.store.store_id}", class: "btn", target: "blank") %></li>
-          </ul>
-        </div>
-      </div> <!-- review_XX -->
-<%  end                                                                       %>
-
+    
+    <% @user.reviews.each do |review| %>
+      <%= render partial: "/users/review_disp", locals:{review: review} %>
+    <% end %>
+    
   </div> <!-- show_review_area -->
 </div> <!-- main_panel -->
 
@@ -294,8 +236,7 @@
       <div class="user_info_element_title">
         お気に入り店舗
       </div>
-      <%# store_area %>
-      <%= link_to("お気に入り店舗", {anchor: "store_area^="}) %>
+      
       <div id="bookmark_count_disp", class="user_info_element_count">
         <%= @user.bookmark_stores.count %> 店舗
       </div>
