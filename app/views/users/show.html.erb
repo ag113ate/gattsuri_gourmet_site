@@ -134,7 +134,7 @@
     /* ====================================================================== */
     /*     「キャンセル」、「削除」ボタンをクリックした時の動作               */
     /* ============================= start ================================== */
-    $('#modal_window_close_btn, #bookmark_delete_btn #review_delete_btn').on('click', function(){
+    $('#modal_window_close_btn, #bookmark_delete_btn, #review_delete_btn').on('click', function(){
       /* モーダルウィンドウ、オーバーレイ表示を閉じる */
       $('#overlay').css('display', 'none');
       
@@ -213,7 +213,6 @@
   }
   
   function setFixedDisp($selector, obj){
-    console.log("abcedfg");
     $selector.css('position', 'fixed');
     $selector.css('width', obj.width);
     $selector.css('left', obj.pos_left);
@@ -227,7 +226,6 @@
   }
   
   function unsetFixedDisp($selector, obj){
-    console.log('b');
     $selector.css('position', '');
     $selector.css('width', '');
     $selector.css('left', '');
@@ -243,7 +241,6 @@
   $(window).on('load', function(){
     /* 「お気に入り店舗一覧」タイトルについて     */
     var $bookmark_title = $('#bookmark_title');
-    console.log("*********************");
     var bookmark_title_obj = getPosition($bookmark_title);
     
     /* 「投稿口コミ一覧」タイトルについて */
@@ -347,7 +344,7 @@
       <div class="user_info_element_title">
         口コミ数
       </div>
-      <div class="user_info_element_count">
+      <div id="review_count_disp",class="user_info_element_count">
         <%= @user.reviews.count %> 件
       </div>
     </div>

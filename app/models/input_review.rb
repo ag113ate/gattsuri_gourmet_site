@@ -1,6 +1,8 @@
 class InputReview < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   
+  belongs_to :review, foreign_key: 'vote_id', primary_key: 'vote_id'
+  
   validates :menu_name, :comment, :total_score, {presence: true}
   
   validates :menu_name, length: {maximum: 100}

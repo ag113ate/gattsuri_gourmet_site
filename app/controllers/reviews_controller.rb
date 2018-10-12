@@ -173,6 +173,23 @@ class ReviewsController < ApplicationController
   end
 
   def delete
+    puts 176
+    @review = Review.find_by(vote_id: params[:vote_id])
+    puts 178
+    img_file_name = @review.food_image.image_url
+    puts 180
+    @review.destroy
+    
+    FileUtils.rm("./app/assets/images/store_img/#{img_file_name}")
+    
+    user = User.find(session[:user_id])
+    
+    @review_count = user.reviews.count
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def input_review_params
