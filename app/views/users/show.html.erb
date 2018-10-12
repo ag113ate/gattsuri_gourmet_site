@@ -77,7 +77,9 @@
         var index = $('.review_delete_btn').index(_this);
         var $target_review = $("[id^='show_review_vote_']").eq(index);
         
-        /* 40pxの余白を設定（左右：20pxずつ） */
+        /* 幅の設定                                                    */
+        /* （モーダルウィンドウには「投稿口コミ欄の幅 + 40px」を設定 ）*/
+        /*                              ※ 左右：20pxずつ余白          */
         $('#review_modal_info_disp').width($target_review.width());
         $('#review_modal').width($target_review.width() + 20);
         
@@ -106,31 +108,27 @@
         $('#review_modal').css('top', top);
       })();
 
-      // # /* 店舗名の表示 */
-      // # $store_name_area = $("[id^='store_area_']").eq(index).find('.store-name-area');
-      // # $('#bookmark_modal_title span').text($store_name_area.text());
-      
-      // # /* ----------------------------------------------------- */
-      // # /*        「削除」ボタンのリンク先を作成                 */
-      // # /* ------------------- start---------------------------- */
-      
-      // # /* 店舗IDを取得                                          */
-      // # /* 例： str = split('store_area_gec0501')                */
-      // # /*      str[0] => store, str[1] => area,                 */
-      // # /*      str[2] => gec0501                                */
-      // # split_str = $("[id^='store_area_']").eq(index).attr('id').split('_');
-      
-      // # /* リンクの設定 */
-      // # link_str = "/gourmet_sites/bookmark/" + split_str[2];
-      // # $('#bookmark_delete_btn').attr('href', link_str);
-      // # /* -------------------- end ---------------------------- */
+      /* 「削除」ボタンのリンク先を作成  */
+      (function(_this){
+        var index = $('.review_delete_btn').index(_this);
+        
+        /* 投稿IDを取得                                          */
+        /* 例： str = split('show_review_vote_a116402_283639')   */
+        /*      str[0] => show, str[1] => review, str[2] => vote */
+        /*      str[3] => a11640, str[4] => 283639               */
+        split_str = $("[id^='show_review_vote_']").eq(index).attr('id').split('_');
+        
+        /* リンクの設定 */
+        link_str = "/reviews/" + split_str[3] + "/" + split_str[4];
+        $('#review_delete_btn').attr('href', link_str);
+      })(_this);
       
       /* オーバーレイ、モーダルウィンドウを表示 */
       $('#overlay').css('display', 'block');
       $('#review_modal').css('display', 'block');
     }
     /* ====================================================================== */
-    /*          お気に入り店舗の削除確認画面の表示                            */
+    /*               投稿口コミの削除確認画面の表示                           */
     /* ============================== end =================================== */
     
     /* ====================================================================== */
@@ -294,7 +292,7 @@
     この口コミを削除しますか？<br>
     <ul>
       <li><%= link_to "削除", "#", method: :delete, remote: true,
-                                   id: "bookmark_delete_btn", class:"btn blue_font" %></li>
+                                   id: "review_delete_btn", class:"btn blue_font" %></li>
       <li><%= link_to("キャンセル", "#", id: "modal_window_close_btn", class: "btn") %></li>
     </ul>
   </div> <!-- review_modal_select -->
