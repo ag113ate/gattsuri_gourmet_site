@@ -100,6 +100,16 @@ class UsersController < ApplicationController
     @user = User.find(session[:user_id])
   end
   
+  def delete_confirm
+    @user = User.find(session[:user_id])
+  end
+  
+  def destroy
+    @user = User.find(session[:user_id])
+    
+    @user.destroy
+    redirect_to(root_path, notice:"アカウントを削除しました")
+  end
   def user_params
     params.require(:user).permit(:user_id, :password, :password_confirmation)
   end

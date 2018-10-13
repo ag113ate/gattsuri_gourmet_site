@@ -353,7 +353,7 @@
       <ul>
         <li><%= link_to("ログアウト", "/users/logout", method: "post") %></li>
         <li><%= link_to("パスワード変更", "/users/#{@user.user_id}/edit") %></li>
-        <li><%= link_to("アカウント削除", "#", method: "post") %></li>
+        <li><%= link_to("アカウント削除", "/users/#{@user.user_id}/delete_confirm") %></li>
       </ul>
     </div>
   </div>

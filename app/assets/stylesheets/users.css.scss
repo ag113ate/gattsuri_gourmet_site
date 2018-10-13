@@ -132,9 +132,6 @@ div.show-review-score li{
   display: inline-block;
 }
 
-div.show-review-image{
-}
-
 div.show-review-right-side{
   padding: 5px;
   
@@ -272,7 +269,33 @@ div#review_modal{
   z-index: 40;
 }
 
+div#user_delete_confirm{
+  margin: 30px 0 0 0;
+  
+  font-size: 25px;
+  text-align: center;
+}
 
+#user_delete_confirm_user_id{
+  margin: 5px 0 50px 0;
+}
+
+#user_delete_confirm_user_id_disp_area{
+  padding: 3px;
+  
+  color: white;
+  
+  background: orange;
+
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+div#user_delete_confirm li{
+  margin: 0 5px 0 5px;
+  display: inline-block;
+}
 .border-dotted{
   border: 1px dotted white;
 }
