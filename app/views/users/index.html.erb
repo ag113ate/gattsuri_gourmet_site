@@ -9,25 +9,22 @@
   <%  end                                %>
   
   <%= form_tag("/users/login") do %>
-    <div class="loin_form_element">
+    <div class="user-form-element">
       <%= label_tag(:user_id, "　ユーザID") %>
       <br>
-      <%= text_field_tag(:user_id, @user_id) %>
+      <%= text_field_tag(:user_id, @user_id, class: 'user-input-element') %>
     </div>
-    <br>
-    <div class="loin_form_element">
+    
+    <div class="user-form-element">
       <%= label_tag(:password, "パスワード") %>
       <br>
-      <%if false %>
-      <%= password_field_tag(:password)      %>
-      <% end %>
-      <%= text_field_tag(:password)      %>
-    </div>
-    <br>
-    <%= submit_tag("ログイン", id: "input_button") %>
+      <%= password_field_tag(:password, "", class: "user-input-element")      %>
+    </div> <!-- user-form-element -->
+    
+    <%= submit_tag("ログイン", id: "user_form_button") %>
   <% end %>
 </div>
 
 <div id="new_account_link">
-  <%= link_to("まだアカウントを作成ではない方はこちら", "#") %>
+  <%= link_to("まだアカウントを作成ではない方はこちら", "/users/new") %>
 </div>
