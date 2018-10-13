@@ -7,7 +7,7 @@ GattsuriGourmetSite::Application.routes.draw do
   post   "gourmet_sites/bookmark/:id" => "gourmet_sites#add_bookmark"
   delete "gourmet_sites/bookmark/:id" =>"gourmet_sites#del_bookmark"
   
-  resources :users, only: %i{index show new create}
+  resources :users, only: %i{index show new create edit update}
   post "users/login"
   post "users/logout"
   

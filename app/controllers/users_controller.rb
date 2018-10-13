@@ -63,6 +63,14 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def edit
+    @user = User.find(session[:user_id])
+    
+    # 新しいパスワードをユーザに設定させるため
+    #@user.password = ""
+    #@user.password_confirmation = ""
+  end
+  
   def create
     @user = User.new(user_params)
     
@@ -73,7 +81,21 @@ class UsersController < ApplicationController
       render(action: "new")
     end
   end
-
+  
+  def update
+    @user = User.find(session[:user_id])
+    
+    puts("user_id:#{params[:user][:user_id]}")
+    puts("password:#{params[:user][:password]}")
+    puts("password_confirmation:#{params[:user][:password_confirmation]}")
+    
+    if @user.update(user_params)
+      redirect_to("/users/#{@user.user_id}", notice:"パスワードを変更しました")
+    else
+      render(action: "edit")
+    end
+  end
+  
   def show
     @user = User.find(session[:user_id])
   end
