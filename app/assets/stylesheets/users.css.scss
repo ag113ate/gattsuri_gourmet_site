@@ -25,12 +25,15 @@ div#login_form_title{
   color: white;
 }
 
-#user_id, #password{
+.user-form-element{
+  margin: 20px 0 20px 0;
+}
+.user-input-element{
   width: 400px;
   font-size: large;
 }
 
-#input_button{
+#user_form_button{
   font-size: large;
 }
 
