@@ -1,11 +1,15 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.4.1'
 
-gem 'rails', '4.0.5'
+gem 'rails', '4.2.8'
 
-group :development do
-  gem 'sqlite3', '1.3.9'
-end
+# group :development do
+#   gem 'sqlite3', '1.3.9'
+# end
+
+gem 'sqlite3', group: [:development, :test]
+gem 'pg', group: :production
+
 
 gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.5.3'
