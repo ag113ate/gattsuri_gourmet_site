@@ -8,7 +8,7 @@ gem 'rails', '4.2.8'
 # end
 
 gem 'sqlite3', group: [:development, :test]
-gem 'pg', group: :production
+gem 'pg', '0.15.1', group: :production
 
 
 gem 'sass-rails', '4.0.3'
