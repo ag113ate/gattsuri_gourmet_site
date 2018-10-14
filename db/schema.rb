@@ -13,14 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20181006093234) do
 
-  create_table "bookmark_stores", force: true do |t|
+  create_table "bookmark_stores", force: :cascade do |t|
     t.string   "user_id"
     t.string   "store_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "food_images", force: true do |t|
+  create_table "food_images", force: :cascade do |t|
     t.string   "store_id"
     t.integer  "vote_id"
     t.string   "image_url"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.datetime "updated_at"
   end
 
-  create_table "input_reviews", primary_key: "vote_id", force: true do |t|
+  create_table "input_reviews", primary_key: "vote_id", force: :cascade do |t|
     t.string   "menu_name"
     t.text     "comment"
     t.float    "total_score"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.datetime "updated_at"
   end
 
-  create_table "reviews", primary_key: "vote_id", force: true do |t|
+  create_table "reviews", primary_key: "vote_id", force: :cascade do |t|
     t.string   "user_id"
     t.string   "store_id"
     t.string   "menu_name"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.datetime "updated_at"
   end
 
-  create_table "stores", primary_key: "store_id", force: true do |t|
+  create_table "stores", primary_key: "store_id", force: :cascade do |t|
     t.string   "name"
     t.float    "review"
     t.string   "opentime"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20181006093234) do
 
   add_index "stores", ["store_id"], name: "sqlite_autoindex_stores_1", unique: true
 
-  create_table "users", primary_key: "user_id", force: true do |t|
+  create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
