@@ -17,7 +17,7 @@
 
 #Gemfile.lock
 
-config/initializers/secret_token.rb
+#config/initializers/secret_token.rb
 
 /.env
 

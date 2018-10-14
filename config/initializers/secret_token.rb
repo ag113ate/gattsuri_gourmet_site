@@ -1,0 +1,1 @@
+GattsuriGourmetSite::Application.config.secret_key_base = '3ec3d5be5dd1628afb3b8d3fe797d85d8dc3d64b00f29eb3ab0528e3d7f27718366b4d439bfb562271fe707e33ddf1e96a8b1dd6cfcf7f8629503c8772d9c8e5'
