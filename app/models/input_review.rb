@@ -1,4 +1,6 @@
 class InputReview < ActiveRecord::Base
+  self.primary_key = :vote_id
+  
   mount_uploader :image, ImageUploader
   
   belongs_to :review, foreign_key: 'vote_id', primary_key: 'vote_id'

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  self.primary_key = :user_id
+  
   has_secure_password
   
   has_many :bookmark_stores, primary_key: 'user_id', foreign_key: 'user_id', \

@@ -1,6 +1,6 @@
 class CreateInputReviews < ActiveRecord::Migration
   def change
-    create_table :input_reviews, {id:false, primary_key: :vote_id} do |t|
+    create_table :input_reviews, id:false do |t|
       t.integer :vote_id
       t.string :menu_name
       t.text :comment
