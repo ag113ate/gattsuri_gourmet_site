@@ -1,7 +1,7 @@
 class CreateStores < ActiveRecord::Migration
   def change
-    create_table :stores, id:false do |t|
-      t.column :store_id, 'STRING PRIMARY KEY'
+    create_table :stores, {id:false, primary_key: :store_id} do |t|
+      t.string :store_id
       t.string :name
       t.float :review
       t.string :opentime

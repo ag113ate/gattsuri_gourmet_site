@@ -79,7 +79,7 @@ def save_restaurants_info(restaurants)
     # ==========================================================================
     #                             各カラムの設定
     # ============================== begin =====================================
-	  store.id = restaurant["id"]                               # 店舗ID
+	  store.store_id = restaurant["id"]                               # 店舗ID
 	  store.name = restaurant["name"]                           # 店舗名称
 	  store.review = 3.5                                        # レビュー評価値 ※暫定処理
 	  store.opentime = restaurant["opentime"]                   # 営業時間
@@ -123,7 +123,7 @@ def save_restaurants_pict(restaurants)
       end
       
       # 画像ファイル名をモデルへ登録
-      store = Store.find(restaurant["id"])
+      store = Store.find_by(store_id: restaurant["id"])
       store.food_images.create(image_url: img_url)
     end
    

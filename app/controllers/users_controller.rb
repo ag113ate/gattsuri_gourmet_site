@@ -29,9 +29,8 @@ class UsersController < ApplicationController
       user = User.find_by(user_id: params[:user_id])
       if (user && user.authenticate(params[:password]))
         # ログイン成功
-        session[:user_id] = user.id
+        session[:user_id] = user.user_id
         login_success = true
-        flash.now[:success] = "成功してるんだけど！！"
       elsif (user == nil)
         # ユーザIDの入力が間違っている場合
         flash.now[:user_id] = "ユーザIDが存在しません"
@@ -65,7 +64,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(session[:user_id])
+    @user = User.find_by(user_id: session[:user_id])
     
     # 新しいパスワードをユーザに設定させるため
     #@user.password = ""
@@ -76,7 +75,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if (@user.save)
-      session[:user_id] = @user.id
+      session[:user_id] = @user.user_id
       redirect_to(root_path, notice: "アカウントを作成し、ログインしました")
     else
       render(action: "new")
@@ -84,7 +83,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = User.find(session[:user_id])
+    @user = User.find_by(user_id: session[:user_id])
     
     puts("user_id:#{params[:user][:user_id]}")
     puts("password:#{params[:user][:password]}")
@@ -98,21 +97,22 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(session[:user_id])
+    @user = User.find_by(user_id: session[:user_id])
   end
   
   def delete_confirm
-    @user = User.find(session[:user_id])
+    @user = User.find_by(user_id: session[:user_id])
   end
   
   def destroy
-    @user = User.find(session[:user_id])
+    @user = User.find_by(user_id: session[:user_id])
     
     @user.destroy
     
     session[:user_id] = nil
     redirect_to(root_path, notice:"アカウントを削除しました")
   end
+  
   def user_params
     params.require(:user).permit(:user_id, :password, :password_confirmation)
   end

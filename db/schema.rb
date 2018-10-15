@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.datetime "updated_at"
   end
 
-  create_table "input_reviews", primary_key: "vote_id", force: :cascade do |t|
+  create_table "input_reviews", id: false, force: :cascade do |t|
+    t.integer  "vote_id"
     t.string   "menu_name"
     t.text     "comment"
     t.float    "total_score"
@@ -38,7 +39,8 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.datetime "updated_at"
   end
 
-  create_table "reviews", primary_key: "vote_id", force: :cascade do |t|
+  create_table "reviews", id: false, force: :cascade do |t|
+    t.integer  "vote_id"
     t.string   "user_id"
     t.string   "store_id"
     t.string   "menu_name"
@@ -49,7 +51,8 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.datetime "updated_at"
   end
 
-  create_table "stores", primary_key: "store_id", force: :cascade do |t|
+  create_table "stores", id: false, force: :cascade do |t|
+    t.string   "store_id"
     t.string   "name"
     t.float    "review"
     t.string   "opentime"
@@ -68,14 +71,11 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.datetime "updated_at"
   end
 
-  add_index "stores", ["store_id"], name: "sqlite_autoindex_stores_1", unique: true
-
-  create_table "users", primary_key: "user_id", force: :cascade do |t|
+  create_table "users", id: false, force: :cascade do |t|
+    t.string   "user_id"
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "users", ["user_id"], name: "sqlite_autoindex_users_1", unique: true
 
 end

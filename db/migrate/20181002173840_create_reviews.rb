@@ -1,7 +1,7 @@
 class CreateReviews < ActiveRecord::Migration
   def change
-    create_table :reviews, id:false do |t|
-      t.column :vote_id, 'INTEGER PRIMARY KEY'
+    create_table :reviews, {id:false, primary_key: :vote_id} do |t|
+      t.integer :vote_id
       t.string :user_id
       t.string :store_id
       t.string :menu_name

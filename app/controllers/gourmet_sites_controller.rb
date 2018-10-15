@@ -4,7 +4,7 @@ class GourmetSitesController < ApplicationController
 
   def disp_search_result
     if (session[:user_id] != nil)
-      @user = User.find(session[:user_id])
+      @user = User.find_by(user_id: session[:user_id])
     end
     
     @area = params[:area]
@@ -26,7 +26,7 @@ class GourmetSitesController < ApplicationController
   end
   
   def add_bookmark
-    user = User.find(session[:user_id])
+    user = User.find_by(user_id: session[:user_id])
     user.bookmark_stores.create(store_id: params[:id])
     
     @store_id = params[:id]
@@ -38,7 +38,7 @@ class GourmetSitesController < ApplicationController
   end
   
   def del_bookmark
-    user = User.find(session[:user_id])
+    user = User.find_by(user_id: session[:user_id])
     user.bookmark_stores.find_by(store_id: params[:id]).destroy
 
     @store_id = params[:id]
@@ -53,5 +53,4 @@ class GourmetSitesController < ApplicationController
       format.js
     end
   end
-  
 end
