@@ -1,0 +1,36 @@
+<div id="login_form">
+  <div id="login_form_title">新しいパスワードを入力してください。</div>
+  <%= form_for @user do |f| %>
+    <% if @user.errors.any? %>
+      <div id="input_review_erros_msg">
+        <span id="input_review_erros_msg_title">
+          <%= @user.errors.count %> 個のエラーがあります。
+        </span>
+        
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>  
+      </div> <!-- input_review_erros_msg -->
+    <% end %>
+    <div class="user-form-element">
+      <%= f.label(:user_id) %>
+      <br>
+      <%= @user.user_id %>
+    </div> <!-- user-form-element -->
+    
+    <div class="user-form-element">
+      <%= f.label(:password) %>
+      <br>
+      <%= f.password_field(:password, maxlength: 20, class: "user-input-element") %>
+    </div>
+    
+    <div class="user-form-element">
+      <%= f.label(:password_confirmation) %>
+      <br>
+      <%= f.password_field(:password_confirmation, maxlength: 20, class: "user-input-element") %>
+    </div>
+    <%= f.submit(id: "user_form_button") %>
+  <% end %>
+</div>

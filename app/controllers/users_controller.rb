@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class UsersController < ApplicationController
   def index
   end
@@ -108,6 +109,8 @@ class UsersController < ApplicationController
     @user = User.find(session[:user_id])
     
     @user.destroy
+    
+    session[:user_id] = nil
     redirect_to(root_path, notice:"アカウントを削除しました")
   end
   def user_params

@@ -1,0 +1,16 @@
+<div id="user_delete_confirm">
+  ログインID
+  <div id="user_delete_confirm_user_id">
+    <% if true %>
+      <span id="user_delete_confirm_user_id_disp_area">
+        <%= @user.user_id %> さん
+      </span>
+    <% end %>
+  </div>
+  
+  このアカウントを削除しますか。
+  <ul>
+    <li><%= link_to("削除する", "/users/#{@user.user_id}", method: :delete) %></li>
+    <li><%= link_to("キャンセル", "/users/show") %></li>
+  </ul>
+</div>
