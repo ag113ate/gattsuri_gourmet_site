@@ -136,7 +136,6 @@ class ReviewsController < ApplicationController
     review.update_date = @input_review.updated_at
     review.updated_at   = @input_review.updated_at
     
-    puts "********************* #{review.menu_name} ***************"
     review.save
     # ===========================================
     
