@@ -38,7 +38,7 @@
               <div class="review-page-img-area">
 <%#             投稿に画像が含まれている場合のみ、表示                        %>
 <%              if review.food_image != nil %>
-<%=               image_tag("store_img/#{review.food_image.image_url}",
+<%=               image_tag("/application/get_img/#{review.food_image.id}",
                                                 class: "review-page-img")     %>
 <%              end                                                           %>
               </div>
