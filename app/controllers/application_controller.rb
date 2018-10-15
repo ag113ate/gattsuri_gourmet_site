@@ -10,6 +10,17 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
+  
+  def get_img
+    img_record = FoodImage.find(params[:id])
+
+    open(img_record.image_url) do |img|
+      magick_img = MiniMagick::Image.read(img.read)
+      magick_img.resize "!256x256"
+
+      send_data(magick_img.to_blob, dsposition: "inline", type: "image/png")
+    end
+  end
 
   helper_method :logined?
 end

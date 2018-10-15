@@ -113,29 +113,18 @@ end
 def save_restaurants_pict(restaurants)
   restaurants.each_with_index do |restaurant, rest_index|
     GET_IMG_PARAMS.each_with_index do |get_img_param, img_index|
-      # 画像ファイル名の生成(「お店のid」 + 「img_index番号」)
-      # 　例 お店のid : r421602
-      #      shop_image1パラメータ(0ループ目) => "r421602_0.jpg"
-      #      shop_image2パラメータ(1ループ目) => "r421602_1.jpg"
-      img_file_name = "#{restaurant['id']}_#{img_index}.jpg"
+      
+      # 画像のURLを取得
+      img_url = restaurant["image_url"][get_img_param]
       
       # 提供される画像データが1枚のみの場合もある
-      if (restaurant["image_url"][get_img_param] == "")
+      if (img_url == "")
       	next
       end
       
-      # 画像をダウンロード後、リサイズし保存
-      open(restaurant["image_url"][get_img_param]) do |img|
-        write_path = "#{IMAGE_DL_DIR}/#{img_file_name}"
-
-        magick_img = MiniMagick::Image.read(img.read)
-        magick_img.resize IMAGE_RESIZE_SIZE
-        magick_img.write write_path
-      end
-
       # 画像ファイル名をモデルへ登録
       store = Store.find(restaurant["id"])
-      store.food_images.create(image_url: img_file_name)
+      store.food_images.create(image_url: img_url)
     end
    
     # 画像のDL処理が長く、ユーザがフリーズしたと思い込む
@@ -398,27 +387,17 @@ module Photo_Search_api
   # 画像をダウンロードし保存、そして保存先をモデルへ登録
   def self.save_pict(comments)
     comments.each_with_index do |comment, index|
+      
+      # 画像URLを取得
+      img_url = comment[PHOTO_API_KEY_IMAGE_URL][PHOTO_API_KEY_IMAGE_250_SIZE]
+      
       # 現状は見つかってないが、画像がないコメントも想定
-      if (comment[PHOTO_API_KEY_IMAGE_URL][PHOTO_API_KEY_IMAGE_250_SIZE] == "")
+      if (img_url == "")
         next
       end
       
-      # 保存ファイル名の生成（「店舗ID」 + 「投稿ID」）
-      img_file_name = "#{comment[PHOTO_API_KEY_STORE_ID]}_#{comment[PHOTO_API_KEY_VOTE_ID]}.jpg"
-      
-      # 画像をダウンロード後、リサイズし保存
-      open(comment[PHOTO_API_KEY_IMAGE_URL][PHOTO_API_KEY_IMAGE_250_SIZE]) do |img|
-        write_path = "#{IMAGE_DL_DIR}/#{img_file_name}"
-        # リサイズ
-        magick_img = MiniMagick::Image.read(img.read)
-        magick_img.resize IMAGE_RESIZE_SIZE
-        
-        # 保存
-        magick_img.write write_path
-      end
-      
       # 画像ファイル名をモデルへ登録
-      save_food_image_model(comment, img_file_name)
+      save_food_image_model(comment, img_url)
       
       if (index % 5 == 0)
         print "#" # 処理が動いていることを示すため、文字を表示

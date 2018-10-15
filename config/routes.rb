@@ -1,18 +1,41 @@
 GattsuriGourmetSite::Application.routes.draw do
+  # ==================================================================
+  #                     application
+  # ==================================================================
+  get "application/get_img/:id" => "application#get_img"
+  # ==================================================================
+  
+  
+  # ==================================================================
+  #                      gourmet_sites
+  # ==================================================================
   root 'gourmet_sites#top'
   
   get "gourmet_sites/disp_search_result"
   get "gourmet_sites/select_city"
   
   post   "gourmet_sites/bookmark/:id" => "gourmet_sites#add_bookmark"
+  
   delete "gourmet_sites/bookmark/:id" =>"gourmet_sites#del_bookmark"
   
+  # get "gourmet_sites/get_img/:id" => "gourmet_sites#get_img"
+  # ==================================================================
+  
+  # ==================================================================
+  #                             users
+  # ==================================================================
   resources :users
-  post "users/login"
-  post "users/logout"
+  
   get "users/:id/delete_confirm" => "users#delete_confirm"
   
-  # resources :reviews
+  post "users/login"
+  post "users/logout"
+  # ==================================================================
+  
+  
+  # ==================================================================
+  #                             reviews
+  # ==================================================================
   get "reviews/:store_id/new/" => "reviews#new"
   get "reviews/:store_id" => "reviews#show"
   get "reviews/:store_id/:vote_id/edit" => "reviews#edit"
@@ -23,6 +46,8 @@ GattsuriGourmetSite::Application.routes.draw do
   put   "reviews/:store_id/:vote_id" => "reviews#update"
   
   delete "reviews/:store_id/:vote_id" => "reviews#delete"
+  # ==================================================================
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

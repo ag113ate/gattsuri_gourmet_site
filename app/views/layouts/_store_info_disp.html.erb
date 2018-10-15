@@ -54,8 +54,7 @@
     <%# 料理画像表示部分 %>
     <div class="store-image-area">
       <% store.food_images.each do |image| %>
-        <%= image_tag("store_img/#{image.image_url}", class: "img-param") %>
-        <%#= image_tag("#{image.image_url}", class: "img-param") %>
+        <%= image_tag("/application/get_img/#{image.id}", class: "img-param") %>
       <% end %>
     </div>
     
