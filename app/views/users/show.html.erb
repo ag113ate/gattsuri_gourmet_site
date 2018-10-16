@@ -317,8 +317,8 @@
       投稿口コミ一覧
     </div>
     
-    <% @user.reviews.each do |review| %>
-      <%= render partial: "/users/review_disp", locals:{review: review} %>
+    <% @user.input_reviews.each do |input_review| %>
+      <%= render partial: "/users/review_disp", locals:{input_review: input_review} %>
     <% end %>
     
   </div> <!-- show_review_area -->
@@ -345,7 +345,7 @@
         口コミ数
       </div>
       <div id="review_count_disp",class="user_info_element_count">
-        <%= @user.reviews.count %> 件
+        <%= @user.input_reviews.count %> 件
       </div>
     </div>
     

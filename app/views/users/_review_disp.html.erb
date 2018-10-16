@@ -1,19 +1,19 @@
-<div id='show_review_vote_<%= "#{review.store_id}_#{review.vote_id}" %>'>
+<div id='show_review_vote_<%= "#{input_review.store_id}_#{input_review.vote_id}" %>'>
   <div class="show-review-store-title" class="clearfix">
-    <%= review.store.name %>
+    <%= input_review.store.name %>
   </div> <!-- "show-review-store-title" -->
 
   <div class="show-review-menu-name">
-    <%= review.menu_name %>
+    <%= input_review.menu_name %>
   </div> <!-- show-review-menu-name -->
 
   <div class="show-review-score">
     <ul>
 <%    for loop in 1..5 do                                                     %>
         <li>
-<%        if (loop <= review.total_score)                                     %>
+<%        if (loop <= input_review.total_score)                                     %>
 <%=         image_tag("meat_color_all.png", class: "review-icon")             %>
-<%        elsif ((loop - 0.5) <= review.total_score)                          %>
+<%        elsif ((loop - 0.5) <= input_review.total_score)                          %>
 <%=         image_tag("meat_color_half.png", class: "review-icon")            %>
 <%        else                                                                %>
 <%=         image_tag("meat_color_none.png", class: "review-icon")            %>
@@ -21,16 +21,16 @@
         </li>
 <%    end                                                                     %>
          
-        <li class="show-review-point"><%= review.total_score %></li>
+        <li class="show-review-point"><%= input_review.total_score %></li>
     </ul> 
   </div> <!-- show-review-score -->
 
   <div class="show-review-content clearfix">
     
     <div class="show-review-content-left-side clearfix">
-<%    if (review.food_image != nil)                                           %>
+<%    if (input_review.image != nil)                                           %>
         <div class="show-review-image">
-<%=       image_tag("store_img/#{review.food_image.image_url}",
+<%=       image_tag(input_review.image_url,
                                             class: "img-param")               %>
         </div>
 <%    end                                                                     %>
@@ -38,12 +38,12 @@
   
     <div class="show-review-right-side">
       <div class="show-review-comment">
-<%=     review.comment                                                        %>
+<%=     input_review.comment                                                        %>
       </div> <!-- show-review-comment -->
       <br><br>
       
       <div class="show-review-date">
-<%=     review.updated_at.strftime("%Y年%m月%d日")                            %>
+<%=     input_review.updated_at.strftime("%Y年%m月%d日")                            %>
       </div> <!-- show-review-date -->
     </div> <!-- show-review-right-side -->
     
@@ -52,11 +52,11 @@
   <div class="show-review-footer">
     <ul>
       <li><%= link_to("口コミを編集",
-               "/reviews/#{review.store_id}/#{review.vote_id}/edit",
+               "/reviews/#{input_review.store_id}/#{input_review.vote_id}/edit",
                class: "btn") %></li>
       <li><%= link_to("口コミを削除", "#",  class: "btn review_delete_btn") %></li>
       <li class="target_store_all_review"><%= link_to("この店舗の口コミをすべて見る", 
-        "/reviews/#{review.store.store_id}", class: "btn", target: "blank") %></li>
+        "/reviews/#{input_review.store_id}", class: "btn", target: "blank") %></li>
     </ul>
   </div> <!-- show-review-footer -->
   

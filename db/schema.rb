@@ -30,11 +30,12 @@ ActiveRecord::Schema.define(version: 20181006093234) do
 
   create_table "input_reviews", id: false, force: :cascade do |t|
     t.integer  "vote_id"
+    t.string   "user_id"
+    t.string   "store_id"
     t.string   "menu_name"
     t.text     "comment"
     t.float    "total_score"
     t.string   "image"
-    t.string   "change_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

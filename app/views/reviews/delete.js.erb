@@ -1,6 +1,6 @@
-$show_review_vote = $('#show_review_vote_<%= "#{@review.store_id}_#{@review.vote_id}" %>');
+$show_review_vote = $('#show_review_vote_<%= "#{@input_review.store_id}_#{@input_review.vote_id}" %>');
 $show_review_vote.css('display', 'none');
 
-$('#review_count_disp').text("<%= @review_count %> 件");
+$('#review_count_disp').text("<%= @input_review_count %> 件");
 
 $('#notice_msg').text("投稿口コミを1件、削除しました");

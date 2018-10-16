@@ -3,7 +3,8 @@ class InputReview < ActiveRecord::Base
   
   mount_uploader :image, ImageUploader
   
-  belongs_to :review, foreign_key: 'vote_id', primary_key: 'vote_id'
+  belongs_to :store, foreign_key: 'store_id', primary_key: 'store_id'
+  belongs_to :user, foreign_key: 'user_id', primary_key: 'user_id'
   
   validates :menu_name, :comment, :total_score, {presence: true}
   
