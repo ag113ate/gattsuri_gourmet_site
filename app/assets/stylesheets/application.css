@@ -194,6 +194,7 @@ div.store-image-area img{
 div.store-info-area{
   float: left;
   width: 70%;
+  min-height: 170px;
 }
 
 div.store-bottom-area{
