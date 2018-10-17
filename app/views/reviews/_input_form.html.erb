@@ -1,39 +1,3 @@
-<script type="text/javascript">
-  $(function(){
-    $("#input_review_total_score").change(function(){
-      var score = $('#input_review_total_score').val();
-      var img_list = $("#input_review_score_disp img");
-      
-      if (score != ''){
-        /* ========================================== */
-        /* 評価が選択された場合は、対応する画像を表示 */
-        /* ========================================== */
-        for (var loop1 = 1; loop1 <= img_list.length; loop1++){
-          img = img_list.eq(loop1 - 1);
-          
-          img.removeClass('disp_none');
-  
-          if (loop1 <= score){
-            img.attr('src', '/assets/meat_color_all.png');
-          }
-          else if((loop1 - 0.5) <= score){
-            img.attr('src', '/assets/meat_color_half.png');
-          }
-          else{
-            img.attr('src', '/assets/meat_color_none.png');
-          }
-        }
-        /* ========================================== */
-      }else{
-        /* 未選択となった場合は、画像を非表示 */
-        for (var loop1 = 0; loop1 < img_list.length; loop1++){
-          img_list.eq(loop1).addClass('disp_none');
-        }
-      }
-    });
-  });
-</script>
-
 <div id="input_review_area">
   <% if ((controller.controller_name == "reviews") && (controller.action_name == "new")) %>
   <%#  新規作成の場合                                                                    %>
