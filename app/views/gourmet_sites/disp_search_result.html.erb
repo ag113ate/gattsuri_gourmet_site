@@ -104,8 +104,9 @@
 
 
 <div id="main_panel">
+  <%# APIから取得した画像の表示 %>
   <% @stores.each do |store| %>
-    <%= render partial: "layouts/store_info_disp", locals: {store: store} %>
+    <%= render(partial: "layouts/store_info_disp", locals: {store: store}) %>
   <% end %> <%# @stores.each %>
 </div> <!-- main_panel -->
 
