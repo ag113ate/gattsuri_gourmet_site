@@ -7,55 +7,64 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-store = Store.create(store_id: "kcyx001",
-                     name: "フジオ軒 お茶の水ワテラス店",
-                     review: "3.5",
-                     opentime: "11:30～14:30、17:00～22:00",
-                     holiday: "不定休日あり ※テナントに準ずる",
-                     tel: "050-3312-6210",
-                     address: "〒101-0063\n東京都千代田区神田淡路町2-105\nワテラスアネックス3F",
-                     line: "地下鉄丸ノ内線",
-                     station: "淡路町駅",
-                     station_exit: "",
-                     walk: 3,
-                     latitude: 35.697529,
-                     longitude: 139.767959,
-                     category_name_l: "手作り洋食とビール",
-                     shop_url: "https://r.gnavi.co.jp/p5yhvgsu0000/?ak=gFd702LTUOkdXai9d5QpyACyc8J2gyzQxIBqDR7by68%3D")
-store.food_images.create(image_url: "hamburger.jpg")
+require "csv"
 
+CSV_FILE_NAME = "db/kanto_city_data.csv"
 
-store = Store.create(store_id: "a010916",
-                     name: "鉄板ダイニング 中野グリル",
-                     review: "4.5",
-                     opentime: "月～日 11:00～23:00(L.O.22:00)",
-                     holiday: "不定休日あり ※(丸井定休日に準ずる)",
-                     tel: "03-5328-2920",
-                     address: "〒164-0001\n東京都中野区中野3-34-28\n中野マルイ5F",
-                     line: "ＪＲ中央線",
-                     station: "中野駅",
-                     station_exit: "南口",
-                     walk: 1,
-                     latitude: 35.704766,
-                     longitude: 139.665138,
-                     category_name_l: "焼き鳥・肉料理・串料理",
-                     shop_url: "https://r.gnavi.co.jp/a010916/?ak=gFd702LTUOkdXai9d5QpyACyc8J2gyzQxIBqDR7by68%3D")
-store.food_images.create(image_url: "hamburger.jpg")
+COLUMN_PREF = "prefecture"
+COLUMN_DESIGN_CITY = "designated_cities"
+COLUMN_CITY = "city"
 
+pref_codes = {茨城県: 8, 栃木県: 9, 群馬県:10, 
+              埼玉県:11, 千葉県:12, 東京都:13, 神奈川県:14}
 
-store = Store.create(store_id: "gdts011",
-                     name: "MEAT FAB’s 4041 （ミートファブズ）",
-                     review: "3.0",
-                     opentime: "11:30～23:00(L.O.22:00)",
-                     holiday: "不定休日あり",
-                     tel: "050-3313-4488",
-                     address: "〒190-0012\n東京都立川市曙町2-7-5\n1F",
-                     line: "ＪＲ",
-                     station: "立川駅",
-                     station_exit: "北口",
-                     walk: 1,
-                     latitude: 35.699571,
-                     longitude: 139.413688,
-                     category_name_l: "和食",
-                     shop_url: "https://r.gnavi.co.jp/cta93xvy0000/?ak=gFd702LTUOkdXai9d5QpyACyc8J2gyzQxIBqDR7by68%3D")
-store.food_images.create(image_url: "hamburger.jpg")
+CSV.read(CSV_FILE_NAME, headers: true).each do |row|
+  
+  if ((row[COLUMN_DESIGN_CITY] == nil) && (row[COLUMN_CITY] != nil))
+    # ============================================================
+    # ケース1. 政令指定都市等ではない場合(例：東京都千代田区)
+    # ============================================================
+    City.create(pref_code: pref_codes[row[COLUMN_PREF].to_sym], # 都道府県コード
+                pref_name: row[COLUMN_PREF], # 都道府県名
+                city_name: row[COLUMN_CITY], # 市区町村名
+                is_designated_cities: "false") # 政令指定都市等か
+                
+  elsif ((row[COLUMN_DESIGN_CITY] != nil) && (row[COLUMN_CITY] == nil))
+    # ============================================================
+    # ケース2. 政令指定都市等の場合(例：神奈川県横浜市)
+    # ============================================================
+    
+    # 政令指定都市等の場合、先に「ケース2」の処理が実行される想定だが、csvデータの
+    # 並び順によっては、先に「ケース3」が実行される場合もある
+    # その場合、ここの処理は不要となる
+    city = City.find_by(city_name: row[COLUMN_DESIGN_CITY])
+    if (city != nil)
+      next
+    end
+    
+    City.create(pref_code: pref_codes[row[COLUMN_PREF].to_sym], # 都道府県コード
+                pref_name: row[COLUMN_PREF], # 都道府県名
+                city_name: row[COLUMN_DESIGN_CITY], # 市区町村名
+                is_designated_cities: "true") # 政令指定都市等か
+                
+  elsif ((row[COLUMN_DESIGN_CITY] != nil) && (row[COLUMN_CITY] != nil))
+    # ============================================================
+    # ケース3. 政令指定都市等の市区町村の場合（例：神奈川県横浜市「鶴見区」）
+    # ============================================================
+    city = City.find_by(city_name: row[COLUMN_DESIGN_CITY])
+    
+    # このケースのデータが読み込まれた場合、「ケース2」の処理が実行済みの想定だが、
+    # csvデータの並び順によっては、先に「ケース3」が実行される場合もある
+    # その場合に対応
+    if (city == nil)
+      city = City.create(pref_code: pref_codes[row[COLUMN_PREF].to_sym], # 都道府県コード
+                         pref_name: row[COLUMN_PREF], # 都道府県名
+                         city_name: row[COLUMN_DESIGN_CITY], # 市区町村名
+                         is_designated_cities: "true") # 政令指定都市等か
+    end
+    
+    city.sub_cities.create(sub_city_name: row[COLUMN_CITY])
+    
+  end
+
+end
