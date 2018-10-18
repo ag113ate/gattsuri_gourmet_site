@@ -11,13 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181006093234) do
+ActiveRecord::Schema.define(version: 20181018095634) do
 
   create_table "bookmark_stores", force: :cascade do |t|
     t.string   "user_id"
     t.string   "store_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.integer  "pref_code"
+    t.string   "pref_name"
+    t.string   "city_name"
+    t.binary   "is_designated_cities"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "food_images", force: :cascade do |t|
@@ -70,6 +79,13 @@ ActiveRecord::Schema.define(version: 20181006093234) do
     t.string   "shop_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sub_cities", force: :cascade do |t|
+    t.integer  "city_id"
+    t.string   "sub_city_name"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", id: false, force: :cascade do |t|
