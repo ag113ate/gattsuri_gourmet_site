@@ -1,0 +1,59 @@
+<div id="select_city">
+  <div id="select_city_pref"><%= @select_pref %></div>
+  
+  <div>
+    お店を探す地域を選択してください。
+  </div>
+  
+<%  disp_pos = 0 %>
+
+    <table>
+      <tr>
+        <td class="select-city-no-designated" colspan="<%= @city_row_cell_num %>">
+          <%= link_to(@select_pref, "#") %>
+        </td>
+      </tr>
+      
+<%    @cities.each do |city| %>
+<%      if ((city.is_designated_cities == "true") && (city.sub_cities.count >= 2)) %>
+<%=        render partial: "disp_desgnated_city", locals: {now_cell_pos: disp_pos,
+                                                                   city: city}  %>
+
+<%        disp_pos = 0 %>
+<%      else %>
+
+<%        if ((disp_pos % @city_row_cell_num) == 0)                                                       %>
+           <tr>
+<%        end                                                                     %>
+
+<%        if (city.sub_cities.present? == false) %>
+            <td class="select-city-no-designated">
+              <%= link_to(city.city_name, "#") %>
+            </td>
+<%        elsif (city.sub_cities.count == 1) %>
+            <td class="select-city-no-designated">
+              <%= link_to(city.sub_cities[0].sub_city_name, "#") %>
+            </td>
+<%        end %>
+        
+<%        if ((disp_pos % @city_row_cell_num) == (@city_row_cell_num - 1) )         %>
+            </tr>
+<%          disp_pos = 0 %>
+<%        else %>
+<%          disp_pos += 1 %>
+<%        end                                                                     %>
+
+<%      end %>
+<%    end %>
+
+<% remain_cell = @city_row_cell_num - (disp_pos % @city_row_cell_num)    %>
+<% if ((remain_cell != 0) && (remain_cell != (@city_row_cell_num)))             %>
+<%   for loop in 0...remain_cell do                                           %>
+       <td class="select-city-no-designated">-</td>
+<%   end %>
+     
+     </tr>
+<% end %>
+
+  </table>
+</div> <!-- select_city -->

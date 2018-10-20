@@ -1,6 +1,16 @@
 class GourmetSitesController < ApplicationController
   def top
   end
+  
+  def select_city
+    @cities = City.where(pref_code: params[:pref_num])
+    
+    @select_pref = @cities[0].pref_name
+    
+    #@cities = City.where(pref_code: 14)
+    
+    @city_row_cell_num = 5
+  end
 
   def disp_search_result
     if (session[:user_id] != nil)

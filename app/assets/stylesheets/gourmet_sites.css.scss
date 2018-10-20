@@ -125,3 +125,119 @@ div#main_panel td{
 .red_font{
   color: red;
 }
+
+div#select_city{
+  margin: 20px 0 0 0;
+  
+  font-size: x-large;
+  
+  text-align: center;
+}
+
+div#select_city_pref{
+  margin: 0 0 10px 0;
+  padding: 5px;
+  
+  display: inline-block;
+  
+  background: orange;
+  color: white;
+  
+  -moz-border-radius: 10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px; /* 角丸設定 */  
+}
+
+div#select_city table{
+  width: 80%;
+  
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  border-collapse: collapse;
+  table-layout: fixed;
+  
+  border: 1px solid orange;
+  -moz-border-radius: 10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px; /* 角丸設定 */  
+  
+}
+
+div#select_city td{
+  padding: 2px;
+  
+  vertical-align: middle;
+}
+
+.select-city-no-designated{
+  border: solid 3px orange;
+}
+.select-city-designated-city{
+  border-top:    solid  3px orange;
+  border-bottom: solid  3px orange;
+  border-left:   solid  3px orange;
+  border-right:  dashed 1.5px orange;
+}
+
+.select-city-one-row{
+  border-top:    solid  3px orange;
+  border-bottom: solid  3px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  dashed 1.5px orange;
+}
+
+.select-city-one-row-right-end{
+  border-top:    solid  3px orange;
+  border-bottom: solid  3px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  solid  3px orange;
+}
+
+
+.select-city-multi-row-top{
+  border-top:    solid  3px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  dashed 1.5px orange;
+}
+
+.select-city-multi-row-top-right-end{
+  border-top:    solid  3px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  solid  3px orange;
+}
+
+.select-city-multi-row-middle{
+  border: dotted  2px orange;
+}
+
+.select-city-multi-row-middle-right-end{
+  border-top:    dashed 1.5px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  solid  3px orange;
+}
+
+.select-city-multi-row-bottom{
+  border-top:    dashed 1.5px orange;
+  border-bottom: solid  3px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  dashed 1.5px orange;
+}
+
+.select-city-multi-row-bottom-right-end{
+  border-top:    dashed 1.5px orange;
+  border-bottom: solid  3px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  solid  3px orange;
+}
+
+.select-city-multi-row-top-middle{
+  border-top:    solid  3px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left:   dashed 1.5px orange;
+  border-right:  dashed 1.5px orange;
+}
