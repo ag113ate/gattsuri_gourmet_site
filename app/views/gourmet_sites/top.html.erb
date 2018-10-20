@@ -29,12 +29,12 @@
           fontColor : "areaColor",
           fontShadowColor : "black",
           onSelect:function(data){
-              $('input:hidden[name="pref_num"]').val(data.code);
-              $('#form_map_id').submit();
+            $('input:hidden[name="pref_num"]').val(data.code);
+            $('#form_map_id').submit();
           },
           onHover:function(data){
-              $("#text").html(data.area.name + "　" + data.name);
-              $("#text").css("background", data.area.color);
+            $("#text").html(data.area.name + "　" + data.name);
+            $("#text").css("background", data.area.color);
           }
         }
       );
@@ -44,11 +44,11 @@
 <div id="left_side">
   <form accept-charset="UTF-8" action="/gourmet_sites/select_city" id="form_map_id" method="get">
     <div id="map"></div>
+    
+    <input type="hidden" name="pref_num" value=0>  
   </form>
-  
   <p id="text" style="padding: 10px; width: 600px; color: #ffffff; text-align: center"></p>
-        
-  <input type="hidden" name="pref_num" value=0>
+  
 </div>
 
 <div id="right_side">
