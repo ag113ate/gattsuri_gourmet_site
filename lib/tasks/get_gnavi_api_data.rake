@@ -219,9 +219,6 @@ def get_rest_search_api_data(pref_code)
   		break
   	end
   	
-  	# 一時処理
-  	break
-  	
   	# 次の読み込みのため、ページ数をカウント
   	read_page_count += 1
   end # loop
@@ -263,7 +260,13 @@ module Photo_Search_api
         # ハッシュデータを取得
         hash_val = get_hash_data(uri, https)
         hash_val = hash_val[PHOTO_API_KEY_RESPONSE]
-  
+        
+        # 検索した店舗についての口コミがない場合
+        if (hash_val == nil)
+          puts "break"
+          break;
+        end
+        
         # 初回の読み込み時のみ以下処理を実行し、総ページ数を計算
       	if first_read == true
       		total_page = (hash_val[PHOTO_API_KEY_TOTAL_HIT].to_f / PHOTO_API_HIT_MAX).ceil
@@ -291,7 +294,6 @@ module Photo_Search_api
   	    
   	    print "#" # 処理が動いていることを示すため、文字を表示
       end # loop do 
-      
       print "#" # 処理が動いていることを示すため、文字を表示
     end # while (read_pos < store_ids_num)
     puts "" # 処理が終わったため、改行する
