@@ -60,5 +60,8 @@
       <%= text_field_tag :area, nil, placeholder: "例：川崎市" %>
       <%= submit_tag "検索" %>
     <% end %>
+    <div id="top_emp_error_msg">
+      <%= flash[:area_emp_error_msg] %>
+    </div>
   </div>
 </div>

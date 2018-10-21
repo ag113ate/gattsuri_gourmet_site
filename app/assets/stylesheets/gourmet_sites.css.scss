@@ -30,6 +30,12 @@ div#search_area{
   border-radius:10px; /* 角丸設定 */  
 }
 
+div#top_emp_error_msg{
+  font-size: large;
+  font-weight: bold;
+  color: rgb(91, 155, 213);
+}
+
 div#main_panel{
   float: left;
   width: 60%;

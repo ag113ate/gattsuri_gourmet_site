@@ -13,6 +13,12 @@ class GourmetSitesController < ApplicationController
   end
 
   def disp_search_result
+    # 店舗を検索する地域名を入れていない場合
+    if (params[:area] == "")
+      flash.now[:area_emp_error_msg] = "入力してください"
+      render(action: "top")
+    end
+    
     if (session[:user_id] != nil)
       @user = User.find_by(user_id: session[:user_id])
     end
