@@ -5,7 +5,13 @@ $(function(){
   });
   
   $(".select-city-btn").mouseout(function(){
-    $(this).css('background', 'rgba(255, 255, 255, 0.5)');
+    $(this).css('background', '');
     $(this).css('color', '');
+  });
+  
+  $(".select-city-btn").click(function(){
+    var area = $(this).find(".select-city-submit-val").text();
+    $('input:hidden[name="area"]').val(area);
+    $("#select_city_form").submit();
   });
 });

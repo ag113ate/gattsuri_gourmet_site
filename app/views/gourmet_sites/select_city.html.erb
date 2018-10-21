@@ -9,8 +9,12 @@
 
     <table>
       <tr>
-        <td class="select-city-no-designated" colspan="<%= @city_row_cell_num %>">
-          <%= link_to(@select_pref, "#", class: "select-city-btn") %>
+        <td class="select-city-no-designated select-city-btn" colspan="<%= @city_row_cell_num %>">
+          <div class="select-city-disp-area"><%= @select_pref %></div>
+
+<%#       div要素の中で地域を設定しようとすると隙間ができるため、一度変数に格納 %>
+<%        submit_area = @select_pref                                          %>
+          <div class="select-city-submit-val"><%= submit_area %></div>
         </td>
       </tr>
       
@@ -22,17 +26,27 @@
 <%        disp_pos = 0 %>
 <%      else %>
 
-<%        if ((disp_pos % @city_row_cell_num) == 0)                                                       %>
+<%        if ((disp_pos % @city_row_cell_num) == 0)                           %>
            <tr>
-<%        end                                                                     %>
+<%        end                                                                 %>
 
 <%        if (city.sub_cities.present? == false) %>
-            <td class="select-city-no-designated">
-              <%= link_to(city.city_name, "#", class: "select-city-btn") %>
+            <td class="select-city-no-designated select-city-btn">
+              <div class="select-city-disp-area"><%= city.city_name %></div>
+
+<%#           div要素の中で地域を設定しようとすると隙間ができるため、一度変数に格納 %>
+<%            submit_area = "#{city.pref_name}#{city.city_name}"%>
+              <div class="select-city-submit-val"><%= submit_area %></div>
             </td>
 <%        elsif (city.sub_cities.count == 1) %>
-            <td class="select-city-no-designated">
-              <%= link_to(city.sub_cities[0].sub_city_name, "#", class: "select-city-btn") %>
+            <td class="select-city-no-designated select-city-btn">
+              <div class="select-city-disp-val">
+                <%= city.sub_cities[0].sub_city_name %>
+              </div>
+
+<%#           div要素の中で地域を設定しようとすると隙間ができるため、一度変数に格納 %>
+<%            submit_area = "#{city.pref_name}#{city.city_name}#{city.sub_cities[0].sub_city_name}"%>
+              <div class="select-city-submit-val"><%= submit_area %></div>
             </td>
 <%        end %>
         
@@ -56,4 +70,8 @@
 <% end %>
 
   </table>
+  
+  <form accept-charset="UTF-8" action="/gourmet_sites/disp_search_result" id="select_city_form" method="get">
+    <input type="hidden" name="area">
+  </form>
 </div> <!-- select_city -->

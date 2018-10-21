@@ -13,8 +13,12 @@
 <% row_num = (city.sub_cities.count.to_f / row_cell_num.to_f).ceil %>
   
   <tr>
-    <td rowspan="<%= row_num %>" class="select-city-designated-city">
-      <%= link_to(city.city_name, "#", class: "select-city-btn") %>
+    <td rowspan="<%= row_num %>" class="select-city-designated-city select-city-btn">
+      <div class="select-city-disp-area"><%= city.city_name %></div>
+
+<%#   div要素の中で地域を設定しようとすると隙間ができるため、一度変数に格納 %>
+<%    submit_area = "#{city.pref_name}#{city.city_name}"%>
+      <div class="select-city-submit-val"><%= submit_area %></div>
     </td>
       
 <%  city.sub_cities.each_with_index do |sub_city, loop|                       %>
@@ -62,8 +66,12 @@
 <%    end                                                                     %>
 <%#   ----------------------------------------------------------------------- %>
 
-        <td class="<%= set_class %>">
-          <%= link_to(sub_city.sub_city_name, "#", class: "select-city-btn") %>
+      <td class="<%= set_class %> select-city-btn">
+        <div class="select-city-disp-area"><%= sub_city.sub_city_name %></div>
+
+<%#   div要素の中で地域を設定しようとすると隙間ができるため、一度変数に格納 %>
+<%    submit_area = "#{sub_city.city.pref_name}#{sub_city.city.city_name}#{sub_city.sub_city_name}"%>
+      <div class="select-city-submit-val"><%= submit_area %></div>
         </td>
         
 <%    if ((loop % row_cell_num) == (row_cell_num - 1))                        %>
