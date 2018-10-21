@@ -10,7 +10,7 @@
     <table>
       <tr>
         <td class="select-city-no-designated" colspan="<%= @city_row_cell_num %>">
-          <%= link_to(@select_pref, "#") %>
+          <%= link_to(@select_pref, "#", class: "select-city-btn") %>
         </td>
       </tr>
       
@@ -28,11 +28,11 @@
 
 <%        if (city.sub_cities.present? == false) %>
             <td class="select-city-no-designated">
-              <%= link_to(city.city_name, "#") %>
+              <%= link_to(city.city_name, "#", class: "select-city-btn") %>
             </td>
 <%        elsif (city.sub_cities.count == 1) %>
             <td class="select-city-no-designated">
-              <%= link_to(city.sub_cities[0].sub_city_name, "#") %>
+              <%= link_to(city.sub_cities[0].sub_city_name, "#", class: "select-city-btn") %>
             </td>
 <%        end %>
         

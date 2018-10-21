@@ -11,12 +11,10 @@
 <% row_cell_num =  (@city_row_cell_num - 1) %> 
 <% row_cell_right_end_pos = row_cell_num - 1 %>
 <% row_num = (city.sub_cities.count.to_f / row_cell_num.to_f).ceil %>
-
-<% puts("city_name:#{city.city_name}_row_cell:#{row_cell_num}") %>
-<% puts("row_cell_right_end_pos:#{row_cell_right_end_pos}_row_num:#{row_num}") %>
+  
   <tr>
     <td rowspan="<%= row_num %>" class="select-city-designated-city">
-      <%= link_to(city.city_name, "#") %>
+      <%= link_to(city.city_name, "#", class: "select-city-btn") %>
     </td>
       
 <%  city.sub_cities.each_with_index do |sub_city, loop|                       %>
@@ -65,7 +63,7 @@
 <%#   ----------------------------------------------------------------------- %>
 
         <td class="<%= set_class %>">
-          <%= link_to(sub_city.sub_city_name, "#") %>
+          <%= link_to(sub_city.sub_city_name, "#", class: "select-city-btn") %>
         </td>
         
 <%    if ((loop % row_cell_num) == (row_cell_num - 1))                        %>

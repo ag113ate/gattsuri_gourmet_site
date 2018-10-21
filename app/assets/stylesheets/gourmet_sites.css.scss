@@ -166,10 +166,17 @@ div#select_city table{
 }
 
 div#select_city td{
-  padding: 2px;
-  
   vertical-align: middle;
 }
+
+.select-city-btn{
+  display: inline-block;
+  
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
 
 .select-city-no-designated{
   border: solid 3px orange;
