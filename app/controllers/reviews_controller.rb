@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :require_login, except: [:show]
+  
   def new
     @store = Store.find_by(store_id: params[:store_id])
     @input_review = InputReview.new

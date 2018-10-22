@@ -1,4 +1,8 @@
 class GourmetSitesController < ApplicationController
+  # ログイン状態でないと、del_bookmarkアクションは実行されないが、
+  # 不正アクセスへの対策として、del_bookmarkアクションも対象とする
+  before_action :before_ajx_login_check, only: [:add_bookmark, :del_bookmark]
+  
   def top
   end
   
@@ -6,8 +10,6 @@ class GourmetSitesController < ApplicationController
     @cities = City.where(pref_code: params[:pref_num])
     
     @select_pref = @cities[0].pref_name
-    
-    #@cities = City.where(pref_code: 14)
     
     @city_row_cell_num = 5
   end
@@ -67,6 +69,14 @@ class GourmetSitesController < ApplicationController
     respond_to do |format|
       format.html
       format.js
+    end
+  end
+  
+  def before_ajx_login_check
+    if (session[:user_id] == nil)
+      respond_to do |format|
+        format.js{ render :bookmark_request_login}
+      end
     end
   end
 end

@@ -3,7 +3,9 @@
   <%  if (flash)                         %>
         <ul class="blue_font">
   <%      flash.each do |key, message| %>
-            <li> <%= message %> </li>
+  <%        if (key != "notice")       %>          
+              <li> <%= message %> </li>
+  <%        end                        %>
   <%      end                          %>
         </ul>
   <%  end                                %>
