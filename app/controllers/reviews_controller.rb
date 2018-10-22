@@ -71,7 +71,7 @@ class ReviewsController < ApplicationController
   end
 
   def delete
-    @input_review = Review.find_by(vote_id: params[:vote_id])
+    @input_review = InputReview.find_by(vote_id: params[:vote_id])
     @input_review.destroy
     
     user = User.find_by(user_id: session[:user_id])
