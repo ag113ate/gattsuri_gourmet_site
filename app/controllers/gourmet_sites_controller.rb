@@ -12,7 +12,7 @@ class GourmetSitesController < ApplicationController
     if ((pref_code < 8) || (pref_code > 14))
       flash.now[:notice] = "現在は関東地方のみの対応となっております"
       
-      render(action: "top")
+      render("top")
       return
     end
     
@@ -28,7 +28,7 @@ class GourmetSitesController < ApplicationController
     # 店舗を検索する地域名を入れていない場合
     if (params[:area] == "")
       flash.now[:area_emp_error_msg] = "入力してください"
-      render(action: "top")
+      render("top")
     end
     
     if (session[:user_id] != nil)

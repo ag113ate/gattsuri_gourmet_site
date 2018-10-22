@@ -80,21 +80,17 @@ class UsersController < ApplicationController
       session[:user_id] = @user.user_id
       redirect_to(root_path, notice: "アカウントを作成し、ログインしました")
     else
-      render(action: "new")
+      render("new")
     end
   end
   
   def update
     @user = User.find_by(user_id: session[:user_id])
     
-    puts("user_id:#{params[:user][:user_id]}")
-    puts("password:#{params[:user][:password]}")
-    puts("password_confirmation:#{params[:user][:password_confirmation]}")
-    
     if @user.update(user_params)
       redirect_to("/users/#{@user.user_id}", notice:"パスワードを変更しました")
     else
-      render(action: "edit")
+      render("edit")
     end
   end
   

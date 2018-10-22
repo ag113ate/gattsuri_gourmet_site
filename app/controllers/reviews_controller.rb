@@ -40,7 +40,7 @@ class ReviewsController < ApplicationController
     if (@input_review.save == true)
       redirect_to("/users/#{session[:user_id]}", notice: "口コミを投稿しました")
     else
-      render(action: "new")
+      render("new")
       return
     end
   end
@@ -54,7 +54,7 @@ class ReviewsController < ApplicationController
     if (@input_review.update(input_review_params) == true)
       redirect_to("/users/#{session[:user_id]}", notice: "口コミを更新しました")
     else
-      render(action: "edit")
+      render("edit")
       return;
     end
   end
