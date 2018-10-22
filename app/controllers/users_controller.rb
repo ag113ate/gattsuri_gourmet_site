@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:index, :login, :new, :create]
   
   def index
+    session[:referer_url] = request.referer
   end
   
   def login
@@ -46,7 +47,9 @@ class UsersController < ApplicationController
     # =============================== end =============================
     
     if ((params_check == true) && (login_success == true))
-      redirect_to(root_path, notice: "ログインしました")
+      redirect_to(session[:referer_url], notice: "ログインしました")
+      
+      session[:referer_url] = nil
     else
       # ユーザIDについては、既に入力してある値を表示
       # （パスワードについては、再度入力を行う）

@@ -27,6 +27,10 @@
   <% end %>
 </div>
 
+<div id="refere_link">
+  <%= link_to("戻る", session[:referer_url]) %>
+</div>
+
 <div id="new_account_link">
   <%= link_to("まだアカウントを作成ではない方はこちら", "/users/new") %>
 </div>
