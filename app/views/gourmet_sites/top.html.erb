@@ -1,7 +1,9 @@
 <script type="text/javascript" src="js/jquery.japan-map.min.js"></script>
   <script type="text/javascript">
     $(function(){
-
+      /* 再度、トップページに戻ってきたときに地図が追加で表示されてしまうため */
+      $("#map").html('');
+      
       var areas = [
           {"code": 1 , "name":"北海道地方",         "color":"#ca93ea", "hoverColor":"#e0b1fb", "prefectures":[1]},
           {"code": 2 , "name":"東北地方",           "color":"#a7a5ea", "hoverColor":"#d6d4fd", "prefectures":[2,3,4,5,6,7]},
