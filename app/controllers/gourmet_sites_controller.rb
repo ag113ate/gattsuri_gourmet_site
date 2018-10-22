@@ -7,7 +7,17 @@ class GourmetSitesController < ApplicationController
   end
   
   def select_city
-    @cities = City.where(pref_code: params[:pref_num])
+    pref_code = params[:pref_num].to_i
+    
+    if ((pref_code < 8) || (pref_code > 14))
+      flash.now[:notice] = "現在は関東地方のみの対応となっております"
+      
+      render(action: "top")
+      return
+    end
+    
+    
+    @cities = City.where(pref_code: pref_code)
     
     @select_pref = @cities[0].pref_name
     
