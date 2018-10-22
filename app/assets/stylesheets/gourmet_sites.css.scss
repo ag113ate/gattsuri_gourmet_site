@@ -251,3 +251,25 @@ div#select_city td{
   border-left:   dashed 1.5px orange;
   border-right:  dashed 1.5px orange;
 }
+
+
+div#not_search_result{
+  margin: 100px 0 0 0;
+  font-size: x-large;
+  text-align: center;
+}
+
+div#not_search_result_title{
+  margin: 0 0 30px 0;
+}
+
+#not_search_result_title_disp_area{
+  padding: 5px;
+  
+  background: orange;
+  color: white;
+  
+  -moz-border-radius: 10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px; /* 角丸設定 */   
+}

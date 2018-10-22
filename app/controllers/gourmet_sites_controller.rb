@@ -31,15 +31,15 @@ class GourmetSitesController < ApplicationController
       render("top")
     end
     
-    if (session[:user_id] != nil)
-      @user = User.find_by(user_id: session[:user_id])
-    end
-    
     @area = params[:area]
     
     @stores = Store.where('address LIKE?', "%#{@area}%").page(params[:page]).per(10)
     @search_count = Store.where('address LIKE?', "%#{@area}%").count()
     
+    if (@search_count == 0)
+      render("not_search_result")
+      return
+    end
     @hash = Gmaps4rails.build_markers(@stores) do |store, marker|
       marker.lat store.latitude
       marker.lng store.longitude
