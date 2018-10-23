@@ -59,9 +59,14 @@
       <% end %>
       
       <%# 各ユーザが投稿した画像を表示 %>
-      <% store.input_reviews.each do |input_review| %>
-        <%= image_tag(input_review.image, class: "img-param") %>
-      <% end %>
+      <% store.input_reviews.each do |input_review|           %>
+      <%#  画像なしでも口コミを投稿できるため                 %>
+      <%   if (input_review.image_url == nil)                 %>
+      <%     next                                             %>
+      <%   end                                                %>
+      <%                                                      %>
+      <%=  image_tag(input_review.image, class: "img-param")  %>
+      <% end                                                  %>
     </div>
     
     <%# ========================================================= %>
