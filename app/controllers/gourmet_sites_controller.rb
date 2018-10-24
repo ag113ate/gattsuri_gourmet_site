@@ -85,6 +85,9 @@ class GourmetSitesController < ApplicationController
   
   def terms_of_use
   end
+  
+  def privacy_policy
+  end
 
   
   def before_ajx_login_check

@@ -14,6 +14,7 @@ GattsuriGourmetSite::Application.routes.draw do
   get "gourmet_sites/disp_search_result"
   get "gourmet_sites/select_city"
   get "gourmet_sites/terms_of_use"
+  get "gourmet_sites/privacy_policy"
     
   post   "gourmet_sites/bookmark/:id" => "gourmet_sites#add_bookmark"
   
