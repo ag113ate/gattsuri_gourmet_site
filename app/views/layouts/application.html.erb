@@ -29,7 +29,7 @@
             <% else %>
               <li><%= link_to "ログイン",             "/users/", class: "btn" %> </li>
             <% end %>
-            <li><%= link_to "がっつりグルメについて", "#", class: "btn" %></li>
+            <li><%= link_to "がっつりグルメについて", "/gourmet_sites/about_site", class: "btn" %></li>
           </ul>
         </div> <!-- gnavi -->
       <% end %> <%# if !((@path[:controller] == "reviews") && (@path[:action] == "show")) %>

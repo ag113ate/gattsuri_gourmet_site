@@ -33,9 +33,13 @@ div#search_area{
 div#top_emp_error_msg{
   font-size: large;
   font-weight: bold;
-  color: rgb(91, 155, 213);
+  //color: rgb(91, 155, 213);
+  color: orange;
 }
 
+div#top_warning_msg{
+  color: blue;
+}
 div#main_panel{
   float: left;
   width: 60%;
@@ -45,9 +49,8 @@ div#side_bar{
   float: right;
   margin: 10px 10px 0 0;
   width: 38%; 
-  
-  border: 1px solid orange;
 }
+
 div#side_bar_area{
   // widthはJSPにより設定
 
@@ -302,3 +305,51 @@ div.terms-descript{
   margin: 0 0 0 1em;
 }
 
+div#about_site{
+  margin: 0 auto;
+  width: 80%;
+}
+div#about_site_title{
+  margin: 30px 0 30px 0;
+  text-align: center;
+}
+
+#about_site_title_disp{
+  padding: 5px;
+  
+  color: white;
+  font-size: large;
+  
+  background: orange;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+
+div.about-site-section{
+  clear: both;
+  margin: 20px 0 20px 0;
+}
+
+div.about-site-section-title{
+  font-size: large;
+  text-align: center;
+
+}
+
+div.about-site-section-container{
+  padding: 3px;
+  border: 2px dotted orange;
+}
+
+div.about-site-section-description{
+  width: 48%;
+  float: left;
+}
+
+div.about-site-section-picture{
+  width: 48%;
+  float: right;
+}
