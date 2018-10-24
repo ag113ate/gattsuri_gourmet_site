@@ -40,6 +40,7 @@ class GourmetSitesController < ApplicationController
       render("not_search_result")
       return
     end
+    
     @hash = Gmaps4rails.build_markers(@stores) do |store, marker|
       marker.lat store.latitude
       marker.lng store.longitude
@@ -81,6 +82,10 @@ class GourmetSitesController < ApplicationController
       format.js
     end
   end
+  
+  def terms_of_use
+  end
+
   
   def before_ajx_login_check
     if (session[:user_id] == nil)
