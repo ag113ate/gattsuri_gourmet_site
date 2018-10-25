@@ -2,47 +2,52 @@
   <div class="store-top-area clearfix">
     <div class="store-header-left">
       <div class="store-name-area">
-        <%= store.name %> <br>
+<%=     store.name                                                            %>
+        <br>
       </div>
       
       <div class="store-review-area">
         <ul>
-        <%  for loop in 1..5 do                                        %>
-        <li>
-        <%    if (loop <= store.review)                                %>
-        <%=     image_tag("meat_color_all.png", class: "review-icon")  %>
-        <%    elsif ((loop - 0.5) <= store.review)                     %>
-        <%=     image_tag("meat_color_half.png", class: "review-icon") %>
-        <%    else                                                     %>
-        <%=     image_tag("meat_color_none.png", class: "review-icon") %>
-        <%    end                                                      %>
-        </li>
-        <%  end                                                        %>
+<%        for loop in 1..5 do                                                 %>
+            <li>
+<%            if (loop <= store.review)                                       %>
+<%=             image_tag("meat_color_all.png", class: "review-icon")         %>
+<%            elsif ((loop - 0.5) <= store.review)                            %>
+<%=             image_tag("meat_color_half.png", class: "review-icon")        %>
+<%            else                                                            %>
+<%=             image_tag("meat_color_none.png", class: "review-icon")        %>
+<%            end                                                             %>
+            </li>
+<%        end                                                                 %>
         
         <li class="review-point_area"><%= store.review %></li>
         </ul>
       </div>
     </div>  <!-- store_header_left -->
-    <%# 「お気に入り」ボタンは店舗検索ページのみ表示（マイページでは表示しない）    %>
-    <div class="store-header-right bookmark-area">
-    <% if (controller.controller_name == "gourmet_sites")                           %>
     
-    <%  # ログインしていない場合(@user == nil)は、「お気に入り追加」ボタンを表示    %>
-    <%   if (@user == nil ||  
-             @user.bookmark_stores.find_by(store_id: store.store_id) == nil)        %>
-    <%=    link_to "お気に入り追加", "/gourmet_sites/bookmark/#{store.store_id}", 
+
+<%  #「お気に入り」ボタンは店舗検索ページのみ表示（マイページでは表示しない）       %>
+<%  if (controller.controller_name == "gourmet_sites")                              %>
+      <div class="store-header-right bookmark-area">
+<%      # ログインしていない場合(@user == nil)は、「お気に入り追加」ボタンを表示    %>
+<%      if (@user == nil ||  
+            @user.bookmark_stores.find_by(store_id: store.store_id) == nil)         %>
+<%=           link_to("お気に入り追加", "/gourmet_sites/bookmark/#{store.store_id}", 
                                           method: :post, remote: true,
-                                          class:"btn blue_font"                     %>
-    <%   else                                                                       %>
-    <%=    link_to "お気に入り店舗", "/gourmet_sites/bookmark/#{store.store_id}", 
-                                            method: :delete, remote: true, 
-                                            class:"btn red_font"                    %>
-    <%   end # if(@users == nil) ||                                                 %>
-    <% else                                                                         %>
-    <%=   link_to "お気に入り削除", "#", class:"btn red_font"                       %>
-    <% end #if (controller.controller_name == "goumet_sites")                       %>
-    </div>
-    
+                                          class:"btn blue_font") %>
+<%      else # if(@user == nil)                                                     %>
+<%=           link_to("お気に入り店舗", "/gourmet_sites/bookmark/#{store.store_id}", 
+                                          method: :delete, remote: true, 
+                                          class:"btn red_font")                     %>
+<%      end # if(@users == nil) ||                                                  %>                                          
+      </div> <!-- <div class="store-header-right bookmark-area"> -->
+      
+<%  elsif (controller.controller_name == "users")                                   %>
+      <div class="store-header-right bookmark-delete">
+<%=     link_to("お気に入り削除", "#", class:"btn red_font")                        %>
+      </div> <!-- <div class="store-header-right bookmark-delete"> -->
+<%  end #if (controller.controller_name == "goumet_sites")                          %>
+
     <div class="genre-area">
       ジャンル：<%= store.category_name_l %>
     </div>
@@ -53,20 +58,20 @@
     
     <%# 料理画像表示部分 %>
     <div class="store-image-area">
-      <%# APIから取得したURLの画像を表示 %>
-      <% store.food_images.each do |image| %>
+<%    # APIから取得したURLの画像を表示                                        %>
+<%    store.food_images.each do |image|                                       %>
         <%= image_tag("/application/get_img/#{image.id}", class: "img-param") %>
-      <% end %>
+<%    end                                                                     %>
       
-      <%# 各ユーザが投稿した画像を表示 %>
-      <% store.input_reviews.each do |input_review|           %>
-      <%#  画像なしでも口コミを投稿できるため                 %>
-      <%   if (input_review.image_url == nil)                 %>
-      <%     next                                             %>
-      <%   end                                                %>
-      <%                                                      %>
-      <%=  image_tag(input_review.image, class: "img-param")  %>
-      <% end                                                  %>
+<%    # 各ユーザが投稿した画像を表示                                          %>
+<%    store.input_reviews.each do |input_review|                              %>
+<%      #  画像なしでも口コミを投稿できるため                                 %>
+<%      if (input_review.image_url == nil)                                    %>
+<%        next                                                                %>
+<%      end                                                                   %>
+<%                                                                            %>
+<%=     image_tag(input_review.image, class: "img-param")                     %>
+<%    end                                                                     %>
     </div>
     
     <%# ========================================================= %>
