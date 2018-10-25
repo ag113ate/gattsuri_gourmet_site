@@ -29,6 +29,14 @@ class GourmetSitesController < ApplicationController
     if (params[:area] == "")
       flash.now[:area_emp_error_msg] = "入力してください"
       render("top")
+      
+      return
+    end
+    
+    if (session[:user_id] != nil)
+      @user = User.find_by(user_id: session[:user_id])
+    else
+      @user = nil
     end
     
     @area = params[:area]
