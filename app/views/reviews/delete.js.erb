@@ -1,5 +1,5 @@
 $show_review_vote = $('#show_review_vote_<%= "#{@input_review.store_id}_#{@input_review.vote_id}" %>');
-$show_review_vote.css('display', 'none');
+$show_review_vote.remove();
 
 $('#review_count_disp').text("<%= @input_review_count %> 件");
 
