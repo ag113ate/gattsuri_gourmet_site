@@ -79,9 +79,17 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     
-    if (@user.save)
+    is_success_save = @user.save
+    
+    if (is_success_save && (session[:referer_url] != nil))
+      session[:user_id] = @user.user_id
+      redirect_to(session[:referer_url], notice: "アカウントを作成し、ログインしました")
+      session[:referer_url] = nil
+      
+    elsif(is_success_save && (session[:referer_url] == nil))
       session[:user_id] = @user.user_id
       redirect_to(root_path, notice: "アカウントを作成し、ログインしました")
+      
     else
       render("new")
     end
