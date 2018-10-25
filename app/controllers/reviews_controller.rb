@@ -5,6 +5,7 @@ class ReviewsController < ApplicationController
     @store = Store.find_by(store_id: params[:store_id])
     @input_review = InputReview.new
     
+    session[:referer_url] = request.referer
   end
 
   def create
@@ -38,10 +39,11 @@ class ReviewsController < ApplicationController
     
     # DBへ格納
     if (@input_review.save == true)
-      redirect_to("/users/#{session[:user_id]}", notice: "口コミを投稿しました")
+      redirect_to(session[:referer_url], notice: "口コミを投稿しました")
+      session[:referer_url] = nil
+      
     else
       render("new")
-      return
     end
   end
   
