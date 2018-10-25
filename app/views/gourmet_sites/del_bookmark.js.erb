@@ -8,7 +8,7 @@
 <% else %>
   /* マイページでの動作 */
   $store_area = $("#store_area_<%= @store_id %>");
-  $store_area.css('display', 'none');
+  $store_area.remove();
   
   $('#bookmark_count_disp').text("<%= @bookmark_count %> 店舗");
   
