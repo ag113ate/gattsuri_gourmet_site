@@ -5,7 +5,21 @@ class ReviewsController < ApplicationController
     @store = Store.find_by(store_id: params[:store_id])
     @input_review = InputReview.new
     
-    session[:referer_url] = request.referer
+    # 遷移元がログインページ(/users/index)、あるいは
+    # アカウント作成ページ(/users/new)だった場合
+    #     ・末ログイン状態で「口コミを書く」をクリック
+    #     ・システムにより、ログインを要求              となる
+    # この場合、require_loginメソッド内で、session[:review_complete_link]に
+    # 格納されるURLを設定されているため、ここでの処理は不要
+    path = Rails.application.routes.recognize_path(request.referer)
+    if !( ((path[:controller] == "users") && (path[:action] == "index")) ||
+          ((path[:controller] == "users") && (path[:action] == "new"  ))  )
+      if (request.referer != nil)
+        session[:review_complete_link] = URI(request.referer).request_uri
+      else
+        session[:review_complete_link] = nil
+      end
+    end
   end
 
   def create
@@ -38,9 +52,13 @@ class ReviewsController < ApplicationController
     # =================================================
     
     # DBへ格納
-    if (@input_review.save == true)
-      redirect_to(session[:referer_url], notice: "口コミを投稿しました")
-      session[:referer_url] = nil
+    is_success_save = @input_review.save
+    if (is_success_save && (session[:review_complete_link] != nil))
+      redirect_to(session[:review_complete_link], notice: "口コミを投稿しました")
+      session[:review_complete_link] = nil
+      
+    elsif (is_success_save && (session[:review_complete_link] == nil))
+      redirect_to("/users/#{session[:user_id]}", notice: "口コミを投稿しました")
       
     else
       render("new")

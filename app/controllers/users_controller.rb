@@ -3,7 +3,28 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:index, :login, :new, :create]
   
   def index
-    session[:referer_url] = request.referer
+    # 「口コミを書く(reviews/newアクション)」等で、システムに途中でログインを
+    #  要求された場合、ログイン後は本来の遷移先に移動する
+    #  例1：末ログイン状態で、「口コミを書く」ボタンをクリック
+    #           ⇒　システムにより、ログイン画面が表示される
+    #               ログイン後は、「口コミの投稿ページ」へ移動
+    #  例2:お店の検索ページを表示中に、ヘッダの「ログイン」ボタンをクリック
+    #           ⇒  ログイン画面が表示される
+    #               ログイン後は、お店の検索ページへ戻る
+    #
+    # ※ システムにログインを要求された場合は「session[:request_login] == true」
+    #    となっている
+    if (session[:request_login] == nil)
+      if (request.referer != nil)
+        session[:login_complete_link] = URI(request.referer).request_uri
+      else
+        session[:login_complete_link] = nil
+      end
+    end
+    
+    # 「本来の遷移先のURLを設定するか」、あるいは「遷移元のURL」に移動するか
+    #  の判断のために使用していたsessionであり、上記で役割は果たしたため、nilを設定
+    session[:request_login] = nil
   end
   
   def login
@@ -47,9 +68,13 @@ class UsersController < ApplicationController
     # =============================== end =============================
     
     if ((params_check == true) && (login_success == true))
-      redirect_to(session[:referer_url], notice: "ログインしました")
+      if (session[:login_complete_link] != nil)
+        redirect_to(session[:login_complete_link], notice: "ログインしました")
+      else
+        redirect_to("/users/#{session[:user_id]}", notice: "ログインしました")
+      end
       
-      session[:referer_url] = nil
+      session[:login_complete_link] = nil
     else
       # ユーザIDについては、既に入力してある値を表示
       # （パスワードについては、再度入力を行う）
@@ -70,10 +95,6 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find_by(user_id: session[:user_id])
-    
-    # 新しいパスワードをユーザに設定させるため
-    #@user.password = ""
-    #@user.password_confirmation = ""
   end
   
   def create
@@ -81,12 +102,12 @@ class UsersController < ApplicationController
     
     is_success_save = @user.save
     
-    if (is_success_save && (session[:referer_url] != nil))
+    if (is_success_save && (session[:login_complete_link] != nil))
       session[:user_id] = @user.user_id
-      redirect_to(session[:referer_url], notice: "アカウントを作成し、ログインしました")
-      session[:referer_url] = nil
+      redirect_to(session[:login_complete_link], notice: "アカウントを作成し、ログインしました")
+      session[:login_complete_link] = nil
       
-    elsif(is_success_save && (session[:referer_url] == nil))
+    elsif(is_success_save && (session[:login_complete_link] == nil))
       session[:user_id] = @user.user_id
       redirect_to(root_path, notice: "アカウントを作成し、ログインしました")
       
