@@ -9,12 +9,6 @@ require 'mini_magick'
 # ==============================================================================
 TIMEOUT_SEC = 10
 
-# 画像の保存先ディレクトリ
-IMAGE_DL_DIR="./app/assets/images/store_img"
-
-# 画像の保存サイズ
-IMAGE_RESIZE_SIZE = "256x256!"
-
 # ぐるなびAPIのアクセスキーに対しての環境変数
 GNAVI_API_KEY = "GNAVI_API_KEY"
 # ==============================================================================
@@ -153,6 +147,8 @@ module Rest_Search_API
     	  store_ids_cnt += 1
     	end
     	
+    	break
+    	
     	# ==============================
     	# 全ページを読み込んだ場合、終了
     	# ==============================
@@ -170,7 +166,7 @@ module Rest_Search_API
   # レストラン検索APIについてのクエリを取得
   def self.get_query(pref_code, read_page_count)
     query = URI.encode_www_form({
-    keyid: ENV["GNAVI_API_KEY"],    # APIキー \
+    keyid: ENV[GNAVI_API_KEY],    # APIキー \
     pref: pref_code,                # 都道府県コード \
     hit_per_page: HIT_PER_PAGE,     # リクエスト1回のレスポンスデータ数 \
     offset_page: read_page_count,   # 読み込むページ位置 \
@@ -191,8 +187,6 @@ module Rest_Search_API
       # ============================== begin ===================================
   	  store.store_id = restaurant[REST_API_KEY_STORE_ID]               # 店舗ID
   	  store.name = restaurant[REST_API_KEY_STORE_NAME]                 # 店舗名称
-  	  store.review = 0.0                                               # レビュー評価値 ※暫定処理
-  	                                                                   #（コメントを取得後に改めて設定）
   	  store.opentime = restaurant[REST_API_KEY_OPEN_TIME]              # 営業時間
   	  store.holiday = restaurant[REST_API_KEY_HOLIDAY]                 # 休業日
   	  store.tel = restaurant[REST_API_KEY_TEL]                         # 電話番号
@@ -212,6 +206,8 @@ module Rest_Search_API
   	  end
   	  
   	  store.shop_url = restaurant[REST_API_KEY_GNAVI_STORE_URL]        # PC用URL
+  	  
+  	  # ※各店舗の評価値は口コミを取得後に設定
   	  # =============================== end ====================================
   	  
   	  # レコードへ登録
@@ -445,20 +441,48 @@ module Photo_Search_Api
   
 end # module Photo_Search_Api
 
+# 口コミに総合評価値に基づいて、各店舗の評価値を設定
+def set_store_score_based_on_reviews
+  
+  stores = Store.all
+  
+  # 各店舗の評価値を設定
+  stores.each do |store|
+    
+    loop do
+      # まだ口コミがない店舗については「-1」を設定
+      if (store.reviews.count == 0)
+        store.score = -1
+        break;
+      end
+      
+      # 全ての口コミの平均店を各店舗の評価値とする
+      score_sum = 0.0
+      store.reviews.each do |review|
+        score_sum += review.total_score
+      end
+      store.score = score_sum / store.reviews.count
+      
+      break unless false
+    end
+    
+    puts store.score
+    # モデルを更新
+    store.save
+    
+  end
+end
 
 desc "ぐるなびのレストラン検索API、応援口コミAPIのデータを取得(引数には都道府県マスタ取得APIより取得したコードを設定)"
 task :get_gnavi_api_data, ["pref_code"] => :environment do |task, args|
-  
-  # 画像取得先のディレクトリを作成
-  # （レストラン検索API、応援口コミAPIより取得した画像の保存先）
-  if (Dir::exist?(IMAGE_DL_DIR) == false)
-    Dir::mkdir(IMAGE_DL_DIR)
-  end
 
   # レストラン検索APIにより、店舗情報、画像を取得
   store_ids, store_ids_num = Rest_Search_API.get_api_data(args.pref_code)
   
   # レストラン検索APIで取得した店舗に対し、応援口コミAPIデータを取得
   Photo_Search_Api.get_api_data(store_ids, store_ids_num)
+  
+  # 口コミに総合評価値に基づいて、各店舗の評価値を設定
+  set_store_score_based_on_reviews
   
 end # task :get_gnavi_api_data
