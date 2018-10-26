@@ -198,12 +198,12 @@ div.store-info-area{
 }
 
 div.store-bottom-area{
-  padding: 10px 0 10px 10px;
+  padding: 10px 0 10px 0;
 }
 
 div.store-bottom-area li{
   width: 30%;
-  float: left;
+  float: right;
 }
 
 .img-param{
