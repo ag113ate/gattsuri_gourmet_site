@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20181018095634) do
   create_table "stores", id: false, force: :cascade do |t|
     t.string   "store_id"
     t.string   "name"
-    t.float    "review"
+    t.float    "score"
     t.string   "opentime"
     t.string   "holiday"
     t.string   "tel"

@@ -3,7 +3,7 @@ class CreateStores < ActiveRecord::Migration
     create_table :stores, id:false do |t|
       t.string :store_id
       t.string :name
-      t.float :review
+      t.float :score
       t.string :opentime
       t.string :holiday
       t.string :tel
