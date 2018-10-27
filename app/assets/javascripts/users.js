@@ -112,7 +112,6 @@ function disp_bookmark_delete_confirm(_this){
 
 /* 投稿口コミの削除確認画面の表示 */
 function disp_review_delete_confirm(_this){
-  
   /* 対象となるレビュー情報をモーダルウィンドゥ内に設定 */
   (function(_this){
     var index = $('.review_delete_btn').index(_this);
@@ -171,6 +170,13 @@ function disp_review_delete_confirm(_this){
 
 
 $(function(){
+  var controller_name = $('body').data('controller');
+  var action_name = $('body').data('action');
+  
+  if (!( (controller_name == "users") && (action_name == "show") )){
+    return;
+  }
+
   /* サイドバーについて、幅を設定                              */
   /* ※ サイドバーは固定表示しているためJQueryにより幅を設定   */
   $('#user_info').css('width', $('side_bar').width());
@@ -236,6 +242,13 @@ $(function(){
 
 
 $(window).on('load page:load', function(){
+  var controller_name = $('body').data('controller');
+  var action_name = $('body').data('action');
+  
+  if (!( (controller_name == "users") && (action_name == "show") )){
+    return;
+  }
+
   /* 「お気に入り店舗一覧」タイトルについて     */
   var $bookmark_title = $('#bookmark_title');
   var bookmark_title_obj = getPosition($bookmark_title);

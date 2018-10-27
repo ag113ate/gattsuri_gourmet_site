@@ -1,4 +1,12 @@
 $(function(){
+  var controller_name = $('body').data('controller');
+  var action_name = $('body').data('action');
+  
+  if (!( ((controller_name == "reviews") && (action_name == "new")) ||
+         ((controller_name == "reviews") && (action_name == "edit")) )){
+    return;
+  }
+
   disp_score_icon();
   
   $("#input_review_total_score").change(function(){

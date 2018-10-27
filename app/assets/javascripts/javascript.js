@@ -22,6 +22,14 @@ $(function(){
 
 
 $(window).on('load page:load', function(){
+  var controller_name = $('body').data('controller');
+  var action_name = $('body').data('action');
+  
+  if (!( ((controller_name == "gourmet_sites") && (action_name == "disp_search_result")) ||
+         ((controller_name == "users") && (action_name == "show")) )){
+    return;
+  }
+
   // 各変数の初期化
   var img_disp_areas = $('.store-image-area'); // 画像表示領域のオブジェクト
   var img_areas_num = img_disp_areas.length; //処理を行う領域数

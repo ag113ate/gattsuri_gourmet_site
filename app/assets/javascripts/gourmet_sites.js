@@ -1,4 +1,11 @@
 $(function(){
+  var controller_name = $('body').data('controller');
+  var action_name = $('body').data('action');
+  
+  if (!( (controller_name == "gourmet_sites") && (action_name == "select_city") )){
+    return;
+  }
+
   $(".select-city-btn").mouseover(function(){
     $(this).css('background', 'orange');
     $(this).css('color', 'white');
