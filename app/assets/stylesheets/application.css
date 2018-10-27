@@ -88,6 +88,8 @@ div#container_area{
 div#footer{
   width: 100%;
   background: rgb(91, 155, 213);
+  
+  z-index: 10;
 }
 
 div#footer_area{
