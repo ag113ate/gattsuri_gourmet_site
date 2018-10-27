@@ -53,11 +53,14 @@ class ReviewsController < ApplicationController
     
     # DBへ格納
     is_success_save = @input_review.save
+  
     if (is_success_save && (session[:review_complete_link] != nil))
+      update_store_score(@store)
       redirect_to(session[:review_complete_link], notice: "口コミを投稿しました")
       session[:review_complete_link] = nil
       
     elsif (is_success_save && (session[:review_complete_link] == nil))
+      update_store_score(@store)
       redirect_to("/users/#{session[:user_id]}", notice: "口コミを投稿しました")
       
     else
@@ -72,10 +75,10 @@ class ReviewsController < ApplicationController
     
     # DBへ更新
     if (@input_review.update(input_review_params) == true)
+      update_store_score(@store)
       redirect_to("/users/#{session[:user_id]}", notice: "口コミを更新しました")
     else
       render("edit")
-      return;
     end
   end
 
@@ -98,6 +101,8 @@ class ReviewsController < ApplicationController
     
     @input_review_count = user.input_reviews.count
     
+    update_store_score(@input_review.store)
+    
     respond_to do |format|
       format.html
       format.js
@@ -106,5 +111,27 @@ class ReviewsController < ApplicationController
   
   def input_review_params
     params.require(:input_review).permit(:menu_name, :comment, :total_score, :image)
+  end
+  
+  def update_store_score(store)
+    score_sum = 0
+    existed_review_num = 0
+    
+    # APIから取得した口コミについて
+    existed_review_num += store.reviews.count
+    store.reviews.each do review
+      score_sum += review.total_score
+    end
+    
+    # 各ユーザが投稿した口コミについて
+    existed_review_num += store.input_reviews.count
+    store.input_reviews.each do |review|
+      score_sum += review.total_score
+    end
+
+    # 店舗の評価値を更新
+    store.score = (existed_review_num != 0) ? (score_sum / existed_review_num) :
+                                              (-1)
+    store.save
   end
 end
