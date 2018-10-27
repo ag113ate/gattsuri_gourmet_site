@@ -40,7 +40,7 @@
     
     $.each(markers, function(index, marker){
       google.maps.event.addListener(marker.getServiceObject(), "mouseover", function(){
-        this.setIcon('/assets/steak.png');
+        this.setIcon('/assets/meat.png');
       });
       
       google.maps.event.addListener(marker.getServiceObject(), "mouseout", function(){
@@ -57,16 +57,11 @@
     })
   });
   
-  // /* 各マーカーにz-index値を設定（マーカーの重なりがある時のため） */
-  // for (var loop1 = 0; loop1 < markers.length; loop1++){
-  //   markers[loop1].getServiceObject().setZIndex(loop1);
-  // }
-  
   $("[id^='store_area_']").mouseover(function(){
     var index = $("[id^='store_area_']").index(this);
     var marker = markers[index];
     
-    marker.getServiceObject().setIcon('/assets/steak.png');
+    marker.getServiceObject().setIcon('/assets/meat.png');
     
     $(this).css("background", "orange");
   });
