@@ -41,10 +41,12 @@
     $.each(markers, function(index, marker){
       google.maps.event.addListener(marker.getServiceObject(), "mouseover", function(){
         this.setIcon('/assets/meat.png');
+        this.setZIndex(2);
       });
       
       google.maps.event.addListener(marker.getServiceObject(), "mouseout", function(){
         this.setIcon('/assets/raw_meat.png');
+        this.setZIndex(1);
       });
       
       google.maps.event.addListener(marker.getServiceObject(), "click", function(){
@@ -54,6 +56,8 @@
         
         $("body,html").animate({scrollTop:position}, 400, "swing");
       });
+      
+      marker.getServiceObject().setZIndex(1);
     })
   });
   
@@ -62,6 +66,7 @@
     var marker = markers[index];
     
     marker.getServiceObject().setIcon('/assets/meat.png');
+    marker.getServiceObject().setZIndex(2);
     
     $(this).css("background", "orange");
   });
@@ -71,6 +76,7 @@
     var marker = markers[index];
     
     marker.getServiceObject().setIcon('/assets/raw_meat.png');
+    marker.getServiceObject().setZIndex(1);
     
     $(this).css("background", "rgb(91, 155, 213)");
   });
