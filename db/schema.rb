@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20181018095634) do
     t.string   "menu_name"
     t.text     "comment"
     t.float    "total_score"
-    t.datetime "update_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -7,7 +7,6 @@ class CreateReviews < ActiveRecord::Migration
       t.string :menu_name
       t.text :comment
       t.float :total_score
-      t.datetime :update_date
 
       t.timestamps
     end
