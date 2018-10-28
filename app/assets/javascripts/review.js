@@ -3,7 +3,9 @@ $(function(){
   var action_name = $('body').data('action');
   
   if (!( ((controller_name == "reviews") && (action_name == "new")) ||
-         ((controller_name == "reviews") && (action_name == "edit")) )){
+         ((controller_name == "reviews") && (action_name == "create")) ||
+         ((controller_name == "reviews") && (action_name == "edit")) ||
+         ((controller_name == "reviews") && (action_name == "update")) )){
     return;
   }
 
