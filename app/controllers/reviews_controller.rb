@@ -119,7 +119,7 @@ class ReviewsController < ApplicationController
     
     # APIから取得した口コミについて
     existed_review_num += store.reviews.count
-    store.reviews.each do review
+    store.reviews.each do |review|
       score_sum += review.total_score
     end
     

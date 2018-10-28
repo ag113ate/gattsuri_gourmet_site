@@ -22,7 +22,7 @@
 
 <%        score_disp = (store.score != -1) ? (store.score.round(1)) : 
                                              ("末評価")                       %>
-          <li class="review-point_area"><%= score_disp %></li>
+          <li class="review-point-area"><%= score_disp %></li>
         </ul>
       </div>
     </div>  <!-- store_header_left -->
@@ -122,7 +122,8 @@
                                         class: "btn" %></li>
 <%    if (store.score != -1)                                                  %>
         <li><%= link_to "口コミを見る"  , "/reviews/#{store.store_id}",
-                                          class: "btn", target: "blank" %></li>
+                                          class: "show-review-btn btn",
+                                          target: "blank" %></li>
 <%    end                                                                     %>
 
     </ul>
