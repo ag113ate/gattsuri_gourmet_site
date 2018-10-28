@@ -41,7 +41,7 @@ class GourmetSitesController < ApplicationController
     
     @area = params[:area]
     
-    @stores = Store.where('address LIKE?', "%#{@area}%").page(params[:page]).per(10)
+    @stores = Store.order('address').where('address LIKE?', "%#{@area}%").page(params[:page]).per(10)
     @search_count = Store.where('address LIKE?', "%#{@area}%").count()
     
     if (@search_count == 0)
