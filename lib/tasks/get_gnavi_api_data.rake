@@ -397,7 +397,7 @@ module Photo_Search_Api
       review.menu_name = comment[PHOTO_API_KEY_MENU_NAME]      # メニュー名
       review.comment = comment[PHOTO_API_KEY_COMMENT]          # コメント
       review.total_score = comment[PHOTO_API_KEY_TOTAL_SCORE]  # 総合評価
-      review.update_date = comment[PHOTO_API_KEY_UPDATE_DATE]  # 投稿日時
+      review.updated_at = comment[PHOTO_API_KEY_UPDATE_DATE]  # 投稿日時
       # =============================== end ====================================
       
       # レコードへ登録
@@ -466,7 +466,6 @@ def set_store_score_based_on_reviews
       break unless false
     end
     
-    puts store.score
     # モデルを更新
     store.save
     
