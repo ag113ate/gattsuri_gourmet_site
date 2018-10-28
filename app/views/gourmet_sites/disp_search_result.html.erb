@@ -36,6 +36,11 @@
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
     
+    var zoom_val = handler.getMap().zoom;
+    if(zoom_val > 15){
+      handler.getMap().setZoom(15);
+    }
+
     handler.getMap().getDiv().style.borderRadius = '10px'
     
     $.each(markers, function(index, marker){
