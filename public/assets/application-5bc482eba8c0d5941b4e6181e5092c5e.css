@@ -1,0 +1,1332 @@
+@charset "UTF-8";/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+ */
+
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+}
+
+div#overlay{
+  width: 100%;
+  height: 100%;
+  
+  position: fixed;
+  
+  background-color: rgba(0, 0, 0, 0.3);
+  
+  display: none;
+  z-index: 30;
+}
+
+div#header{
+  position: fixed;
+  width: 100%;
+  height: 40px;
+  background: rgb(91, 155, 213);
+  z-index: 10;
+}
+
+div#header_area{
+  margin: 0 auto;
+  width: 1000px;
+}
+
+div#header_logo{
+  float: left;
+  margin: 5px 0 5px 15px;
+}
+
+div#notice_msg{
+  float: left;
+  margin: 5px 0 0 0;
+  width: 50%;
+  font-size: large;
+  text-align: center;
+  color: white;
+}
+
+div#gnavi{
+  float: right;
+  margin: 5px 0 0 0;
+}
+
+div#gnavi li{
+  float: left;
+  margin: 0 30px 0 0;
+}
+
+div#container{
+  width: 100%;
+}
+
+div#container_area{
+  width: 1000px;
+  margin: 0 auto;
+  
+  flex: 1;
+  padding: 40px 0 10px 0;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+div#footer{
+  width: 100%;
+  background: rgb(91, 155, 213);
+  
+  z-index: 10;
+}
+
+div#footer_area{
+  margin: 0 auto;
+  width: 1000px;
+}
+
+div#credit{
+  float: left;
+  margin: 5px 0 5px 15px;
+}
+
+div#footer_nav{
+  float: right;
+}
+
+div#footer_nav li{
+  float: left;
+  margin: 5px 30px 0 0;
+}
+
+
+div[id^="store_area_"]{
+  margin: 10px 0 0 10px;
+  background-color: rgb(91, 155, 213);
+  color: white;
+  
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+div.store-top-area{
+  padding: 10px 0 0 0;
+}
+
+div.store-header-left{
+  float: left;
+  width: 78%;
+  text-align: center;
+}
+
+div.store-name-area{
+  text-align: center;
+  border-bottom: 1px dotted white;
+}
+
+div.store-review-area{
+  margin: 3px 0 0 0;
+  
+  width: 100%;
+  text-align: center;
+}
+
+div .store-review-area ul{
+  width: 90%;
+  margin: 0 auto;
+}
+div .store-review-area li{
+  width: 13%; /* 100% / 6(画像5個 + 点数) = 16.666 */
+  display: inline-block;
+}
+
+.review-icon{
+  /* 親要素のサイズに合わせて、画像を表示          */
+  /* （Bootstrapのimg-responsiveクラスからの流用） */
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.review-point-area{
+  vertical-align: top;
+}
+
+div.store-header-right{
+  float: right;
+  width: 20%;
+  height: 30px;
+  margin: 0 5px 0 5px;
+}
+
+/*div.bookmark-area{*/
+/*  text-align: right;*/
+/*  margin: 0 auto;*/
+/*}*/
+
+div.store-content-area{
+  border-top: 1px dotted white;
+  border-bottom: 1px dotted white;
+  padding: 10px 0 10px 0;
+}
+div.store-image-area{
+  float: left;
+  width: 28%;
+  margin: 5px;
+  
+  position: relative;
+}
+
+div.store-image-area img{
+  position: absolute;
+}
+
+div.store-info-area{
+  float: left;
+  width: 70%;
+  min-height: 170px;
+}
+
+div.store-bottom-area{
+  padding: 10px 0 10px 0;
+}
+
+div.store-bottom-area li{
+  width: 30%;
+  float: right;
+}
+
+.img-param{
+  /* 親要素のサイズに合わせて、画像を表示          */
+  /* （Bootstrapのimg-responsiveクラスからの流用） */
+  display: block;
+  height: auto;
+  max-width: 100%;
+
+  -moz-border-radius:10px;/* Firefox用の角丸設定 */
+  -webkit-border-radius:10px; /* Safari,Google Chrome用の角丸設定 */
+  border-radius:10px; /* 角丸設定 */  
+}
+
+div.genre-area{
+  clear: both;
+  
+  padding: 3px 0 0 0;
+  font-size: small;
+  text-align: center;
+}
+
+.btn{
+  display: inline-block;
+  padding: 3px 5px 3px 5px;
+  background-color: rgba(255, 255, 255, 0.5)
+}
+
+a{
+  text-decoration: none;
+}
+
+.blue_font{
+  color: blue;
+}
+
+/* line 5, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#left_side {
+  float: left;
+  width: 50%;
+}
+
+/* line 10, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#right_side {
+  float: right;
+  width: 50%;
+  text-align: center;
+}
+
+/* line 16, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#search_area {
+  margin: 200px 0 0 0;
+}
+
+/* line 20, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+#search_input_form {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #5b9bd5;
+  padding: 5px;
+  color: white;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 33, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#top_emp_error_msg {
+  font-size: large;
+  font-weight: bold;
+  color: orange;
+}
+
+/* line 40, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#top_warning_msg {
+  color: blue;
+}
+
+/* line 43, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#main_panel {
+  float: left;
+  width: 60%;
+}
+
+/* line 48, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#side_bar {
+  float: right;
+  margin: 10px 10px 0 0;
+  width: 38%;
+}
+
+/* line 54, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#side_bar_area {
+  position: fixed;
+}
+
+/* line 60, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#side_bar_top {
+  padding: 5px 0 5px 0;
+  text-align: center;
+  border: 1px solid #5b9bd5;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 74, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#input_serach_area_disp {
+  padding: 5px 0 0 0;
+  font-size: large;
+  border-bottom: 1px dotted #5b9bd5;
+}
+
+/* line 80, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#search_count_disp_area {
+  margin: 10px 0 0 0;
+  padding: 2px;
+  font-size: large;
+  color: white;
+  background-color: orange;
+  display: inline-block;
+  -moz-border-radius: 5px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 5px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 5px;
+  /* 角丸設定 */
+}
+
+/* line 95, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.pagination {
+  display: inline-block;
+  border: 1px dotted red;
+}
+
+/* line 101, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#side_bar_bottom {
+  margin: 10px 0 0 0;
+  height: 350px;
+  border: 1px solid #5b9bd5;
+}
+
+/* line 110, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#main_panel table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: small;
+}
+
+/* line 118, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#main_panel th {
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid red;
+  width: 60px;
+}
+
+/* line 125, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#main_panel td {
+  padding: 0 0 0 5px;
+  border: 1px solid red;
+}
+
+/* line 131, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.blue_font {
+  color: blue;
+}
+
+/* line 134, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.red_font {
+  color: red;
+}
+
+/* line 138, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#select_city {
+  margin: 20px 0 0 0;
+  font-size: x-large;
+  text-align: center;
+}
+
+/* line 146, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#select_city_pref {
+  margin: 0 0 10px 0;
+  padding: 5px;
+  display: inline-block;
+  background: orange;
+  color: white;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 160, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#select_city table {
+  width: 80%;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 1px solid orange;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 177, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#select_city td {
+  vertical-align: middle;
+}
+
+/* line 181, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-submit-val {
+  display: none;
+  font-size: 0;
+}
+
+/* line 187, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-no-designated {
+  border: solid 3px orange;
+}
+
+/* line 190, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-designated-city {
+  border-top: solid  3px orange;
+  border-bottom: solid  3px orange;
+  border-left: solid  3px orange;
+  border-right: dashed 1.5px orange;
+}
+
+/* line 197, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-one-row {
+  border-top: solid  3px orange;
+  border-bottom: solid  3px orange;
+  border-left: dashed 1.5px orange;
+  border-right: dashed 1.5px orange;
+}
+
+/* line 204, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-one-row-right-end {
+  border-top: solid  3px orange;
+  border-bottom: solid  3px orange;
+  border-left: dashed 1.5px orange;
+  border-right: solid  3px orange;
+}
+
+/* line 212, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-multi-row-top {
+  border-top: solid  3px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left: dashed 1.5px orange;
+  border-right: dashed 1.5px orange;
+}
+
+/* line 219, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-multi-row-top-right-end {
+  border-top: solid  3px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left: dashed 1.5px orange;
+  border-right: solid  3px orange;
+}
+
+/* line 226, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-multi-row-middle {
+  border: dotted  2px orange;
+}
+
+/* line 230, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-multi-row-middle-right-end {
+  border-top: dashed 1.5px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left: dashed 1.5px orange;
+  border-right: solid  3px orange;
+}
+
+/* line 237, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-multi-row-bottom {
+  border-top: dashed 1.5px orange;
+  border-bottom: solid  3px orange;
+  border-left: dashed 1.5px orange;
+  border-right: dashed 1.5px orange;
+}
+
+/* line 244, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-multi-row-bottom-right-end {
+  border-top: dashed 1.5px orange;
+  border-bottom: solid  3px orange;
+  border-left: dashed 1.5px orange;
+  border-right: solid  3px orange;
+}
+
+/* line 251, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.select-city-multi-row-top-middle {
+  border-top: solid  3px orange;
+  border-bottom: dashed 1.5px orange;
+  border-left: dashed 1.5px orange;
+  border-right: dashed 1.5px orange;
+}
+
+/* line 259, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#not_search_result {
+  margin: 100px 0 0 0;
+  font-size: x-large;
+  text-align: center;
+}
+
+/* line 265, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#not_search_result_title {
+  margin: 0 0 30px 0;
+}
+
+/* line 269, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+#not_search_result_title_disp_area {
+  padding: 5px;
+  background: orange;
+  color: white;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 280, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#terms {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+/* line 289, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#terms_title {
+  margin: 0 0 30px 0;
+  font-size: large;
+  text-align: center;
+}
+
+/* line 295, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.terms-item {
+  margin: 10px 0 0 0;
+}
+
+/* line 299, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+.terms-sub-item {
+  margin: 0 0 0 2em;
+  list-style-type: circle;
+}
+
+/* line 304, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div.terms-descript {
+  margin: 0 0 0 1em;
+}
+
+/* line 308, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#about_site {
+  margin: 0 auto;
+  width: 80%;
+}
+
+/* line 312, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div#about_site_title {
+  margin: 30px 0 30px 0;
+  text-align: center;
+}
+
+/* line 317, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+#about_site_title_disp {
+  padding: 5px;
+  color: white;
+  font-size: large;
+  background: orange;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 331, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div.about-site-section {
+  clear: both;
+  margin: 20px 0 20px 0;
+}
+
+/* line 336, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div.about-site-section-title {
+  font-size: large;
+  text-align: center;
+}
+
+/* line 342, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div.about-site-section-container {
+  padding: 3px;
+  border: 2px dotted orange;
+}
+
+/* line 347, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div.about-site-section-description {
+  width: 48%;
+  float: left;
+}
+
+/* line 352, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/gourmet_sites.css.scss */
+div.about-site-section-picture {
+  width: 48%;
+  float: right;
+}
+/* line 15, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 26, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* line 30, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+html {
+  overflow-y: scroll;
+}
+
+/* line 34, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 39, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 44, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+input, textarea {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 49, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 53, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 58, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+caption, th {
+  text-align: left;
+}
+
+/* line 62, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+a:focus {
+  outline: none;
+}
+
+/* line 66, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+.clearfix:after {
+  content: " ";
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+
+/* line 74, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+.clearfix {
+  min-height: 1px;
+}
+
+/* line 78, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+* html .clearfix {
+  height: 1px;
+  /*\*/
+  /*/
+  height: auto;
+  overflow: hidden;
+  /**/
+}
+
+/* line 86, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+.both {
+  clear: both;
+}
+
+/* line 91, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+.inline_block {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 97, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reset.css.scss */
+body {
+  font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  color: #666666;
+  font-size: 93%;
+}
+
+/* line 5, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#review_page_top {
+  padding: 10px 0 10px 0;
+  position: fixed;
+  width: 1000px;
+  height: 25px;
+  text-align: center;
+  font-size: large;
+  color: white;
+  background: orange;
+}
+
+/* line 18, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#review_page_main {
+  margin: 60px 0 0 0;
+}
+
+/* line 22, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+.review-area {
+  width: 30%;
+  display: table-cell;
+  color: black;
+  border: 1px solid #5b9bd5;
+  -moz-border-radius: 5px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 5px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 5px;
+  /* 角丸設定 */
+}
+
+/* line 36, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+.review-area-blank {
+  width: 30%;
+  display: table-cell;
+}
+
+/* line 42, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#review_page_main ul {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 10px 10px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* line 51, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.review-page-content-area {
+  padding: 5px 0 5px 0;
+  color: black;
+  border-top: 1px dotted #5b9bd5;
+  border-bottom: 1px dotted #5b9bd5;
+}
+
+/* line 60, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.review-page-img-area {
+  display: inline-block;
+  width: 30%;
+  margin: 0 0 0 5px;
+}
+
+/* line 65, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+.review-page-img {
+  /* 親要素のサイズに合わせて、画像を表示          */
+  /* （Bootstrapのimg-responsiveクラスからの流用） */
+  display: block;
+  height: auto;
+  max-width: 100%;
+  -moz-border-radius: 5px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 5px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 5px;
+  /* 角丸設定 */
+}
+
+/* line 77, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.review_page_comment_area {
+  display: inline-block;
+  font-size: small;
+  width: 65%;
+  float: right;
+  word-break: break-all;
+  word-wrap: break-all;
+}
+
+/* line 89, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.review-page-menu-area {
+  padding: 5px 0 5px 0;
+  font-size: 15px;
+  color: white;
+  background: #5b9bd5;
+}
+
+/* line 98, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.review-page-score-area li {
+  width: 18%;
+  padding: 0px 1px 0px 1px;
+  display: inline-block;
+}
+
+/* line 104, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.review-page-point-area {
+  text-align: center;
+}
+
+/* line 108, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.review-page-date-area {
+  text-align: center;
+}
+
+/* line 112, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_area {
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  width: 70%;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+  border: 2px solid #5b9bd5;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 131, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_erros_msg {
+  margin: 0 0 15px 0;
+  padding: 5px;
+  border-bottom: 3px dotted #5b9bd5;
+}
+
+/* line 145, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+#input_review_erros_msg_title {
+  padding: 0 5px 0 5px;
+  color: white;
+  background: #5b9bd5;
+  -moz-border-radius: 5px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 5px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 5px;
+  /* 角丸設定 */
+}
+
+/* line 156, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div.input-review-component {
+  padding: 0 0 10px 0;
+  border: 1px dotted #5b9bd5;
+  box-sizing: border-box;
+}
+
+/* line 164, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+#input_review_menu_name {
+  width: 500px;
+  font-size: 20px;
+}
+
+/* line 169, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+#input_review_total_score {
+  width: 50px;
+  height: 30px;
+  font-size: 15px;
+  vertical-align: top;
+}
+
+/* line 178, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_score_disp {
+  width: 55%;
+  height: 200px;
+  float: left;
+}
+
+/* line 184, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_score_disp ul {
+  margin: 10px 0 0 0;
+  display: inline-block;
+  width: 90%;
+}
+
+/* line 189, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_score_disp li {
+  display: inline-block;
+  width: 18%;
+}
+
+/* line 194, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_image_area {
+  width: 45%;
+  height: 200px;
+  float: left;
+}
+
+/* line 200, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+#input_review_image_area_supplement_msg {
+  font-size: small;
+}
+
+/* line 204, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_image_disp {
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  font-size: small;
+}
+
+/* line 214, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+div#input_review_comment_area {
+  clear: both;
+}
+
+/* line 218, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+#input_review_comment {
+  width: 500px;
+  height: 100px;
+  font-size: 15px;
+}
+
+/* line 224, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+.center_put {
+  text-align: center;
+}
+
+/* line 228, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/reviews.css.scss */
+.disp_none {
+  display: none;
+}
+
+/* line 5, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#login_form {
+  border: 1px solid #5b9bd5;
+  text-align: center;
+  font-size: large;
+  padding: 10px;
+  width: 80%;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 22, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#login_form_title {
+  padding: 5px;
+  background-color: orange;
+  color: white;
+}
+
+/* line 28, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+.user-form-element {
+  margin: 20px 0 20px 0;
+}
+
+/* line 31, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+.user-input-element {
+  width: 400px;
+  font-size: large;
+}
+
+/* line 36, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+#user_form_button {
+  font-size: large;
+}
+
+/* line 40, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#refere_link {
+  margin: 0 100px 0 0;
+  text-align: right;
+}
+
+/* line 45, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#new_account_link {
+  margin: 50px 0 0 0;
+  text-align: center;
+}
+
+/* line 50, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#mypage_title {
+  background-color: orange;
+  margin: 10px 0 0 0;
+  font-size: large;
+  text-align: center;
+  color: white;
+}
+
+/* line 61, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#bookmark_title, div#show_review_title {
+  margin: 50px 0 0 10px;
+  background: orange;
+  color: white;
+  font-size: large;
+  text-align: center;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 77, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div[id^="show_review_vote_"] {
+  margin: 10px 0 0 10px;
+  background-color: #5b9bd5;
+  color: white;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 87, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-store-title {
+  text-align: center;
+  background: orange;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* line 96, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-menu-name {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  font-size: large;
+  text-align: center;
+  border-bottom: 1px dotted white;
+}
+
+/* line 109, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-content {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  padding: 5px;
+}
+
+/* line 119, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-content-left-side {
+  width: 30%;
+  float: left;
+}
+
+/* line 124, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-score {
+  padding: 10px;
+}
+
+/* line 128, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-score ul {
+  text-align: center;
+}
+
+/* line 132, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-score li {
+  width: 10%;
+  vertical-align: bottom;
+  display: inline-block;
+}
+
+/* line 140, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-right-side {
+  padding: 5px;
+  width: 60%;
+  float: right;
+  border: 1px solid orange;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 153, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-date {
+  text-align: right;
+  font-size: small;
+}
+
+/* line 158, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-footer {
+  padding: 10px 0 10px 10px;
+  border-top: 1px dotted white;
+}
+
+/* line 164, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.show-review-footer li {
+  margin: 0 0 0 15px;
+  display: inline-block;
+}
+
+/* line 169, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+.target_store_all_review {
+  padding: 0 10px 0 0;
+  float: right;
+}
+
+/* line 174, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#user_info {
+  margin: 50px 0 0 0;
+  border: 1px solid #5b9bd5;
+  position: fixed;
+  font-size: large;
+  text-align: center;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 188, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#user_id_disp {
+  border-bottom: 1px dotted #5b9bd5;
+}
+
+/* line 192, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.user_info_element {
+  margin: 20px 0 0 0;
+}
+
+/* line 196, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div.user_info_element_title {
+  padding: 3px;
+  background-color: #5b9bd5;
+  display: inline-block;
+  color: white;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 208, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#user_info_navi {
+  margin: 10px 0 0 0;
+  border-top: 1px dotted #5b9bd5;
+}
+
+/* line 214, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#user_info_navi li {
+  margin: 0 2px 0 2px;
+  display: inline-block;
+  font-size: medium;
+}
+
+/* line 222, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#bookmark_modal {
+  width: 50%;
+  height: 30%;
+  font-size: large;
+  background: white;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+  text-align: center;
+  position: fixed;
+  display: none;
+  z-index: 40;
+}
+
+/* line 241, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#bookmark_modal_title {
+  margin-top: 20px;
+}
+
+/* line 245, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#bookmark_modal_title span {
+  border: 1px solid red;
+  padding: 2px;
+}
+
+/* line 251, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#bookmark_modal_select_area {
+  margin: 50px 0 0 0;
+  display: inline-block;
+}
+
+/* line 257, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#bookmark_modal_select_area li {
+  display: inline-block;
+}
+
+/* line 261, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#review_modal {
+  /* 幅はjQueryにより設定 */
+  background: white;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+  text-align: center;
+  position: fixed;
+  display: none;
+  z-index: 40;
+}
+
+/* line 277, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#mypage_store_img {
+  display: none;
+}
+
+/* line 280, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#user_delete_confirm {
+  margin: 30px 0 0 0;
+  font-size: 25px;
+  text-align: center;
+}
+
+/* line 287, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+#user_delete_confirm_user_id {
+  margin: 5px 0 50px 0;
+}
+
+/* line 291, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+#user_delete_confirm_user_id_disp_area {
+  padding: 3px;
+  color: white;
+  background: orange;
+  -moz-border-radius: 10px;
+  /* Firefox用の角丸設定 */
+  -webkit-border-radius: 10px;
+  /* Safari,Google Chrome用の角丸設定 */
+  border-radius: 10px;
+  /* 角丸設定 */
+}
+
+/* line 303, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#user_delete_confirm li {
+  margin: 0 5px 0 5px;
+  display: inline-block;
+}
+
+/* line 307, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+.border-dotted {
+  border: 1px dotted white;
+}
+
+/* line 311, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#review_modal_info_disp {
+  margin: 0 auto 20px auto;
+  /* 幅はjQueryにより設定 */
+  color: white;
+  background-color: #5b9bd5;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* line 323, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#review_modal_select_area {
+  margin: 10px 0 10px 0;
+  font-size: large;
+}
+
+/* line 328, /home/ec2-user/environment/clone_gattsuri/gattsuri_gourmet_site/app/assets/stylesheets/users.css.scss */
+div#review_modal_select_area li {
+  display: inline-block;
+}
