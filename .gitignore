@@ -15,12 +15,6 @@
 /log/*.log
 /tmp
 
-#Gemfile.lock
-
-#config/initializers/secret_token.rb
-
-/.env
+public/uploads
 
 *~
-
-/app/assets/images/store_img/
