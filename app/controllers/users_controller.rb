@@ -25,6 +25,9 @@ class UsersController < ApplicationController
     # 「本来の遷移先のURLを設定するか」、あるいは「遷移元のURL」に移動するか
     #  の判断のために使用していたsessionであり、上記で役割は果たしたため、nilを設定
     session[:request_login] = nil
+    
+    # ログイン画面の「戻る」ボタンのリンク先
+    session[:referer_url] = URI(request.referer).request_uri
   end
   
   def login
