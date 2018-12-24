@@ -74,12 +74,12 @@ def get_hash_data(uri, https)
   # APIデータの読み込み
   res = nil
   https.start do
-  	res = https.get(uri.request_uri)
+    res = https.get(uri.request_uri)
   end
   
   # 読み込んだデータをハッシュ化
   hash_val = JSON.parse(res.body)
-  	
+  
   return hash_val	
 end
 
@@ -117,45 +117,45 @@ module Rest_Search_API
     total_page = 0 # 総ページ数（if文のみの記載だと不具合を起こすため、ここで一旦定義）
     
     loop do
-    	# クエリを設定
-    	uri.query = get_query(pref_code, read_page_count)
-    	
-    	# ハッシュ情報を取得
-    	hash_val = get_hash_data(uri, https)
-    	
+      # クエリを設定
+      uri.query = get_query(pref_code, read_page_count)
+      
+      # ハッシュ情報を取得
+      hash_val = get_hash_data(uri, https)
+      
       # 初回の読み込み時のみ以下処理を実行し、総ページ数を計算
-    	if first_read == true
-    	  # ヒット数を表示
-    	  puts "[total_hit_stores:#{hash_val[REST_API_KEY_TOTAL_HIT_NUM]}]"
-    	  
-    		total_page = (hash_val[REST_API_KEY_TOTAL_HIT_NUM].to_f / HIT_PER_PAGE).ceil
-    		first_read = false
-    	end
-    	
-    	# レストラン情報のみ抽出
-    	restaurants = hash_val[REST_API_KEY_REST]
-    	
-    	# レストラン情報をモデルへ登録
-    	save_restaurant_model(restaurants)
-    	
-    	# 画像パスをモデルへ登録
-    	save_food_image_model(restaurants)
-    	
-    	# 読み込んだ店舗IDを保持
-    	restaurants.each do |restaurant|
-    	  store_ids[store_ids_cnt] = restaurant[REST_API_KEY_STORE_ID]
-    	  store_ids_cnt += 1
-    	end
-    	
-    	# ==============================
-    	# 全ページを読み込んだ場合、終了
-    	# ==============================
-    	if read_page_count >= total_page
-    		break
-    	end
-    	
-    	# 次の読み込みのため、ページ数をカウント
-    	read_page_count += 1
+      if first_read == true
+        # ヒット数を表示
+        puts "[total_hit_stores:#{hash_val[REST_API_KEY_TOTAL_HIT_NUM]}]"
+        
+        total_page = (hash_val[REST_API_KEY_TOTAL_HIT_NUM].to_f / HIT_PER_PAGE).ceil
+        first_read = false
+      end
+      
+      # レストラン情報のみ抽出
+      restaurants = hash_val[REST_API_KEY_REST]
+      
+      # レストラン情報をモデルへ登録
+      save_restaurant_model(restaurants)
+      
+      # 画像パスをモデルへ登録
+      save_food_image_model(restaurants)
+      
+      # 読み込んだ店舗IDを保持
+      restaurants.each do |restaurant|
+        store_ids[store_ids_cnt] = restaurant[REST_API_KEY_STORE_ID]
+        store_ids_cnt += 1
+      end
+      
+      # ==============================
+      # 全ページを読み込んだ場合、終了
+      # ==============================
+      if read_page_count >= total_page
+        break
+      end
+      
+      # 次の読み込みのため、ページ数をカウント
+      read_page_count += 1
     end # loop
     
     return store_ids, store_ids_cnt
@@ -164,13 +164,14 @@ module Rest_Search_API
   # レストラン検索APIについてのクエリを取得
   def self.get_query(pref_code, read_page_count)
     query = URI.encode_www_form({
-    keyid: ENV[GNAVI_API_KEY],    # APIキー \
-    pref: pref_code,                # 都道府県コード \
-    hit_per_page: HIT_PER_PAGE,     # リクエスト1回のレスポンスデータ数 \
-    offset_page: read_page_count,   # 読み込むページ位置 \
-                                    #（このパラメータのみ、設定値が更新される）\
-    freeword: FREE_WORD,            # キーワード検索
-    freeword_condition: 2})         # 複数のフリーワードをORで検索
+              keyid: ENV[GNAVI_API_KEY],    # APIキー \
+              pref: pref_code,                # 都道府県コード \
+              hit_per_page: HIT_PER_PAGE,     # リクエスト1回のレスポンスデータ数 \
+              offset_page: read_page_count,   # 読み込むページ位置 \
+              #（このパラメータのみ、設定値が更新される）\
+              freeword: FREE_WORD,            # キーワード検索
+              freeword_condition: 2           # 複数のフリーワードをORで検索
+            })
     
     return query
   end
@@ -179,37 +180,37 @@ module Rest_Search_API
   def self.save_restaurant_model(restaurants)
     restaurants.each do |restaurant|
       store = Store.new
-    
+      
       # ========================================================================
       #                             各カラムの設定
       # ============================== begin ===================================
-  	  store.store_id = restaurant[REST_API_KEY_STORE_ID]               # 店舗ID
-  	  store.name = restaurant[REST_API_KEY_STORE_NAME]                 # 店舗名称
-  	  store.opentime = restaurant[REST_API_KEY_OPEN_TIME]              # 営業時間
-  	  store.holiday = restaurant[REST_API_KEY_HOLIDAY]                 # 休業日
-  	  store.tel = restaurant[REST_API_KEY_TEL]                         # 電話番号
-  	  store.address = restaurant[REST_API_KEY_ADDRESS].gsub(/ /, "\n") # 住所
-  	  store.line = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_TRAIN_LINE]            # 路線名
-  	  store.station = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_STATION]            # 駅名
-  	  store.station_exit = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_STATION_EXIT]  # 駅出口
-  	  store.walk = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_WALKING_TIME]          # 徒歩（分）
-  	  store.latitude = restaurant[REST_API_KEY_LATITUDE]               # 緯度
-  	  store.longitude = restaurant[REST_API_KEY_LONGITUDE]             # 経度
-  	  # 大業態名称（店舗のジャンル）
-  	  # ※現時点(201/09/18)では最大2つを想定
-  	  store_genre = restaurant[REST_API_KEY_CODE][REST_API_KEY_BUSINESS_LARGE_CATEGORY]
-  	  store.category_name_l = store_genre[0]                           # 店舗ジャンル1
-  	  if (store_genre[1] != "")
-  	    store.category_name_l += "、#{store_genre[1]}"                 # 店舗ジャンル2
-  	  end
-  	  
-  	  store.shop_url = restaurant[REST_API_KEY_GNAVI_STORE_URL]        # PC用URL
-  	  
-  	  # ※各店舗の評価値は口コミを取得後に設定
-  	  # =============================== end ====================================
-  	  
-  	  # レコードへ登録
-  	  store.save
+      store.store_id = restaurant[REST_API_KEY_STORE_ID]               # 店舗ID
+      store.name = restaurant[REST_API_KEY_STORE_NAME]                 # 店舗名称
+      store.opentime = restaurant[REST_API_KEY_OPEN_TIME]              # 営業時間
+      store.holiday = restaurant[REST_API_KEY_HOLIDAY]                 # 休業日
+      store.tel = restaurant[REST_API_KEY_TEL]                         # 電話番号
+      store.address = restaurant[REST_API_KEY_ADDRESS].gsub(/ /, "\n") # 住所
+      store.line = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_TRAIN_LINE]            # 路線名
+      store.station = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_STATION]            # 駅名
+      store.station_exit = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_STATION_EXIT]  # 駅出口
+      store.walk = restaurant[REST_API_KEY_ACCESS][REST_API_KEY_WALKING_TIME]          # 徒歩（分）
+      store.latitude = restaurant[REST_API_KEY_LATITUDE]               # 緯度
+      store.longitude = restaurant[REST_API_KEY_LONGITUDE]             # 経度
+      # 大業態名称（店舗のジャンル）
+      # ※現時点(201/09/18)では最大2つを想定
+      store_genre = restaurant[REST_API_KEY_CODE][REST_API_KEY_BUSINESS_LARGE_CATEGORY]
+      store.category_name_l = store_genre[0]                           # 店舗ジャンル1
+      if (store_genre[1] != "")
+        store.category_name_l += "、#{store_genre[1]}"                 # 店舗ジャンル2
+      end
+      
+      store.shop_url = restaurant[REST_API_KEY_GNAVI_STORE_URL]        # PC用URL
+      
+      # ※各店舗の評価値は口コミを取得後に設定
+      # =============================== end ====================================
+      
+      # レコードへ登録
+      store.save
     end
   end
 
@@ -224,19 +225,19 @@ module Rest_Search_API
         
         # 提供される画像データが1枚のみの場合もある
         if (img_url == "")
-        	next
+          next
         end
         
         # 画像URLをモデルへ登録
         store = Store.find_by(store_id: restaurant[REST_API_KEY_STORE_ID])
         store.food_images.create(image_url: img_url)
       end
-     
+      
       # 画像のDL処理が長く、ユーザがフリーズしたと思い込む
-  	  # 可能性があるため、任意の文字を表示
-  	  if (rest_index % 5 == 0)
-  	    print "#"
-  	  end
+      # 可能性があるため、任意の文字を表示
+      if (rest_index % 5 == 0)
+        print "#"
+      end
     end
     puts "" # 改行を行う
   end
@@ -287,30 +288,30 @@ module Photo_Search_Api
         
         # 初回の読み込み時のみ以下処理を実行し、総ページ数を計算
       	if first_read == true
-      		total_page = (hash_val[PHOTO_API_KEY_TOTAL_HIT].to_f / PHOTO_API_HIT_MAX).ceil
-      		first_read = false
+          total_page = (hash_val[PHOTO_API_KEY_TOTAL_HIT].to_f / PHOTO_API_HIT_MAX).ceil
+          first_read = false
       	end
       	
       	# 応援口コミのみを抽出したハッシュ配列へ変換
       	comments = parse_comment_hash(hash_val, read_page_pos, total_page)
     	
       	# 口コミ情報をモデルへ登録
-    	  save_review_model(comments)
+        save_review_model(comments)
         
         # 画像を保存し、画像パスをモデルへ登録
         save_food_image_model(comments)
         
         # ==============================
-  	    # 全ページを読み込んだ場合、終了
-  	    # ==============================
-  	    if read_page_pos >= total_page
-  		    break
-  	    end
-  	    
-  	    # 次の読み込みのため、ページ数をカウント
-  	    read_page_pos += 1
-  	    
-  	    print "#" # 処理が動いていることを示すため、文字を表示
+        # 全ページを読み込んだ場合、終了
+        # ==============================
+        if read_page_pos >= total_page
+          break
+        end
+        
+        # 次の読み込みのため、ページ数をカウント
+        read_page_pos += 1
+        
+        print "#" # 処理が動いていることを示すため、文字を表示
       end # loop do 
       print "#" # 処理が動いていることを示すため、文字を表示
     end # while (read_pos < store_ids_num)
@@ -321,12 +322,12 @@ module Photo_Search_Api
   def self.get_query(store_ids, store_num, read_page_pos)
     # クエリの設定
     query = URI.encode_www_form({                                              \
-      keyid: ENV[GNAVI_API_KEY],                    # APIキー                  \ 
-      shop_id: store_ids[0...store_num].join(','),  # 店舗ID                   \
-      hit_per_page: PHOTO_API_HIT_MAX,              # 最大ヒット件数           \
-      offset_page: read_page_pos,                   # 読み込みページ位置       \
-      photo_genre_id: PHOTO_API_GENRE_ID            # 取得する写真ジャンルID   \
-    })
+              keyid: ENV[GNAVI_API_KEY],                    # APIキー                  \ 
+              shop_id: store_ids[0...store_num].join(','),  # 店舗ID                   \
+              hit_per_page: PHOTO_API_HIT_MAX,              # 最大ヒット件数           \
+              offset_page: read_page_pos,                   # 読み込みページ位置       \
+              photo_genre_id: PHOTO_API_GENRE_ID            # 取得する写真ジャンルID   \
+            })
     
     return query
   end
@@ -346,7 +347,7 @@ module Photo_Search_Api
       comments_num = hash_val[PHOTO_API_KEY_TOTAL_HIT]
       
     elsif ((hash_val[PHOTO_API_KEY_TOTAL_HIT] > hash_val[PHOTO_API_KEY_HIT_PER_PAGE]) \
-            && (total_page > read_page_pos))
+           && (total_page > read_page_pos))
       # パターン2
       # 例  ヒット件数：hash_val[PHOTO_API_KEY_TOTAL_HIT] = 33
       #     表示件数：hash_val[PHOTO_API_KEY_HIT_PER_PAGE] = 15
@@ -367,7 +368,7 @@ module Photo_Search_Api
       #     コメント数 =  33 - (2 * 15) = 3
       prev_page_pos = read_page_pos - 1
       comments_num = hash_val[PHOTO_API_KEY_TOTAL_HIT] - \
-                          (prev_page_pos * hash_val[PHOTO_API_KEY_HIT_PER_PAGE])
+                       (prev_page_pos * hash_val[PHOTO_API_KEY_HIT_PER_PAGE])
     end
     # ================================= end ====================================
     
@@ -415,7 +416,7 @@ module Photo_Search_Api
       if (img_url == "")
         next
       end
-    
+      
       food_image = FoodImage.new
       # ==========================================================================
       #                             各カラムの設定
