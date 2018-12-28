@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :bookmark_stores, foreign_key: 'user_id', primary_key: 'user_id', \
                                                              dependent: :destroy
   
-  has_many :input_reviews,   foreign_key: 'user_id', primary_key: 'user_id',
+  has_many :input_reviews,   foreign_key: 'user_id', primary_key: 'user_id', \
                                                              dependent: :destroy
   
   
