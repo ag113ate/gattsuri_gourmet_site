@@ -64,7 +64,7 @@ class UsersController < ApplicationController
         login_success = false
       else
         # パスワードが間違っている場合
-        flash.now[:passowrd] = "パスワードが間違っております"
+        flash.now[:password] = "パスワードが間違っております"
         login_success = false
       end
     end
